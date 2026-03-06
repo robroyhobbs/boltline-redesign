@@ -1,0 +1,3047 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boltline — Born in a Rocket Factory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+   RESET & BASE
+   ============================================================ */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family:
+          "DM Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        color: #ffffff;
+        background: #0a0a0f;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+
+      /* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Sora", sans-serif;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+
+      .headline-xl {
+        font-size: clamp(2.5rem, 6vw, 5.5rem);
+        font-weight: 700;
+      }
+
+      .headline-lg {
+        font-size: clamp(2rem, 4.5vw, 4rem);
+        font-weight: 700;
+      }
+
+      .headline-md {
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        font-weight: 600;
+      }
+
+      .headline-sm {
+        font-size: clamp(1.25rem, 2vw, 1.75rem);
+        font-weight: 600;
+      }
+
+      .body-lg {
+        font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+        line-height: 1.7;
+      }
+
+      .body-md {
+        font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+        line-height: 1.7;
+      }
+
+      .label {
+        font-family: "Sora", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      /* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 4vw, 3rem);
+      }
+
+      .container-narrow {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 4vw, 3rem);
+      }
+
+      section {
+        position: relative;
+      }
+
+      /* ============================================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================================ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.5s;
+      }
+      .reveal-delay-6 {
+        transition-delay: 0.6s;
+      }
+
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition:
+          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.92);
+        transition:
+          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal-scale.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* ============================================================
+   NAVIGATION
+   ============================================================ */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.25rem 0;
+        transition:
+          background 0.5s ease,
+          box-shadow 0.5s ease,
+          padding 0.3s ease;
+      }
+
+      .nav.scrolled {
+        padding: 0.75rem 0;
+      }
+
+      .nav.nav-dark {
+        background: rgba(10, 10, 15, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .nav.nav-light {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      }
+
+      .nav.nav-light .nav-link {
+        color: #374151;
+      }
+      .nav.nav-light .nav-link:hover {
+        color: #7a00df;
+      }
+      .nav.nav-light .nav-logo svg .logo-text {
+        fill: #111827;
+      }
+      .nav.nav-light .nav-logo svg .logo-bolt {
+        fill: #7a00df;
+      }
+      .nav.nav-light .nav-cta {
+        background: #7a00df;
+        color: #ffffff;
+      }
+      .nav.nav-light .nav-cta:hover {
+        background: #6600bd;
+      }
+      .nav.nav-light .mobile-toggle span {
+        background: #111827;
+      }
+
+      .nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 4vw, 3rem);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        z-index: 1001;
+      }
+
+      .nav-logo svg {
+        height: 32px;
+        width: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2.25rem;
+      }
+
+      .nav-link {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.925rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-link:hover {
+        color: #ffffff;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #7a00df;
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-cta {
+        font-family: "Sora", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.65rem 1.5rem;
+        border-radius: 9999px;
+        background: rgba(122, 0, 223, 0.9);
+        color: #ffffff;
+        transition: all 0.3s ease;
+        letter-spacing: 0.01em;
+      }
+
+      .nav-cta:hover {
+        background: #7a00df;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(122, 0, 223, 0.4);
+      }
+
+      /* Mobile nav toggle */
+      .mobile-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        padding: 4px;
+        z-index: 1001;
+      }
+
+      .mobile-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #ffffff;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .mobile-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .mobile-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      @media (max-width: 768px) {
+        .mobile-toggle {
+          display: flex;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 80%;
+          max-width: 360px;
+          height: 100vh;
+          flex-direction: column;
+          padding: 6rem 2.5rem 2.5rem;
+          gap: 1.5rem;
+          background: #0a0a0f;
+          transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          align-items: flex-start;
+          box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav.nav-light .nav-links {
+          background: #ffffff;
+        }
+
+        .nav-links.open {
+          right: 0;
+        }
+
+        .nav-link {
+          font-size: 1.1rem;
+        }
+
+        .nav-cta {
+          margin-top: 1rem;
+          width: 100%;
+          text-align: center;
+          padding: 0.85rem 1.5rem;
+        }
+      }
+
+      /* ============================================================
+   CHAPTER 1: HERO — "Inside the Rocket Factory"
+   ============================================================ */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(rgba(10, 10, 15, 0.75), rgba(10, 10, 15, 0.85)),
+          url("https://boltline.com/wp-content/uploads/2025/05/20250519-_M0A0882_web_web.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Industrial grid texture */
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(245, 158, 11, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 158, 11, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: 1;
+      }
+
+      /* Radial glow */
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 80%;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(245, 158, 11, 0.06) 0%,
+          transparent 60%
+        );
+        z-index: 1;
+      }
+
+      /* Star field / particle canvas */
+      .hero-particles {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(245, 158, 11, 0.6);
+        animation: particle-float linear infinite;
+      }
+
+      @keyframes particle-float {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) scale(0.3);
+          opacity: 0;
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        padding: 0 clamp(1.5rem, 4vw, 3rem);
+        max-width: 950px;
+      }
+
+      .hero-content .label {
+        color: #f59e0b;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+      }
+
+      .hero-content h1 {
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-content h1 .accent {
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 580px;
+        margin: 0 auto 3rem;
+      }
+
+      .hero-logos {
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-logos p {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-logo-grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(1.5rem, 3vw, 3rem);
+        flex-wrap: wrap;
+      }
+
+      .hero-logo-grid span {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(0.7rem, 1vw, 0.85rem);
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.3);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .hero-logo-grid img {
+        max-height: 30px;
+        width: auto;
+        display: inline-block;
+        filter: brightness(0) invert(1);
+        opacity: 0.55;
+        transition: opacity 0.3s ease;
+      }
+
+      .hero-logo-grid img:hover {
+        opacity: 0.85;
+      }
+
+      /* Customer logo images in light sections */
+      .customer-logo-img {
+        max-height: 32px;
+        width: auto;
+        display: block;
+        margin-bottom: 1rem;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+      }
+
+      .customer-logo-img:hover {
+        opacity: 1;
+      }
+
+      /* Scroll indicator */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        animation: scroll-bounce 2s ease-in-out infinite;
+      }
+
+      .scroll-indicator span {
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        font-family: "Sora", sans-serif;
+        font-weight: 500;
+      }
+
+      .scroll-indicator svg {
+        width: 20px;
+        height: 20px;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      @keyframes scroll-bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(8px);
+        }
+      }
+
+      /* ============================================================
+   CHAPTER 2: THE PROBLEM
+   ============================================================ */
+      .chapter-problem {
+        background:
+          linear-gradient(rgba(10, 10, 15, 0.82), rgba(10, 10, 15, 0.9)),
+          url("https://boltline.com/wp-content/uploads/2025/05/20250519-_M0A0855web-e1748640187354.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: clamp(6rem, 12vw, 10rem) 0;
+        position: relative;
+      }
+
+      .chapter-problem::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 20% 50%,
+          rgba(245, 158, 11, 0.04) 0%,
+          transparent 50%
+        );
+      }
+
+      .chapter-problem .chapter-intro {
+        max-width: 800px;
+        margin-bottom: clamp(3rem, 6vw, 5rem);
+      }
+
+      .chapter-problem .chapter-intro h2 {
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+      }
+
+      .chapter-problem .chapter-intro h2 .muted {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .pain-points {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        max-width: 800px;
+      }
+
+      .pain-point {
+        padding: 2rem 2.5rem;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 158, 11, 0.06) 0%,
+          rgba(245, 158, 11, 0.02) 100%
+        );
+        border: 1px solid rgba(245, 158, 11, 0.1);
+        border-left: 3px solid #f59e0b;
+        border-radius: 12px;
+        position: relative;
+      }
+
+      .pain-point .pain-number {
+        font-family: "Sora", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #f59e0b;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+
+      .pain-point p {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(1.15rem, 2vw, 1.5rem);
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.5;
+      }
+
+      /* ============================================================
+   CHAPTER 3: THE BUILD
+   ============================================================ */
+      .chapter-build {
+        padding: clamp(6rem, 12vw, 10rem) 0;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          #0a0a0f 0%,
+          #12121f 40%,
+          #1a1a2e 100%
+        );
+      }
+
+      .chapter-build .chapter-intro {
+        text-align: center;
+        max-width: 750px;
+        margin: 0 auto clamp(3rem, 6vw, 5rem);
+      }
+
+      .chapter-build .chapter-intro h2 {
+        margin-bottom: 1.25rem;
+      }
+
+      .chapter-build .chapter-intro p {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* Lifecycle timeline */
+      .lifecycle {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0;
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+
+      .lifecycle-step {
+        flex: 1;
+        min-width: 160px;
+        max-width: 200px;
+        text-align: center;
+        position: relative;
+        padding: 0 0.75rem;
+      }
+
+      .lifecycle-step .step-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        margin: 0 auto 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .lifecycle-step:nth-child(1) .step-icon {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 158, 11, 0.15),
+          rgba(245, 158, 11, 0.05)
+        );
+        border: 2px solid rgba(245, 158, 11, 0.3);
+      }
+      .lifecycle-step:nth-child(2) .step-icon {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 158, 11, 0.13),
+          rgba(245, 158, 11, 0.04)
+        );
+        border: 2px solid rgba(245, 158, 11, 0.25);
+      }
+      .lifecycle-step:nth-child(3) .step-icon {
+        background: linear-gradient(
+          135deg,
+          rgba(168, 85, 247, 0.12),
+          rgba(168, 85, 247, 0.04)
+        );
+        border: 2px solid rgba(168, 85, 247, 0.25);
+      }
+      .lifecycle-step:nth-child(4) .step-icon {
+        background: linear-gradient(
+          135deg,
+          rgba(122, 0, 223, 0.15),
+          rgba(122, 0, 223, 0.05)
+        );
+        border: 2px solid rgba(122, 0, 223, 0.3);
+      }
+      .lifecycle-step:nth-child(5) .step-icon {
+        background: linear-gradient(
+          135deg,
+          rgba(122, 0, 223, 0.18),
+          rgba(122, 0, 223, 0.06)
+        );
+        border: 2px solid rgba(122, 0, 223, 0.35);
+      }
+
+      .lifecycle-step .step-icon svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .lifecycle-step:nth-child(1) .step-icon svg,
+      .lifecycle-step:nth-child(2) .step-icon svg {
+        color: #f59e0b;
+      }
+      .lifecycle-step:nth-child(3) .step-icon svg {
+        color: #a855f7;
+      }
+      .lifecycle-step:nth-child(4) .step-icon svg,
+      .lifecycle-step:nth-child(5) .step-icon svg {
+        color: #7a00df;
+      }
+
+      .lifecycle-step h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #ffffff;
+      }
+
+      .lifecycle-step p {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.5;
+      }
+
+      /* Connector lines */
+      .lifecycle-connector {
+        position: absolute;
+        top: 36px;
+        left: 50%;
+        right: -50%;
+        height: 2px;
+        z-index: 1;
+      }
+
+      .lifecycle-step:not(:last-child) .lifecycle-connector {
+        background: linear-gradient(
+          90deg,
+          rgba(245, 158, 11, 0.3),
+          rgba(122, 0, 223, 0.3)
+        );
+      }
+
+      .lifecycle-step:last-child .lifecycle-connector {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .lifecycle {
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+        }
+        .lifecycle-connector {
+          display: none !important;
+        }
+        .lifecycle-step {
+          max-width: 300px;
+        }
+      }
+
+      /* ============================================================
+   CHAPTER 4: PROVEN ON ROCKETS
+   ============================================================ */
+      .chapter-proven {
+        padding: clamp(6rem, 12vw, 10rem) 0;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          #1a1a2e 0%,
+          #2d1b4e 50%,
+          #f0e6ff 100%
+        );
+      }
+
+      .chapter-proven .chapter-intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto clamp(3rem, 6vw, 5rem);
+      }
+
+      .chapter-proven .chapter-intro h2 {
+        margin-bottom: 0.5rem;
+      }
+
+      .chapter-proven .chapter-intro h2 .accent {
+        background: linear-gradient(135deg, #f59e0b, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .proof-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .proof-card {
+        padding: 2.5rem 2rem;
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        text-align: center;
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+      }
+
+      .proof-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
+
+      .proof-card .proof-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 1.25rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          rgba(122, 0, 223, 0.2),
+          rgba(168, 85, 247, 0.1)
+        );
+      }
+
+      .proof-card .proof-icon svg {
+        width: 24px;
+        height: 24px;
+        color: #a855f7;
+      }
+
+      .proof-card blockquote {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.5;
+        font-style: normal;
+      }
+
+      /* ============================================================
+   CHAPTER 5: NOW IT'S YOURS — Product Reveal
+   ============================================================ */
+      .chapter-reveal {
+        padding: clamp(6rem, 12vw, 10rem) 0 clamp(4rem, 8vw, 6rem);
+        background: #ffffff;
+        color: #111827;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chapter-reveal::before {
+        content: "";
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(122, 0, 223, 0.06) 0%,
+          transparent 60%
+        );
+        border-radius: 50%;
+      }
+
+      .chapter-reveal .chapter-intro {
+        text-align: center;
+        max-width: 750px;
+        margin: 0 auto clamp(3rem, 6vw, 5rem);
+      }
+
+      .chapter-reveal .chapter-intro .label {
+        color: #7a00df;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .chapter-reveal .chapter-intro h2 {
+        color: #111827;
+        margin-bottom: 1rem;
+      }
+
+      .chapter-reveal .chapter-intro h2 .accent {
+        background: linear-gradient(135deg, #7a00df, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .chapter-reveal .chapter-intro p {
+        color: #6b7280;
+      }
+
+      /* Product dashboard mockup */
+      .product-mockup {
+        max-width: 1000px;
+        margin: 0 auto;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow:
+          0 4px 6px rgba(0, 0, 0, 0.04),
+          0 20px 60px rgba(122, 0, 223, 0.08),
+          0 0 0 1px rgba(0, 0, 0, 0.06);
+        background: #ffffff;
+      }
+
+      .mockup-chrome {
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 0.75rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .mockup-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .mockup-dot:nth-child(1) {
+        background: #ef4444;
+      }
+      .mockup-dot:nth-child(2) {
+        background: #f59e0b;
+      }
+      .mockup-dot:nth-child(3) {
+        background: #22c55e;
+      }
+
+      .mockup-url {
+        margin-left: 1rem;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0.35rem 1rem;
+        flex: 1;
+        max-width: 300px;
+      }
+
+      .mockup-body {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        min-height: 400px;
+      }
+
+      @media (max-width: 768px) {
+        .mockup-body {
+          grid-template-columns: 1fr;
+        }
+        .mockup-sidebar {
+          display: none;
+        }
+      }
+
+      .mockup-sidebar {
+        background: #f9fafb;
+        border-right: 1px solid #e5e7eb;
+        padding: 1.5rem 1rem;
+      }
+
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.6rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        color: #6b7280;
+        margin-bottom: 0.25rem;
+        transition: all 0.2s ease;
+      }
+
+      .sidebar-item.active {
+        background: rgba(122, 0, 223, 0.08);
+        color: #7a00df;
+        font-weight: 600;
+      }
+
+      .sidebar-item svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      .mockup-main {
+        padding: 1.75rem 2rem;
+      }
+
+      .mockup-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .mockup-header h3 {
+        font-family: "Sora", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #111827;
+      }
+
+      .mockup-header .mock-btn {
+        font-size: 0.78rem;
+        padding: 0.45rem 1rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        background: #7a00df;
+        color: #ffffff;
+        font-family: "DM Sans", sans-serif;
+      }
+
+      /* Stats row */
+      .mockup-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+      }
+
+      @media (max-width: 600px) {
+        .mockup-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .mock-stat {
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        background: #fafafa;
+      }
+
+      .mock-stat .stat-label {
+        font-size: 0.7rem;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .mock-stat .stat-value {
+        font-family: "Sora", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .mock-stat .stat-value.purple {
+        color: #7a00df;
+      }
+      .mock-stat .stat-value.green {
+        color: #059669;
+      }
+      .mock-stat .stat-value.amber {
+        color: #d97706;
+      }
+
+      /* Table mockup */
+      .mockup-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .mockup-table th {
+        text-align: left;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9ca3af;
+        font-weight: 600;
+        padding: 0.6rem 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .mockup-table td {
+        font-size: 0.82rem;
+        color: #374151;
+        padding: 0.75rem;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .mockup-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .mock-badge {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        border-radius: 99px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .mock-badge.green {
+        background: #ecfdf5;
+        color: #059669;
+      }
+      .mock-badge.amber {
+        background: #fffbeb;
+        color: #d97706;
+      }
+      .mock-badge.blue {
+        background: #eff6ff;
+        color: #2563eb;
+      }
+      .mock-badge.purple {
+        background: #f5f3ff;
+        color: #7a00df;
+      }
+
+      /* ============================================================
+   CHAPTER 6: WHAT YOU CAN DO — Use Cases
+   ============================================================ */
+      .chapter-usecases {
+        padding: clamp(4rem, 8vw, 6rem) 0 clamp(6rem, 12vw, 10rem);
+        background: #ffffff;
+        color: #111827;
+      }
+
+      .chapter-usecases .chapter-intro {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto clamp(3rem, 6vw, 4rem);
+      }
+
+      .chapter-usecases .chapter-intro h2 {
+        color: #111827;
+      }
+
+      .usecase-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .usecase-card {
+        padding: 2rem;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+        background: #ffffff;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .usecase-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #7a00df, #a855f7);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .usecase-card:hover {
+        border-color: rgba(122, 0, 223, 0.2);
+        box-shadow: 0 8px 30px rgba(122, 0, 223, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .usecase-card:hover::before {
+        opacity: 1;
+      }
+
+      .usecase-card .card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          rgba(122, 0, 223, 0.08),
+          rgba(168, 85, 247, 0.04)
+        );
+        margin-bottom: 1.25rem;
+      }
+
+      .usecase-card .card-icon svg {
+        width: 22px;
+        height: 22px;
+        color: #7a00df;
+      }
+
+      .usecase-card h4 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+      }
+
+      .usecase-card p {
+        font-size: 0.9rem;
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      /* ============================================================
+   CHAPTER 7: WHO'S BUILDING WITH US
+   ============================================================ */
+      .chapter-customers {
+        padding: clamp(6rem, 12vw, 10rem) 0;
+        background: #f9fafb;
+        color: #111827;
+      }
+
+      .chapter-customers .chapter-intro {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto clamp(3rem, 6vw, 4rem);
+      }
+
+      .chapter-customers .chapter-intro h2 {
+        color: #111827;
+      }
+      .chapter-customers .chapter-intro p {
+        color: #6b7280;
+        margin-top: 0.75rem;
+      }
+
+      .customer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 3.5rem;
+      }
+
+      .customer-card {
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+
+      .customer-card:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .customer-card h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.35rem;
+      }
+
+      .customer-card .customer-mission {
+        font-size: 0.85rem;
+        color: #7a00df;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .customer-card p:last-child {
+        font-size: 0.85rem;
+        color: #9ca3af;
+      }
+
+      .backed-by {
+        text-align: center;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .backed-by .label {
+        color: #9ca3af;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .backed-by p {
+        font-family: "Sora", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #111827;
+      }
+
+      .backed-by span {
+        color: #6b7280;
+        font-weight: 400;
+      }
+
+      /* ============================================================
+   CHAPTER 8: CTA — "Your Mission Starts Here"
+   ============================================================ */
+      .chapter-cta {
+        padding: clamp(6rem, 12vw, 10rem) 0;
+        background: linear-gradient(180deg, #f5f0ff 0%, #ede5ff 100%);
+        color: #111827;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chapter-cta::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(122, 0, 223, 0.06) 0%,
+          transparent 50%
+        );
+        border-radius: 50%;
+      }
+
+      .chapter-cta .chapter-intro {
+        position: relative;
+        z-index: 2;
+        max-width: 650px;
+        margin: 0 auto;
+      }
+
+      .chapter-cta .label {
+        color: #7a00df;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .chapter-cta h2 {
+        color: #111827;
+        margin-bottom: 1rem;
+      }
+
+      .chapter-cta .body-lg {
+        color: #6b7280;
+        margin-bottom: 2.5rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Sora", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.9rem 2rem;
+        border-radius: 9999px;
+        background: #7a00df;
+        color: #ffffff;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: #6600bd;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(122, 0, 223, 0.3);
+      }
+
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Sora", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.9rem 2rem;
+        border-radius: 9999px;
+        background: transparent;
+        color: #7a00df;
+        border: 2px solid #7a00df;
+        transition: all 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(122, 0, 223, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary svg,
+      .btn-primary svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* ============================================================
+   FOOTER
+   ============================================================ */
+      .footer {
+        background: #0a0a0f;
+        color: rgba(255, 255, 255, 0.6);
+        padding: clamp(3rem, 6vw, 5rem) 0 2rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+        }
+        .footer-brand {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .footer-brand svg {
+        height: 28px;
+        margin-bottom: 1rem;
+      }
+
+      .footer-brand p {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.4);
+        max-width: 280px;
+        line-height: 1.6;
+      }
+
+      .footer-col h5 {
+        font-family: "Sora", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col li {
+        margin-bottom: 0.6rem;
+      }
+
+      .footer-col a {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.45);
+        transition: color 0.3s ease;
+      }
+
+      .footer-col a:hover {
+        color: #ffffff;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-bottom p {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      .footer-bottom .footer-tagline {
+        font-family: "Sora", sans-serif;
+        font-style: italic;
+        color: rgba(245, 158, 11, 0.4);
+      }
+
+      /* ============================================================
+   PARALLAX & BACKGROUND ATTACHMENTS
+   ============================================================ */
+      .parallax-section {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+      }
+
+      @media (max-width: 768px) {
+        .parallax-section {
+          background-attachment: scroll;
+        }
+      }
+
+      /* ============================================================
+   AMBIENT GLOW EFFECTS
+   ============================================================ */
+      .glow-amber {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(245, 158, 11, 0.08) 0%,
+          transparent 60%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .glow-purple {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(122, 0, 223, 0.08) 0%,
+          transparent 60%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      /* ============================================================
+   HARDWARE DETAIL PHOTO — Chapter 4 (Proven)
+   ============================================================ */
+      .hardware-detail-photo {
+        max-width: 600px;
+        margin: 3rem auto 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .hardware-detail-photo img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* ============================================================
+   PRODUCT REAL SCREENSHOTS — Chapter 5
+   ============================================================ */
+      .product-screenshots {
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: start;
+      }
+
+      @media (max-width: 768px) {
+        .product-screenshots {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .product-screenshots img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        box-shadow:
+          0 4px 20px rgba(0, 0, 0, 0.08),
+          0 0 0 1px rgba(0, 0, 0, 0.04);
+      }
+
+      .product-screenshot-main {
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .product-screenshot-tablet {
+        border-radius: 12px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+    <nav class="nav nav-dark" id="mainNav">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <svg
+            viewBox="0 0 160 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <!-- Lightning bolt icon -->
+            <path
+              class="logo-bolt"
+              d="M18 2L6 20h9l-3 14L24 16h-9l3-14z"
+              fill="#f59e0b"
+              stroke="#f59e0b"
+              stroke-width="0.5"
+              stroke-linejoin="round"
+            />
+            <!-- Text -->
+            <text
+              class="logo-text"
+              x="34"
+              y="25"
+              font-family="Sora, sans-serif"
+              font-size="20"
+              font-weight="700"
+              fill="#ffffff"
+            >
+              Boltline
+            </text>
+          </svg>
+        </a>
+        <div class="nav-links" id="navLinks">
+          <a href="#chapter-problem" class="nav-link">Story</a>
+          <a href="#chapter-reveal" class="nav-link">Product</a>
+          <a href="#chapter-usecases" class="nav-link">Use Cases</a>
+          <a href="#chapter-cta" class="nav-link">Demo</a>
+          <a href="#chapter-cta" class="nav-cta">Book a Demo</a>
+        </div>
+        <button
+          class="mobile-toggle"
+          id="mobileToggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ============================================================
+     CHAPTER 1: "Inside the Rocket Factory"
+     ============================================================ -->
+    <section class="hero" id="hero">
+      <!-- Particles generated by JS -->
+      <div class="hero-particles" id="heroParticles"></div>
+
+      <div class="hero-content">
+        <span class="label reveal reveal-delay-1">The Origin Story</span>
+        <h1 class="headline-xl reveal reveal-delay-2">
+          This started inside<br />
+          <span class="accent">a rocket factory.</span>
+        </h1>
+        <p class="body-lg hero-subtitle reveal reveal-delay-3">
+          Before Boltline was a product, it was a necessity.
+        </p>
+        <div class="hero-logos reveal reveal-delay-4">
+          <p>Now trusted by teams building what's next</p>
+          <div class="hero-logo-grid">
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/Intuitive-Machines.png"
+              alt="Intuitive Machines"
+              loading="lazy"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/True-Anomaly.png"
+              alt="True Anomaly"
+              loading="lazy"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/ispace-US-300x40.png"
+              alt="iSpace US"
+              loading="lazy"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/XCIMER.png"
+              alt="XCIMER"
+              loading="lazy"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/06/stoke-300x63.png"
+              alt="Stoke Space"
+              loading="lazy"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/Seabound-300x33.png"
+              alt="Seabound"
+              loading="lazy"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/The-Lumber-Manufactory.png"
+              alt="The Lumber Manufactory"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 2: "The Problem"
+     ============================================================ -->
+    <section class="chapter-problem" id="chapter-problem">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span
+            class="label"
+            style="color: #f59e0b; margin-bottom: 1rem; display: inline-block"
+            >Chapter 01</span
+          >
+          <h2 class="headline-lg">
+            Stoke Space was building reusable rockets.
+            <span class="muted">Their software couldn't keep up.</span>
+          </h2>
+        </div>
+        <div class="pain-points">
+          <div class="pain-point reveal reveal-delay-1">
+            <span class="pain-number">Problem 01</span>
+            <p>Spreadsheets everywhere. Zero traceability.</p>
+          </div>
+          <div class="pain-point reveal reveal-delay-2">
+            <span class="pain-number">Problem 02</span>
+            <p>Legacy PLM? Six figures. Six months. Still didn't fit.</p>
+          </div>
+          <div class="pain-point reveal reveal-delay-3">
+            <span class="pain-number">Problem 03</span>
+            <p>Tribal knowledge walking out the door every night.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 3: "The Build"
+     ============================================================ -->
+    <section class="chapter-build" id="chapter-build">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span
+            class="label"
+            style="
+              color: rgba(245, 158, 11, 0.7);
+              margin-bottom: 1rem;
+              display: inline-block;
+            "
+            >Chapter 02</span
+          >
+          <h2 class="headline-lg">So they built their own.</h2>
+          <p class="body-lg" style="margin-top: 1rem">
+            Stoke's engineering team spent years building a platform that could
+            manage every part, every process, and every person across the full
+            hardware lifecycle.
+          </p>
+        </div>
+
+        <div class="lifecycle reveal-scale">
+          <div class="lifecycle-step reveal reveal-delay-1">
+            <div class="lifecycle-connector"></div>
+            <div class="step-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"
+                />
+              </svg>
+            </div>
+            <h4>Design</h4>
+            <p>Structure every BOM, drawing, and revision from day one.</p>
+          </div>
+
+          <div class="lifecycle-step reveal reveal-delay-2">
+            <div class="lifecycle-connector"></div>
+            <div class="step-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+                />
+              </svg>
+            </div>
+            <h4>Build</h4>
+            <p>Digital work instructions that replace paper travelers.</p>
+          </div>
+
+          <div class="lifecycle-step reveal reveal-delay-3">
+            <div class="lifecycle-connector"></div>
+            <div class="step-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"
+                />
+              </svg>
+            </div>
+            <h4>Test</h4>
+            <p>Capture every test result tied to every serial number.</p>
+          </div>
+
+          <div class="lifecycle-step reveal reveal-delay-4">
+            <div class="lifecycle-connector"></div>
+            <div class="step-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
+                />
+                <path
+                  d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"
+                />
+              </svg>
+            </div>
+            <h4>Trace</h4>
+            <p>Full genealogy from raw material to finished unit.</p>
+          </div>
+
+          <div class="lifecycle-step reveal reveal-delay-5">
+            <div class="lifecycle-connector"></div>
+            <div class="step-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M23 6l-9.5 9.5-5-5L1 18" />
+                <path d="M17 6h6v6" />
+              </svg>
+            </div>
+            <h4>Improve</h4>
+            <p>Close the loop with data-driven iteration cycles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 4: "Proven on Rockets"
+     ============================================================ -->
+    <section class="chapter-proven" id="chapter-proven">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span
+            class="label"
+            style="
+              color: rgba(168, 85, 247, 0.8);
+              margin-bottom: 1rem;
+              display: inline-block;
+            "
+            >Chapter 03</span
+          >
+          <h2 class="headline-lg">
+            Then they proved it.<br /><span class="accent"
+              >On actual rocket hardware.</span
+            >
+          </h2>
+        </div>
+
+        <div class="proof-cards">
+          <div class="proof-card reveal reveal-delay-1">
+            <div class="proof-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+            </div>
+            <blockquote>
+              "Every bolt, every sensor, every weld &mdash; tracked."
+            </blockquote>
+          </div>
+
+          <div class="proof-card reveal reveal-delay-2">
+            <div class="proof-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <blockquote>
+              "Audits that used to take weeks? One click."
+            </blockquote>
+          </div>
+
+          <div class="proof-card reveal reveal-delay-3">
+            <div class="proof-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+                />
+                <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" />
+              </svg>
+            </div>
+            <blockquote>"5 to 500,000 parts. No breaking point."</blockquote>
+          </div>
+        </div>
+
+        <div class="hardware-detail-photo reveal reveal-delay-4">
+          <img
+            src="https://boltline.com/wp-content/uploads/2025/07/sample-part-prod.jpeg"
+            alt="Rocket hardware component tracked in Boltline"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 5: "Now It's Yours" — Product Reveal
+     ============================================================ -->
+    <section class="chapter-reveal" id="chapter-reveal">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span class="label">Chapter 04</span>
+          <h2 class="headline-lg">
+            <span class="accent">Boltline.</span> Born in a rocket factory.<br />Built
+            for every factory.
+          </h2>
+          <p class="body-lg" style="margin-top: 1rem">
+            Hardware, handled &mdash; from design to deployment.
+          </p>
+        </div>
+
+        <div class="product-mockup reveal-scale">
+          <div class="mockup-chrome">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-url">app.boltline.com/dashboard</div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-sidebar">
+              <div class="sidebar-item active">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                </svg>
+                Dashboard
+              </div>
+              <div class="sidebar-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+                  />
+                </svg>
+                Parts
+              </div>
+              <div class="sidebar-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  />
+                </svg>
+                Work Orders
+              </div>
+              <div class="sidebar-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
+                  />
+                  <path
+                    d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"
+                  />
+                </svg>
+                Traceability
+              </div>
+              <div class="sidebar-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path d="M3 3v18h18" />
+                  <path d="M18 17V9M13 17V5M8 17v-3" />
+                </svg>
+                Analytics
+              </div>
+              <div class="sidebar-item">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <path
+                    d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                  />
+                </svg>
+                Settings
+              </div>
+            </div>
+            <div class="mockup-main">
+              <div class="mockup-header">
+                <h3>Production Overview</h3>
+                <button class="mock-btn">+ New Work Order</button>
+              </div>
+              <div class="mockup-stats">
+                <div class="mock-stat">
+                  <div class="stat-label">Active Parts</div>
+                  <div class="stat-value">12,847</div>
+                </div>
+                <div class="mock-stat">
+                  <div class="stat-label">In Production</div>
+                  <div class="stat-value purple">384</div>
+                </div>
+                <div class="mock-stat">
+                  <div class="stat-label">Pass Rate</div>
+                  <div class="stat-value green">99.2%</div>
+                </div>
+                <div class="mock-stat">
+                  <div class="stat-label">Open NCRs</div>
+                  <div class="stat-value amber">7</div>
+                </div>
+              </div>
+              <table class="mockup-table">
+                <thead>
+                  <tr>
+                    <th>Work Order</th>
+                    <th>Assembly</th>
+                    <th>Status</th>
+                    <th>Due</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight: 600; color: #111827">WO-2847</td>
+                    <td>Thrust Chamber Assy</td>
+                    <td><span class="mock-badge green">Complete</span></td>
+                    <td>Mar 2</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 600; color: #111827">WO-2848</td>
+                    <td>Avionics Bay Module</td>
+                    <td><span class="mock-badge purple">In Test</span></td>
+                    <td>Mar 5</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 600; color: #111827">WO-2849</td>
+                    <td>Propellant Feed System</td>
+                    <td><span class="mock-badge blue">Building</span></td>
+                    <td>Mar 8</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 600; color: #111827">WO-2850</td>
+                    <td>Landing Leg Mechanism</td>
+                    <td><span class="mock-badge amber">On Hold</span></td>
+                    <td>Mar 12</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-screenshots reveal">
+          <div class="product-screenshot-main">
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/Section-Container-Final-1.png"
+              alt="Boltline product UI - hardware lifecycle management dashboard"
+              loading="lazy"
+            />
+          </div>
+          <div class="product-screenshot-tablet">
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/tablet-example.png"
+              alt="Boltline on tablet - mobile hardware tracking"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 6: "What You Can Do" — Use Cases
+     ============================================================ -->
+    <section class="chapter-usecases" id="chapter-usecases">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span
+            class="label"
+            style="color: #7a00df; margin-bottom: 1rem; display: inline-block"
+            >What you can do</span
+          >
+          <h2 class="headline-lg">Replace the chaos with clarity.</h2>
+        </div>
+
+        <div class="usecase-grid">
+          <div class="usecase-card reveal reveal-delay-1">
+            <div class="card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+                />
+                <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" />
+              </svg>
+            </div>
+            <h4>Stop Losing Parts in Spreadsheets</h4>
+            <p>
+              Structured BOM management with full revision history. Every part
+              numbered, every change tracked, every relationship mapped.
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-2">
+            <div class="card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+                <path d="M9 14l2 2 4-4" />
+              </svg>
+            </div>
+            <h4>Replace Paper Travelers</h4>
+            <p>
+              Digital work instructions with step-by-step build procedures.
+              Photos, signatures, timestamps &mdash; all captured automatically.
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-3">
+            <div class="card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
+                />
+                <path
+                  d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"
+                />
+              </svg>
+            </div>
+            <h4>Know What's in Every Unit</h4>
+            <p>
+              Full as-built traceability from raw material to finished product.
+              Instant recall of every component's history and genealogy.
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-4">
+            <div class="card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                />
+              </svg>
+            </div>
+            <h4>Track Hardware Evolution</h4>
+            <p>
+              Configuration management that grows with your product. See every
+              deviation, every effectivity range, every as-designed vs. as-built
+              delta.
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-5">
+            <div class="card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="1" y="3" width="15" height="13" rx="2" />
+                <path d="M16 8h4a2 2 0 012 2v6a2 2 0 01-2 2h-4" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+            </div>
+            <h4>See Everything Being Procured</h4>
+            <p>
+              Supply chain visibility from PO to receiving dock. Track lead
+              times, vendor performance, and incoming inspection status in one
+              view.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 7: "Who's Building With Us"
+     ============================================================ -->
+    <section class="chapter-customers" id="chapter-customers">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span
+            class="label"
+            style="color: #7a00df; margin-bottom: 1rem; display: inline-block"
+            >Trusted by pioneers</span
+          >
+          <h2 class="headline-lg">
+            Companies building what's next chose Boltline.
+          </h2>
+        </div>
+
+        <div class="customer-grid">
+          <div class="customer-card reveal reveal-delay-1">
+            <img
+              class="customer-logo-img"
+              src="https://boltline.com/wp-content/uploads/2025/05/Intuitive-Machines.png"
+              alt="Intuitive Machines"
+              loading="lazy"
+            />
+            <h4>Intuitive Machines</h4>
+            <p class="customer-mission">NASA's lunar lander</p>
+            <p>
+              Delivering payloads to the Moon's surface and building the
+              infrastructure for sustained lunar exploration.
+            </p>
+          </div>
+          <div class="customer-card reveal reveal-delay-2">
+            <img
+              class="customer-logo-img"
+              src="https://boltline.com/wp-content/uploads/2025/05/True-Anomaly.png"
+              alt="True Anomaly"
+              loading="lazy"
+            />
+            <h4>True Anomaly</h4>
+            <p class="customer-mission">Space domain awareness</p>
+            <p>
+              Building spacecraft and software to maintain safety and
+              sustainability in the orbital environment.
+            </p>
+          </div>
+          <div class="customer-card reveal reveal-delay-3">
+            <img
+              class="customer-logo-img"
+              src="https://boltline.com/wp-content/uploads/2025/05/ispace-US-300x40.png"
+              alt="iSpace US"
+              loading="lazy"
+            />
+            <h4>iSpace US</h4>
+            <p class="customer-mission">Lunar exploration</p>
+            <p>
+              Developing lunar landers and rovers to enable a sustainable human
+              presence beyond Earth.
+            </p>
+          </div>
+          <div class="customer-card reveal reveal-delay-1">
+            <img
+              class="customer-logo-img"
+              src="https://boltline.com/wp-content/uploads/2025/05/XCIMER.png"
+              alt="XCIMER"
+              loading="lazy"
+            />
+            <h4>XCIMER</h4>
+            <p class="customer-mission">Inertial fusion energy</p>
+            <p>
+              Pioneering a path to commercial fusion energy with excimer laser
+              technology at unprecedented scale.
+            </p>
+          </div>
+          <div class="customer-card reveal reveal-delay-2">
+            <img
+              class="customer-logo-img"
+              src="https://boltline.com/wp-content/uploads/2025/06/stoke-300x63.png"
+              alt="Stoke Space"
+              loading="lazy"
+            />
+            <h4>Stoke Space</h4>
+            <p class="customer-mission">Reusable rockets</p>
+            <p>
+              Building the world's most rapidly reusable rocket to make space
+              access routine and affordable.
+            </p>
+          </div>
+          <div class="customer-card reveal reveal-delay-3">
+            <img
+              class="customer-logo-img"
+              src="https://boltline.com/wp-content/uploads/2025/05/Seabound-300x33.png"
+              alt="Seabound"
+              loading="lazy"
+            />
+            <h4>Seabound</h4>
+            <p class="customer-mission">Maritime carbon capture</p>
+            <p>
+              Deploying carbon capture technology on cargo ships to decarbonize
+              one of the hardest-to-abate sectors.
+            </p>
+          </div>
+        </div>
+
+        <div class="backed-by reveal">
+          <span class="label">Backed By</span>
+          <p>Woven Capital <span>&mdash; Toyota's growth fund</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CHAPTER 8: "Your Mission Starts Here" — CTA
+     ============================================================ -->
+    <section class="chapter-cta" id="chapter-cta">
+      <div class="container">
+        <div class="chapter-intro reveal">
+          <span class="label">Your mission starts here</span>
+          <h2 class="headline-lg">
+            The tool that was built for rockets<br />is ready for you.
+          </h2>
+          <p class="body-lg">
+            See how Boltline can bring structure to your hardware lifecycle
+            &mdash; in a 30-minute live demo.
+          </p>
+          <div class="cta-buttons">
+            <a href="#" class="btn-primary">
+              Book a Demo
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#" class="btn-secondary">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
+                />
+              </svg>
+              Traceability Checklist
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <svg
+              viewBox="0 0 160 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 2L6 20h9l-3 14L24 16h-9l3-14z"
+                fill="#f59e0b"
+                stroke="#f59e0b"
+                stroke-width="0.5"
+                stroke-linejoin="round"
+              />
+              <text
+                x="34"
+                y="25"
+                font-family="Sora, sans-serif"
+                font-size="20"
+                font-weight="700"
+                fill="#ffffff"
+              >
+                Boltline
+              </text>
+            </svg>
+            <p>
+              Hardware coordination platform. Manage every part, every process,
+              and every person across the full lifecycle.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Product</h5>
+            <ul>
+              <li><a href="#">BOM Management</a></li>
+              <li><a href="#">Work Instructions</a></li>
+              <li><a href="#">Traceability</a></li>
+              <li><a href="#">Configuration</a></li>
+              <li><a href="#">Supply Chain</a></li>
+              <li><a href="#">Analytics</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Company</h5>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Origin Story</a></li>
+              <li><a href="#">Customers</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Resources</h5>
+            <ul>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">API Reference</a></li>
+              <li><a href="#">Traceability Guide</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Boltline. All rights reserved.</p>
+          <p class="footer-tagline">Born in a rocket factory.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+    <script>
+      (function () {
+        "use strict";
+
+        // ----------------------------------------------------------
+        // 1. INTERSECTION OBSERVER — Scroll Reveal
+        // ----------------------------------------------------------
+        const revealElements = document.querySelectorAll(
+          ".reveal, .reveal-left, .reveal-scale",
+        );
+
+        const revealObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px",
+          },
+        );
+
+        revealElements.forEach(function (el) {
+          revealObserver.observe(el);
+        });
+
+        // ----------------------------------------------------------
+        // 2. NAVIGATION — Dark/Light transition + scrolled state
+        // ----------------------------------------------------------
+        var nav = document.getElementById("mainNav");
+        var lightSections = document.querySelectorAll(
+          ".chapter-reveal, .chapter-usecases, .chapter-customers, .chapter-cta",
+        );
+
+        function updateNav() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var navBottom = nav.offsetHeight + 20;
+
+          // Scrolled state (compact padding)
+          if (scrollY > 60) {
+            nav.classList.add("scrolled");
+          } else {
+            nav.classList.remove("scrolled");
+          }
+
+          // Determine if nav overlaps a light section
+          var isOverLight = false;
+          lightSections.forEach(function (section) {
+            var rect = section.getBoundingClientRect();
+            if (rect.top < navBottom && rect.bottom > 0) {
+              isOverLight = true;
+            }
+          });
+
+          if (isOverLight) {
+            nav.classList.remove("nav-dark");
+            nav.classList.add("nav-light");
+          } else {
+            nav.classList.remove("nav-light");
+            nav.classList.add("nav-dark");
+          }
+        }
+
+        // Throttled scroll handler
+        var ticking = false;
+        window.addEventListener("scroll", function () {
+          if (!ticking) {
+            window.requestAnimationFrame(function () {
+              updateNav();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+
+        updateNav();
+
+        // ----------------------------------------------------------
+        // 3. MOBILE NAV TOGGLE
+        // ----------------------------------------------------------
+        var mobileToggle = document.getElementById("mobileToggle");
+        var navLinks = document.getElementById("navLinks");
+
+        mobileToggle.addEventListener("click", function () {
+          mobileToggle.classList.toggle("active");
+          navLinks.classList.toggle("open");
+        });
+
+        // Close mobile nav on link click
+        navLinks.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            mobileToggle.classList.remove("active");
+            navLinks.classList.remove("open");
+          });
+        });
+
+        // ----------------------------------------------------------
+        // 4. HERO PARTICLES — CSS-animated sparks
+        // ----------------------------------------------------------
+        var particleContainer = document.getElementById("heroParticles");
+        var particleCount = 40;
+
+        for (var i = 0; i < particleCount; i++) {
+          var p = document.createElement("div");
+          p.className = "particle";
+          var size = Math.random() * 3 + 1;
+          p.style.width = size + "px";
+          p.style.height = size + "px";
+          p.style.left = Math.random() * 100 + "%";
+          p.style.bottom = -20 + "px";
+          p.style.animationDuration = Math.random() * 8 + 6 + "s";
+          p.style.animationDelay = Math.random() * 10 + "s";
+          // Some particles are brighter amber, others dimmer
+          var opacity = (Math.random() * 0.5 + 0.3).toFixed(2);
+          p.style.background = "rgba(245, 158, 11, " + opacity + ")";
+          // A few particles glow
+          if (Math.random() > 0.7) {
+            p.style.boxShadow =
+              "0 0 " + size * 3 + "px rgba(245, 158, 11, 0.4)";
+          }
+          particleContainer.appendChild(p);
+        }
+
+        // ----------------------------------------------------------
+        // 5. SMOOTH SCROLL for anchor links
+        // ----------------------------------------------------------
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+          anchor.addEventListener("click", function (e) {
+            var target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              e.preventDefault();
+              var offset = nav.offsetHeight + 10;
+              var targetPosition =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                offset;
+              window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // ----------------------------------------------------------
+        // 6. PARALLAX-LITE — subtle vertical shift on scroll
+        // ----------------------------------------------------------
+        var heroContent = document.querySelector(".hero-content");
+
+        function parallaxUpdate() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          if (scrollY < window.innerHeight) {
+            var factor = scrollY * 0.3;
+            heroContent.style.transform = "translateY(" + factor + "px)";
+            heroContent.style.opacity = Math.max(
+              0,
+              1 - scrollY / (window.innerHeight * 0.7),
+            );
+          }
+        }
+
+        var parallaxTicking = false;
+        window.addEventListener("scroll", function () {
+          if (!parallaxTicking) {
+            window.requestAnimationFrame(function () {
+              parallaxUpdate();
+              parallaxTicking = false;
+            });
+            parallaxTicking = true;
+          }
+        });
+      })();
+    </script>
+
+    <!-- Cross-Iteration Navigation -->
+    <div
+      id="iter-nav"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        font-family:
+          Inter,
+          -apple-system,
+          sans-serif;
+      "
+    >
+      <div style="max-width: 900px; margin: 0 auto; padding: 8px 16px">
+        <div
+          style="
+            background: rgba(10, 10, 15, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
+          "
+        >
+          <a
+            href="index.html"
+            style="
+              color: #888;
+              text-decoration: none;
+              font-size: 12px;
+              font-weight: 600;
+              padding: 6px 10px;
+              border-radius: 8px;
+              transition: all 0.2s;
+              white-space: nowrap;
+            "
+            onmouseover="
+              this.style.color = '#fff';
+              this.style.background = 'rgba(255,255,255,0.08)';
+            "
+            onmouseout="
+              this.style.color = '#888';
+              this.style.background = 'transparent';
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="vertical-align: -2px; margin-right: 4px"
+            >
+              <path d="M6 12L2 8l4-4" /></svg
+            >Hub
+          </a>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              overflow-x: auto;
+              flex: 1;
+              justify-content: center;
+            "
+            id="iter-nav-links"
+          >
+            <a
+              href="01-mission-control.html"
+              data-iter="01"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >01 Mission Control</a
+            >
+            <a
+              href="02-clean-engineering.html"
+              data-iter="02"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >02 Clean Engineering</a
+            >
+            <a
+              href="03-origin-story.html"
+              data-iter="03"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >03 Origin Story</a
+            >
+            <a
+              href="04-product-led.html"
+              data-iter="04"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >04 Product-Led</a
+            >
+            <a
+              href="05-category-creator.html"
+              data-iter="05"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >05 Category Creator</a
+            >
+          </div>
+          <button
+            onclick="document.getElementById('iter-nav').style.display = 'none'"
+            style="
+              background: none;
+              border: none;
+              color: #555;
+              cursor: pointer;
+              padding: 4px 8px;
+              font-size: 16px;
+              line-height: 1;
+            "
+            title="Hide navigation"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var file = location.pathname.split("/").pop();
+        var num = file.substring(0, 2);
+        var links = document.querySelectorAll("#iter-nav-links a");
+        links.forEach(function (a) {
+          if (a.getAttribute("data-iter") === num) {
+            a.style.background = "rgba(122,0,223,0.25)";
+            a.style.color = "#c084fc";
+            a.style.fontWeight = "700";
+            a.classList.add("active");
+          }
+        });
+        // Add keyboard navigation
+        document.addEventListener("keydown", function (e) {
+          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+            return;
+          var nums = ["01", "02", "03", "04", "05"];
+          var idx = nums.indexOf(num);
+          if (e.key === "ArrowLeft" && idx > 0) {
+            location.href = links[idx - 1].href;
+          } else if (e.key === "ArrowRight" && idx < 4) {
+            location.href = links[idx + 1].href;
+          } else if (e.key === "Escape") {
+            location.href = "index.html";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

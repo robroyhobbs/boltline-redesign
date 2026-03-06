@@ -1,0 +1,2399 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boltline — Hardware, Coordinated.</title>
+    <meta
+      name="description"
+      content="Not PLM. Not MES. The first platform purpose-built to manage parts, people, and processes across the entire hardware lifecycle."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ========================================
+   RESET & BASE
+   ======================================== */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --purple: #7a00df;
+        --purple-deep: #2d0050;
+        --purple-light: #f3e8ff;
+        --purple-mid: #5a00a8;
+        --white: #ffffff;
+        --text-dark: #111827;
+        --text-muted: #6b7280;
+        --font-headline: "Sora", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--text-dark);
+        background: var(--white);
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.2s ease;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* ========================================
+   UTILITY & ANIMATION CLASSES
+   ======================================== */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      .container--narrow {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.5s;
+      }
+
+      /* Animated underline */
+      .animated-underline {
+        position: relative;
+        display: inline-block;
+      }
+
+      .animated-underline::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 4px;
+        background: var(--purple);
+        transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .animated-underline.visible::after {
+        width: 100%;
+      }
+
+      .white-underline::after {
+        background: var(--white);
+      }
+
+      /* ========================================
+   DECORATIVE ELEMENTS
+   ======================================== */
+      .deco-circle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .deco-line {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .deco-dot-grid {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+        display: grid;
+        gap: 16px;
+      }
+
+      .deco-dot-grid span {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.3;
+      }
+
+      /* ========================================
+   NAVIGATION
+   ======================================== */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.3s ease;
+      }
+
+      .nav.scrolled {
+        box-shadow: 0 1px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .nav__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      .nav__logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: 22px;
+        color: var(--text-dark);
+        letter-spacing: -0.5px;
+      }
+
+      .nav__logo svg {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+      }
+
+      .nav__links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        list-style: none;
+      }
+
+      .nav__links a {
+        font-family: var(--font-body);
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: color 0.2s ease;
+      }
+
+      .nav__links a:hover {
+        color: var(--text-dark);
+      }
+
+      .nav__cta {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 24px;
+        background: var(--purple);
+        color: var(--white) !important;
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 14px;
+        border-radius: 9999px;
+        letter-spacing: -0.2px;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .nav__cta:hover {
+        background: var(--purple-mid);
+        transform: translateY(-1px);
+      }
+
+      .nav__mobile-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .nav__mobile-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--text-dark);
+        border-radius: 2px;
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease;
+      }
+
+      /* Mobile menu */
+      .nav__mobile-menu {
+        display: none;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--white);
+        padding: 32px;
+        flex-direction: column;
+        gap: 24px;
+        z-index: 999;
+      }
+
+      .nav__mobile-menu.active {
+        display: flex;
+      }
+
+      .nav__mobile-menu a {
+        font-family: var(--font-headline);
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      .nav__mobile-menu .nav__cta {
+        text-align: center;
+        justify-content: center;
+        font-size: 16px;
+        padding: 14px 28px;
+        margin-top: 16px;
+      }
+
+      /* ========================================
+   HERO SECTION
+   ======================================== */
+      .hero {
+        position: relative;
+        padding: 180px 0 80px;
+        background: var(--white);
+        overflow: hidden;
+      }
+
+      .hero__deco-circle-1 {
+        width: 500px;
+        height: 500px;
+        border: 1px solid rgba(122, 0, 223, 0.08);
+        top: -100px;
+        right: -150px;
+      }
+
+      .hero__deco-circle-2 {
+        width: 300px;
+        height: 300px;
+        border: 1px solid rgba(122, 0, 223, 0.06);
+        top: 60px;
+        right: -50px;
+      }
+
+      .hero__deco-line-1 {
+        width: 1px;
+        height: 200px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(122, 0, 223, 0.15),
+          transparent
+        );
+        top: 120px;
+        right: 200px;
+      }
+
+      .hero__deco-dots {
+        grid-template-columns: repeat(5, 1fr);
+        bottom: 100px;
+        left: -20px;
+        color: var(--purple);
+      }
+
+      .hero__content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero__headline {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(52px, 8vw, 110px);
+        line-height: 0.95;
+        letter-spacing: -3px;
+        color: var(--text-dark);
+        margin-bottom: 32px;
+      }
+
+      .hero__headline span {
+        display: block;
+      }
+
+      .hero__headline .hero__accent {
+        color: var(--purple);
+      }
+
+      .hero__sub {
+        font-family: var(--font-body);
+        font-size: clamp(18px, 2.2vw, 24px);
+        line-height: 1.5;
+        color: var(--text-muted);
+        max-width: 640px;
+        margin-bottom: 40px;
+        font-weight: 400;
+      }
+
+      .hero__origin {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: var(--purple-light);
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--purple);
+        margin-bottom: 40px;
+      }
+
+      .hero__origin::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--purple);
+        flex-shrink: 0;
+      }
+
+      .hero__cta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--purple);
+        border-bottom: 3px solid var(--purple);
+        padding-bottom: 4px;
+        transition: gap 0.3s ease;
+      }
+
+      .hero__cta-link:hover {
+        gap: 14px;
+      }
+
+      .hero__cta-link svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .hero__cta-link:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* Trust line */
+      .trust-line {
+        position: relative;
+        z-index: 1;
+        margin-top: 80px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .trust-line__label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+      }
+
+      .trust-line__logos {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .trust-line__logos img {
+        max-height: 26px;
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+        filter: grayscale(100%) brightness(0.7);
+        opacity: 0.5;
+        transition:
+          opacity 0.3s ease,
+          filter 0.3s ease;
+      }
+
+      .trust-line__logos img:hover {
+        filter: grayscale(0%) brightness(1);
+        opacity: 1;
+      }
+
+      /* ========================================
+   PROBLEM SECTION (Purple)
+   ======================================== */
+      .problem {
+        position: relative;
+        background: var(--purple);
+        padding: 120px 0;
+        overflow: hidden;
+      }
+
+      .problem__deco-circle {
+        width: 600px;
+        height: 600px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        bottom: -200px;
+        left: -200px;
+      }
+
+      .problem__deco-line {
+        width: 120px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.15);
+        top: 80px;
+        right: 60px;
+      }
+
+      .problem__deco-dots {
+        grid-template-columns: repeat(4, 1fr);
+        top: 60px;
+        right: 100px;
+        color: rgba(255, 255, 255, 0.2);
+      }
+
+      .problem__content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .problem__headline {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(36px, 5vw, 64px);
+        line-height: 1.1;
+        color: var(--white);
+        letter-spacing: -2px;
+        margin-bottom: 72px;
+      }
+
+      .problem__statements {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        margin-bottom: 80px;
+      }
+
+      .problem__statement {
+        font-family: var(--font-body);
+        font-size: clamp(20px, 2.8vw, 28px);
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 400;
+        padding-left: 32px;
+        border-left: 3px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .problem__statement em {
+        font-style: normal;
+        color: var(--white);
+        font-weight: 600;
+      }
+
+      .problem__resolve {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(40px, 5.5vw, 72px);
+        color: var(--white);
+        letter-spacing: -2px;
+        line-height: 1.05;
+      }
+
+      /* ========================================
+   WHAT IF SECTION
+   ======================================== */
+      .whatif {
+        position: relative;
+        padding: 140px 0;
+        background: var(--white);
+        overflow: hidden;
+      }
+
+      .whatif__deco-circle {
+        width: 400px;
+        height: 400px;
+        border: 1px solid rgba(122, 0, 223, 0.06);
+        top: 50%;
+        right: -150px;
+        transform: translateY(-50%);
+      }
+
+      .whatif__deco-line {
+        width: 1px;
+        height: 300px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(122, 0, 223, 0.12),
+          transparent
+        );
+        left: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .whatif__content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .whatif__question {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        color: var(--text-dark);
+        letter-spacing: -1.5px;
+        line-height: 1.15;
+        margin-bottom: 48px;
+      }
+
+      .whatif__question .whatif__prefix {
+        color: var(--purple);
+      }
+
+      .whatif__q1 {
+        font-size: clamp(28px, 3.5vw, 42px);
+      }
+      .whatif__q2 {
+        font-size: clamp(32px, 4vw, 50px);
+      }
+      .whatif__q3 {
+        font-size: clamp(36px, 4.5vw, 58px);
+      }
+
+      .whatif__answer {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(48px, 7vw, 96px);
+        color: var(--purple);
+        letter-spacing: -3px;
+        line-height: 1;
+        margin-top: 72px;
+      }
+
+      /* ========================================
+   PILLARS SECTION
+   ======================================== */
+      .pillars {
+        position: relative;
+        padding: 120px 0;
+        background: var(--purple-light);
+        overflow: hidden;
+      }
+
+      .pillars__deco-circle {
+        width: 300px;
+        height: 300px;
+        border: 1px solid rgba(122, 0, 223, 0.08);
+        top: -100px;
+        left: -100px;
+      }
+
+      .pillars__header {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 80px;
+      }
+
+      .pillars__label {
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--purple);
+        margin-bottom: 16px;
+      }
+
+      .pillars__title {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(32px, 4.5vw, 56px);
+        color: var(--text-dark);
+        letter-spacing: -2px;
+        line-height: 1.1;
+      }
+
+      .pillars__list {
+        position: relative;
+        z-index: 1;
+      }
+
+      .pillar {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 40px;
+        align-items: start;
+        padding: 48px 0;
+        border-top: 2px solid rgba(122, 0, 223, 0.15);
+      }
+
+      .pillar:last-child {
+        border-bottom: 2px solid rgba(122, 0, 223, 0.15);
+      }
+
+      .pillar__number {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(48px, 5vw, 72px);
+        color: var(--purple);
+        letter-spacing: -2px;
+        line-height: 1;
+        opacity: 0.4;
+      }
+
+      .pillar__content {
+        padding-top: 8px;
+      }
+
+      .pillar__name {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(24px, 3vw, 36px);
+        color: var(--text-dark);
+        letter-spacing: -1px;
+        margin-bottom: 12px;
+      }
+
+      .pillar__desc {
+        font-family: var(--font-body);
+        font-size: clamp(17px, 1.8vw, 20px);
+        color: var(--text-muted);
+        line-height: 1.5;
+        max-width: 560px;
+      }
+
+      /* ========================================
+   PRODUCT PROOF (subtle screenshot)
+   ======================================== */
+      .product-proof {
+        position: relative;
+        z-index: 1;
+        margin-top: 80px;
+        text-align: center;
+      }
+
+      .product-proof__label {
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--purple);
+        margin-bottom: 24px;
+        opacity: 0.7;
+      }
+
+      .product-proof__img {
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 12px;
+        box-shadow:
+          0 20px 60px rgba(122, 0, 223, 0.1),
+          0 4px 20px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+      }
+
+      .product-proof__img img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* ========================================
+   ORIGIN STORY SECTION
+   ======================================== */
+      .origin {
+        position: relative;
+        background:
+          linear-gradient(rgba(45, 0, 80, 0.85), rgba(45, 0, 80, 0.92)),
+          url("https://boltline.com/wp-content/uploads/2025/05/20250519-_M0A0882_web_web.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 140px 0;
+        overflow: hidden;
+      }
+
+      .origin__deco-circle-1 {
+        width: 500px;
+        height: 500px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        top: -200px;
+        right: -200px;
+      }
+
+      .origin__deco-circle-2 {
+        width: 200px;
+        height: 200px;
+        background: rgba(122, 0, 223, 0.2);
+        bottom: -60px;
+        left: 80px;
+      }
+
+      .origin__deco-line {
+        width: 2px;
+        height: 160px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        right: 120px;
+        top: 100px;
+      }
+
+      .origin__content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .origin__headline {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(36px, 5vw, 60px);
+        color: var(--white);
+        letter-spacing: -2px;
+        line-height: 1.1;
+        margin-bottom: 40px;
+      }
+
+      .origin__body {
+        font-family: var(--font-body);
+        font-size: clamp(18px, 2.2vw, 24px);
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+        max-width: 720px;
+        margin-bottom: 56px;
+      }
+
+      .origin__backed {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 24px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+      }
+
+      .origin__backed-label {
+        font-family: var(--font-body);
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 500;
+      }
+
+      .origin__backed-name {
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--white);
+      }
+
+      /* ========================================
+   SOCIAL PROOF SECTION
+   ======================================== */
+      .proof {
+        position: relative;
+        padding: 140px 0;
+        background: var(--white);
+        overflow: hidden;
+      }
+
+      .proof__deco-line {
+        width: 200px;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(122, 0, 223, 0.12),
+          transparent
+        );
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .proof__header {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 72px;
+      }
+
+      .proof__label {
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--purple);
+        margin-bottom: 16px;
+      }
+
+      .proof__title {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(32px, 4.5vw, 56px);
+        color: var(--text-dark);
+        letter-spacing: -2px;
+        line-height: 1.1;
+      }
+
+      .proof__list {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .proof__item {
+        display: grid;
+        grid-template-columns: 180px 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        padding: 40px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .proof__item:first-child {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .proof__logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .proof__logo img {
+        max-height: 36px;
+        width: auto;
+        display: block;
+        filter: grayscale(30%);
+        opacity: 0.75;
+        transition:
+          opacity 0.3s ease,
+          filter 0.3s ease;
+      }
+
+      .proof__item:hover .proof__logo img {
+        filter: grayscale(0%);
+        opacity: 1;
+      }
+
+      .proof__company {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(24px, 3vw, 36px);
+        color: var(--text-dark);
+        letter-spacing: -1px;
+      }
+
+      .proof__mission {
+        font-family: var(--font-body);
+        font-size: clamp(16px, 1.6vw, 20px);
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+
+      .proof__mission em {
+        font-style: normal;
+        color: var(--purple);
+        font-weight: 600;
+      }
+
+      /* ========================================
+   COMPARISON SECTION
+   ======================================== */
+      .comparison {
+        position: relative;
+        padding: 120px 0;
+        background: var(--purple-light);
+        overflow: hidden;
+      }
+
+      .comparison__deco-dots {
+        grid-template-columns: repeat(6, 1fr);
+        bottom: 40px;
+        right: 40px;
+        color: var(--purple);
+        opacity: 0.15;
+      }
+
+      .comparison__header {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 72px;
+      }
+
+      .comparison__title {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(28px, 4vw, 48px);
+        color: var(--text-dark);
+        letter-spacing: -2px;
+        line-height: 1.15;
+        max-width: 700px;
+      }
+
+      .comparison__list {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .comparison__item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 32px;
+        align-items: start;
+      }
+
+      .comparison__vs {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--purple);
+        background: var(--white);
+        padding: 6px 14px;
+        border-radius: 6px;
+        white-space: nowrap;
+        margin-top: 4px;
+      }
+
+      .comparison__body {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .comparison__opponent {
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: clamp(14px, 1.4vw, 16px);
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .comparison__statement {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(22px, 3vw, 36px);
+        color: var(--text-dark);
+        letter-spacing: -1px;
+        line-height: 1.2;
+      }
+
+      /* ========================================
+   CTA SECTION
+   ======================================== */
+      .cta-section {
+        position: relative;
+        background: var(--purple);
+        padding: 120px 0;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .cta-section__deco-circle {
+        width: 400px;
+        height: 400px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        top: -150px;
+        left: -150px;
+      }
+
+      .cta-section__deco-circle-2 {
+        width: 300px;
+        height: 300px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        bottom: -100px;
+        right: -100px;
+      }
+
+      .cta-section__content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-section__headline {
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: clamp(40px, 6vw, 80px);
+        color: var(--white);
+        letter-spacing: -3px;
+        line-height: 1.05;
+        margin-bottom: 48px;
+      }
+
+      .cta-section__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 36px;
+        background: var(--white);
+        color: var(--purple);
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 17px;
+        border-radius: 9999px;
+        letter-spacing: -0.3px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 15px 36px;
+        background: transparent;
+        color: var(--white);
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 17px;
+        border-radius: 9999px;
+        letter-spacing: -0.3px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        transition:
+          border-color 0.2s ease,
+          background 0.2s ease;
+        cursor: pointer;
+      }
+
+      .btn-outline:hover {
+        border-color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* ========================================
+   FOOTER
+   ======================================== */
+      .footer {
+        background: var(--purple-deep);
+        padding: 80px 0 40px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .footer__grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 48px;
+        margin-bottom: 64px;
+      }
+
+      .footer__brand {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .footer__logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-headline);
+        font-weight: 800;
+        font-size: 20px;
+        color: var(--white);
+        letter-spacing: -0.5px;
+      }
+
+      .footer__logo svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .footer__tagline {
+        font-family: var(--font-body);
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.5;
+        max-width: 280px;
+      }
+
+      .footer__col-title {
+        font-family: var(--font-headline);
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
+
+      .footer__links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer__links a {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.45);
+        transition: color 0.2s ease;
+      }
+
+      .footer__links a:hover {
+        color: var(--white);
+      }
+
+      .footer__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .footer__copyright {
+        font-size: 14px;
+      }
+
+      .footer__socials {
+        display: flex;
+        gap: 20px;
+      }
+
+      .footer__socials a {
+        color: rgba(255, 255, 255, 0.4);
+        transition: color 0.2s ease;
+      }
+
+      .footer__socials a:hover {
+        color: var(--white);
+      }
+
+      .footer__socials svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ========================================
+   RESPONSIVE
+   ======================================== */
+      @media (max-width: 1024px) {
+        .hero {
+          padding: 140px 0 60px;
+        }
+
+        .pillar {
+          grid-template-columns: 80px 1fr;
+          gap: 24px;
+        }
+
+        .proof__item {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .proof__logo {
+          margin-bottom: 4px;
+        }
+
+        .proof__logo img {
+          max-height: 30px;
+        }
+
+        .footer__grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container,
+        .container--narrow {
+          padding: 0 20px;
+        }
+
+        .nav__links {
+          display: none;
+        }
+
+        .nav__mobile-toggle {
+          display: flex;
+        }
+
+        .hero {
+          padding: 120px 0 48px;
+        }
+
+        .hero__headline {
+          letter-spacing: -2px;
+        }
+
+        .problem {
+          padding: 80px 0;
+        }
+
+        .problem__statements {
+          gap: 32px;
+          margin-bottom: 56px;
+        }
+
+        .problem__statement {
+          padding-left: 20px;
+        }
+
+        .whatif {
+          padding: 100px 0;
+        }
+
+        .whatif__question {
+          margin-bottom: 36px;
+        }
+
+        .pillars {
+          padding: 80px 0;
+        }
+
+        .pillar {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 32px 0;
+        }
+
+        .pillar__number {
+          font-size: 40px;
+        }
+
+        .origin {
+          padding: 100px 0;
+        }
+
+        .proof {
+          padding: 100px 0;
+        }
+
+        .comparison {
+          padding: 80px 0;
+        }
+
+        .comparison__item {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .cta-section {
+          padding: 80px 0;
+        }
+
+        .cta-section__buttons {
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .btn-primary,
+        .btn-outline {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .footer__grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        .footer__bottom {
+          flex-direction: column;
+          gap: 16px;
+          text-align: center;
+        }
+
+        .trust-line__logos {
+          gap: 20px;
+        }
+
+        .trust-line__logos img {
+          max-height: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero__headline {
+          letter-spacing: -1.5px;
+        }
+
+        .hero__origin {
+          font-size: 12px;
+        }
+
+        .problem__headline {
+          letter-spacing: -1px;
+        }
+
+        .problem__resolve {
+          letter-spacing: -1.5px;
+        }
+
+        .whatif__answer {
+          letter-spacing: -2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================================
+     NAVIGATION
+     ============================================ -->
+    <nav class="nav" id="nav">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo">
+          <svg
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.5 2L6 16h7.5L11.5 26 22 12h-7.5L16.5 2z"
+              fill="#7a00df"
+              stroke="#7a00df"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Boltline
+        </a>
+
+        <ul class="nav__links">
+          <li><a href="#pillars">Platform</a></li>
+          <li><a href="#proof">Use Cases</a></li>
+          <li><a href="#origin">About</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#cta" class="nav__cta">Book a Demo</a></li>
+        </ul>
+
+        <button
+          class="nav__mobile-toggle"
+          id="mobileToggle"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="nav__mobile-menu" id="mobileMenu">
+        <a href="#pillars" onclick="closeMobile()">Platform</a>
+        <a href="#proof" onclick="closeMobile()">Use Cases</a>
+        <a href="#origin" onclick="closeMobile()">About</a>
+        <a href="#" onclick="closeMobile()">Resources</a>
+        <a href="#cta" class="nav__cta" onclick="closeMobile()">Book a Demo</a>
+      </div>
+    </nav>
+
+    <!-- ============================================
+     HERO SECTION
+     ============================================ -->
+    <section class="hero">
+      <!-- Decorative elements -->
+      <div class="deco-circle hero__deco-circle-1"></div>
+      <div class="deco-circle hero__deco-circle-2"></div>
+      <div class="deco-line hero__deco-line-1"></div>
+      <div class="deco-dot-grid hero__deco-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="container hero__content">
+        <div class="hero__origin reveal">
+          Born at Stoke Space &rarr; Built for rockets &rarr; Available for
+          everyone
+        </div>
+
+        <h1 class="hero__headline reveal reveal-delay-1">
+          <span>Not PLM.</span>
+          <span>Not MES.</span>
+          <span class="hero__accent">Hardware, coordinated.</span>
+        </h1>
+
+        <p class="hero__sub reveal reveal-delay-2">
+          The first platform purpose-built to manage parts, people, and
+          processes across the entire hardware lifecycle.
+        </p>
+
+        <a href="#pillars" class="hero__cta-link reveal reveal-delay-3">
+          See What's Different
+          <svg
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 10h12m0 0l-4-4m4 4l-4 4"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+
+        <div class="trust-line reveal reveal-delay-4">
+          <div class="trust-line__label">
+            Trusted by teams building the future
+          </div>
+          <div class="trust-line__logos">
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/Intuitive-Machines.png"
+              alt="Intuitive Machines"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/True-Anomaly.png"
+              alt="True Anomaly"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/ispace-US-300x40.png"
+              alt="iSpace US"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/XCIMER.png"
+              alt="XCIMER"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/06/stoke-300x63.png"
+              alt="Stoke Space"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/Seabound-300x33.png"
+              alt="Seabound"
+            />
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/The-Lumber-Manufactory.png"
+              alt="The Lumber Manufactory"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     PROBLEM SECTION
+     ============================================ -->
+    <section class="problem">
+      <!-- Decorative elements -->
+      <div class="deco-circle problem__deco-circle"></div>
+      <div class="deco-line problem__deco-line"></div>
+      <div class="deco-dot-grid problem__deco-dots">
+        <span></span><span></span><span></span><span></span> <span></span
+        ><span></span><span></span><span></span> <span></span><span></span
+        ><span></span><span></span> <span></span><span></span><span></span
+        ><span></span>
+      </div>
+
+      <div class="container problem__content">
+        <h2 class="problem__headline reveal">
+          Hardware teams are<br />
+          <span class="animated-underline white-underline reveal"
+            >duct-taping their stack.</span
+          >
+        </h2>
+
+        <div class="problem__statements">
+          <p class="problem__statement reveal reveal-delay-1">
+            Your BOM lives in
+            <em>a spreadsheet that 4 people are editing right now.</em>
+          </p>
+          <p class="problem__statement reveal reveal-delay-2">
+            Your &ldquo;PLM system&rdquo;
+            <em>costs six figures and took six months to deploy.</em>
+          </p>
+          <p class="problem__statement reveal reveal-delay-3">
+            Your traceability?
+            <em>It&rsquo;s tribal knowledge in someone&rsquo;s head.</em>
+          </p>
+        </div>
+
+        <p class="problem__resolve reveal reveal-delay-4">
+          There&rsquo;s a better way.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================
+     WHAT IF SECTION
+     ============================================ -->
+    <section class="whatif">
+      <!-- Decorative elements -->
+      <div class="deco-circle whatif__deco-circle"></div>
+      <div class="deco-line whatif__deco-line"></div>
+
+      <div class="container--narrow whatif__content">
+        <p class="whatif__question whatif__q1 reveal">
+          <span class="whatif__prefix">What if</span> one platform handled your
+          entire hardware lifecycle?
+        </p>
+        <p class="whatif__question whatif__q2 reveal reveal-delay-1">
+          <span class="whatif__prefix">What if</span> it deployed in days
+          instead of months?
+        </p>
+        <p class="whatif__question whatif__q3 reveal reveal-delay-2">
+          <span class="whatif__prefix">What if</span> it was built by engineers
+          who actually build hardware?
+        </p>
+
+        <p class="whatif__answer reveal reveal-delay-3">
+          That&rsquo;s Boltline.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================
+     FIVE PILLARS SECTION
+     ============================================ -->
+    <section class="pillars" id="pillars">
+      <!-- Decorative elements -->
+      <div class="deco-circle pillars__deco-circle"></div>
+
+      <div class="container">
+        <div class="pillars__header">
+          <p class="pillars__label reveal">The Platform</p>
+          <h2 class="pillars__title reveal reveal-delay-1">
+            Five ways Boltline replaces<br />your entire stack.
+          </h2>
+        </div>
+
+        <div class="pillars__list">
+          <div class="pillar reveal">
+            <div class="pillar__number">01</div>
+            <div class="pillar__content">
+              <h3 class="pillar__name">Parts & BOMs</h3>
+              <p class="pillar__desc">
+                One library. One truth. Design and as-built, always in sync.
+              </p>
+            </div>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar__number">02</div>
+            <div class="pillar__content">
+              <h3 class="pillar__name">Workflows</h3>
+              <p class="pillar__desc">
+                Digital work instructions that make paper obsolete.
+              </p>
+            </div>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar__number">03</div>
+            <div class="pillar__content">
+              <h3 class="pillar__name">Traceability</h3>
+              <p class="pillar__desc">
+                Scan a QR code. Know everything about that part. Done.
+              </p>
+            </div>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar__number">04</div>
+            <div class="pillar__content">
+              <h3 class="pillar__name">Configuration</h3>
+              <p class="pillar__desc">
+                Track how hardware evolves from napkin sketch to field
+                deployment.
+              </p>
+            </div>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar__number">05</div>
+            <div class="pillar__content">
+              <h3 class="pillar__name">Supply Chain</h3>
+              <p class="pillar__desc">Every PO. Every vendor. One view.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-proof reveal reveal-delay-5">
+          <p class="product-proof__label">See it in action</p>
+          <div class="product-proof__img">
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/tablet-example.png"
+              alt="Boltline platform on tablet"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     ORIGIN STORY SECTION
+     ============================================ -->
+    <section class="origin" id="origin">
+      <!-- Decorative elements -->
+      <div class="deco-circle origin__deco-circle-1"></div>
+      <div class="deco-circle origin__deco-circle-2"></div>
+      <div class="deco-line origin__deco-line"></div>
+
+      <div class="container--narrow origin__content">
+        <h2 class="origin__headline reveal">
+          We didn&rsquo;t set out to build a software company.
+        </h2>
+
+        <p class="origin__body reveal reveal-delay-1">
+          We set out to build rockets. Along the way, we had to build the
+          software that no one else could. Boltline was born inside Stoke
+          Space&thinsp;&mdash;&thinsp;battle-tested on actual rocket hardware
+          before it ever reached a customer.
+        </p>
+
+        <div class="origin__backed reveal reveal-delay-2">
+          <span class="origin__backed-label">Backed by</span>
+          <span class="origin__backed-name"
+            >Woven Capital, Toyota&rsquo;s growth fund</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     SOCIAL PROOF SECTION
+     ============================================ -->
+    <section class="proof" id="proof">
+      <!-- Decorative elements -->
+      <div class="deco-line proof__deco-line"></div>
+
+      <div class="container">
+        <div class="proof__header">
+          <p class="proof__label reveal">Who Uses Boltline</p>
+          <h2 class="proof__title reveal reveal-delay-1">
+            The companies rewriting hardware.
+          </h2>
+        </div>
+
+        <div class="proof__list">
+          <div class="proof__item reveal">
+            <div class="proof__logo">
+              <img
+                src="https://boltline.com/wp-content/uploads/2025/05/Intuitive-Machines.png"
+                alt="Intuitive Machines logo"
+              />
+            </div>
+            <div class="proof__company">Intuitive Machines</div>
+            <div class="proof__mission">
+              Building <em>NASA&rsquo;s lunar lander</em>
+            </div>
+          </div>
+
+          <div class="proof__item reveal">
+            <div class="proof__logo">
+              <img
+                src="https://boltline.com/wp-content/uploads/2025/05/True-Anomaly.png"
+                alt="True Anomaly logo"
+              />
+            </div>
+            <div class="proof__company">True Anomaly</div>
+            <div class="proof__mission">Securing <em>the space domain</em></div>
+          </div>
+
+          <div class="proof__item reveal">
+            <div class="proof__logo">
+              <img
+                src="https://boltline.com/wp-content/uploads/2025/05/XCIMER.png"
+                alt="XCIMER logo"
+              />
+            </div>
+            <div class="proof__company">XCIMER</div>
+            <div class="proof__mission">Pioneering <em>fusion energy</em></div>
+          </div>
+
+          <div class="proof__item reveal">
+            <div class="proof__logo">
+              <img
+                src="https://boltline.com/wp-content/uploads/2025/06/stoke-300x63.png"
+                alt="Stoke Space logo"
+              />
+            </div>
+            <div class="proof__company">Stoke Space</div>
+            <div class="proof__mission">Making <em>rockets reusable</em></div>
+          </div>
+
+          <div class="proof__item reveal">
+            <div class="proof__logo">
+              <img
+                src="https://boltline.com/wp-content/uploads/2025/05/Seabound-300x33.png"
+                alt="Seabound logo"
+              />
+            </div>
+            <div class="proof__company">Seabound</div>
+            <div class="proof__mission">Capturing <em>carbon at sea</em></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     COMPARISON SECTION
+     ============================================ -->
+    <section class="comparison">
+      <!-- Decorative elements -->
+      <div class="deco-dot-grid comparison__deco-dots">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span> <span></span><span></span><span></span><span></span
+        ><span></span><span></span> <span></span><span></span><span></span
+        ><span></span><span></span><span></span> <span></span><span></span
+        ><span></span><span></span><span></span><span></span> <span></span
+        ><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+
+      <div class="container">
+        <div class="comparison__header">
+          <h2 class="comparison__title reveal">
+            Here&rsquo;s what you&rsquo;re comparing us to.<br />And why
+            it&rsquo;s not close.
+          </h2>
+        </div>
+
+        <div class="comparison__list">
+          <div class="comparison__item reveal">
+            <div class="comparison__vs">Boltline vs</div>
+            <div class="comparison__body">
+              <div class="comparison__opponent">Spreadsheets</div>
+              <div class="comparison__statement">
+                Spreadsheets don&rsquo;t trace.
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison__item reveal">
+            <div class="comparison__vs">Boltline vs</div>
+            <div class="comparison__body">
+              <div class="comparison__opponent">Legacy PLM</div>
+              <div class="comparison__statement">
+                We deploy in days. They deploy in quarters.
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison__item reveal">
+            <div class="comparison__vs">Boltline vs</div>
+            <div class="comparison__body">
+              <div class="comparison__opponent">MES</div>
+              <div class="comparison__statement">
+                We start at design. They start at the factory door.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     CTA SECTION
+     ============================================ -->
+    <section class="cta-section" id="cta">
+      <!-- Decorative elements -->
+      <div class="deco-circle cta-section__deco-circle"></div>
+      <div class="deco-circle cta-section__deco-circle-2"></div>
+
+      <div class="container cta-section__content">
+        <h2 class="cta-section__headline reveal">
+          Ready to stop<br />duct-taping?
+        </h2>
+
+        <div class="cta-section__buttons reveal reveal-delay-1">
+          <a href="#" class="btn-primary">
+            Book a Demo
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M4 10h12m0 0l-4-4m4 4l-4 4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+          <a href="#" class="btn-outline">
+            Download the Traceability Checklist
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 3v10m0 0l-3-3m3 3l3-3M4 15h12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     FOOTER
+     ============================================ -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <div class="footer__logo">
+              <svg
+                viewBox="0 0 28 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16.5 2L6 16h7.5L11.5 26 22 12h-7.5L16.5 2z"
+                  fill="#7a00df"
+                  stroke="#7a00df"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Boltline
+            </div>
+            <p class="footer__tagline">
+              Hardware, coordinated. From design to deployment.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="footer__col-title">Platform</h4>
+            <ul class="footer__links">
+              <li><a href="#">Parts & BOMs</a></li>
+              <li><a href="#">Workflows</a></li>
+              <li><a href="#">Traceability</a></li>
+              <li><a href="#">Configuration</a></li>
+              <li><a href="#">Supply Chain</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer__col-title">Company</h4>
+            <ul class="footer__links">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer__col-title">Resources</h4>
+            <ul class="footer__links">
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">Traceability Checklist</a></li>
+              <li><a href="#">Case Studies</a></li>
+              <li><a href="#">Security</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <span class="footer__copyright"
+            >&copy; 2026 Boltline. All rights reserved.</span
+          >
+          <div class="footer__socials">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <a href="#" aria-label="Twitter / X">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <a href="#" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+    <script>
+      (function () {
+        "use strict";
+
+        // ========================================
+        // Scroll reveal via Intersection Observer
+        // ========================================
+        const revealElements = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window) {
+          const revealObserver = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  revealObserver.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: 0.15,
+              rootMargin: "0px 0px -40px 0px",
+            },
+          );
+
+          revealElements.forEach(function (el) {
+            revealObserver.observe(el);
+          });
+        } else {
+          // Fallback: show everything
+          revealElements.forEach(function (el) {
+            el.classList.add("visible");
+          });
+        }
+
+        // ========================================
+        // Animated underlines via Intersection Observer
+        // ========================================
+        const underlineElements = document.querySelectorAll(
+          ".animated-underline",
+        );
+
+        if ("IntersectionObserver" in window) {
+          const underlineObserver = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  // Small delay so the text reveals first
+                  setTimeout(function () {
+                    entry.target.classList.add("visible");
+                  }, 600);
+                  underlineObserver.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: 0.5,
+            },
+          );
+
+          underlineElements.forEach(function (el) {
+            underlineObserver.observe(el);
+          });
+        } else {
+          underlineElements.forEach(function (el) {
+            el.classList.add("visible");
+          });
+        }
+
+        // ========================================
+        // Nav scroll behavior
+        // ========================================
+        var nav = document.getElementById("nav");
+        var lastScroll = 0;
+
+        window.addEventListener(
+          "scroll",
+          function () {
+            var currentScroll = window.pageYOffset;
+
+            if (currentScroll > 20) {
+              nav.classList.add("scrolled");
+            } else {
+              nav.classList.remove("scrolled");
+            }
+
+            lastScroll = currentScroll;
+          },
+          { passive: true },
+        );
+
+        // ========================================
+        // Mobile menu toggle
+        // ========================================
+        var mobileToggle = document.getElementById("mobileToggle");
+        var mobileMenu = document.getElementById("mobileMenu");
+        var menuOpen = false;
+
+        mobileToggle.addEventListener("click", function () {
+          menuOpen = !menuOpen;
+          mobileMenu.classList.toggle("active", menuOpen);
+
+          // Animate hamburger to X
+          var spans = mobileToggle.querySelectorAll("span");
+          if (menuOpen) {
+            spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+            spans[1].style.opacity = "0";
+            spans[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
+            document.body.style.overflow = "hidden";
+          } else {
+            spans[0].style.transform = "";
+            spans[1].style.opacity = "";
+            spans[2].style.transform = "";
+            document.body.style.overflow = "";
+          }
+        });
+
+        // Close mobile menu (called by menu links)
+        window.closeMobile = function () {
+          menuOpen = false;
+          mobileMenu.classList.remove("active");
+          var spans = mobileToggle.querySelectorAll("span");
+          spans[0].style.transform = "";
+          spans[1].style.opacity = "";
+          spans[2].style.transform = "";
+          document.body.style.overflow = "";
+        };
+
+        // ========================================
+        // Smooth scroll for anchor links
+        // ========================================
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+          anchor.addEventListener("click", function (e) {
+            var targetId = this.getAttribute("href");
+            if (targetId === "#") return;
+
+            var target = document.querySelector(targetId);
+            if (target) {
+              e.preventDefault();
+              var offset = 80; // nav height
+              var top =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                offset;
+              window.scrollTo({ top: top, behavior: "smooth" });
+            }
+          });
+        });
+      })();
+    </script>
+
+    <!-- Cross-Iteration Navigation -->
+    <div
+      id="iter-nav"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        font-family:
+          Inter,
+          -apple-system,
+          sans-serif;
+      "
+    >
+      <div style="max-width: 900px; margin: 0 auto; padding: 8px 16px">
+        <div
+          style="
+            background: rgba(10, 10, 15, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
+          "
+        >
+          <a
+            href="index.html"
+            style="
+              color: #888;
+              text-decoration: none;
+              font-size: 12px;
+              font-weight: 600;
+              padding: 6px 10px;
+              border-radius: 8px;
+              transition: all 0.2s;
+              white-space: nowrap;
+            "
+            onmouseover="
+              this.style.color = '#fff';
+              this.style.background = 'rgba(255,255,255,0.08)';
+            "
+            onmouseout="
+              this.style.color = '#888';
+              this.style.background = 'transparent';
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="vertical-align: -2px; margin-right: 4px"
+            >
+              <path d="M6 12L2 8l4-4" /></svg
+            >Hub
+          </a>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              overflow-x: auto;
+              flex: 1;
+              justify-content: center;
+            "
+            id="iter-nav-links"
+          >
+            <a
+              href="01-mission-control.html"
+              data-iter="01"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >01 Mission Control</a
+            >
+            <a
+              href="02-clean-engineering.html"
+              data-iter="02"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >02 Clean Engineering</a
+            >
+            <a
+              href="03-origin-story.html"
+              data-iter="03"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >03 Origin Story</a
+            >
+            <a
+              href="04-product-led.html"
+              data-iter="04"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >04 Product-Led</a
+            >
+            <a
+              href="05-category-creator.html"
+              data-iter="05"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >05 Category Creator</a
+            >
+          </div>
+          <button
+            onclick="document.getElementById('iter-nav').style.display = 'none'"
+            style="
+              background: none;
+              border: none;
+              color: #555;
+              cursor: pointer;
+              padding: 4px 8px;
+              font-size: 16px;
+              line-height: 1;
+            "
+            title="Hide navigation"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var file = location.pathname.split("/").pop();
+        var num = file.substring(0, 2);
+        var links = document.querySelectorAll("#iter-nav-links a");
+        links.forEach(function (a) {
+          if (a.getAttribute("data-iter") === num) {
+            a.style.background = "rgba(122,0,223,0.25)";
+            a.style.color = "#c084fc";
+            a.style.fontWeight = "700";
+            a.classList.add("active");
+          }
+        });
+        // Add keyboard navigation
+        document.addEventListener("keydown", function (e) {
+          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+            return;
+          var nums = ["01", "02", "03", "04", "05"];
+          var idx = nums.indexOf(num);
+          if (e.key === "ArrowLeft" && idx > 0) {
+            location.href = links[idx - 1].href;
+          } else if (e.key === "ArrowRight" && idx < 4) {
+            location.href = links[idx + 1].href;
+          } else if (e.key === "Escape") {
+            location.href = "index.html";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boltline — The Engineering Platform for Hardware Teams</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ========================================
+   RESET & BASE
+   ======================================== */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-weight: 300;
+        color: #111827;
+        background: #ffffff;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ========================================
+   TYPOGRAPHY
+   ======================================== */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+      }
+      h2 {
+        font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      }
+      h3 {
+        font-size: clamp(1.125rem, 2vw, 1.375rem);
+        font-weight: 600;
+      }
+
+      p {
+        color: #4b5563;
+        font-size: 1.0625rem;
+        line-height: 1.7;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ========================================
+   LAYOUT
+   ======================================== */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .container--narrow {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      section {
+        padding: 100px 0;
+      }
+
+      .section--alt {
+        background: #f8f9fa;
+      }
+
+      .section--purple {
+        background: #f3e8ff;
+      }
+
+      /* ========================================
+   BUTTONS
+   ======================================== */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-size: 0.9375rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 9999px;
+        padding: 12px 24px;
+        letter-spacing: -0.01em;
+      }
+
+      .btn--primary {
+        background: #7a00df;
+        color: #ffffff;
+        box-shadow: 0 1px 2px rgba(122, 0, 223, 0.2);
+      }
+
+      .btn--primary:hover {
+        background: #6600bc;
+        box-shadow: 0 4px 12px rgba(122, 0, 223, 0.25);
+        transform: translateY(-1px);
+      }
+
+      .btn--outline {
+        background: transparent;
+        color: #7a00df;
+        border: 1.5px solid #7a00df;
+      }
+
+      .btn--outline:hover {
+        background: #f3e8ff;
+        transform: translateY(-1px);
+      }
+
+      .btn--text {
+        background: none;
+        color: #7a00df;
+        padding: 12px 0;
+        font-weight: 500;
+      }
+
+      .btn--text:hover {
+        color: #6600bc;
+      }
+
+      .btn--text svg {
+        transition: transform 0.2s ease;
+      }
+
+      .btn--text:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* ========================================
+   NAVIGATION
+   ======================================== */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .nav__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+      }
+
+      .nav__logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.375rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: #111827;
+      }
+
+      .nav__logo svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .nav__links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        list-style: none;
+      }
+
+      .nav__links a {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: #4b5563;
+        transition: color 0.15s ease;
+        letter-spacing: -0.01em;
+      }
+
+      .nav__links a:hover {
+        color: #111827;
+      }
+
+      .nav__actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .nav__actions .btn {
+        padding: 9px 20px;
+        font-size: 0.875rem;
+      }
+
+      .nav__hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .nav__hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #111827;
+        border-radius: 2px;
+        transition: all 0.25s ease;
+      }
+
+      .nav__mobile {
+        display: none;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        padding: 32px 24px;
+        z-index: 999;
+      }
+
+      .nav__mobile.active {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav__mobile a {
+        display: block;
+        padding: 14px 0;
+        font-size: 1.125rem;
+        font-weight: 400;
+        color: #4b5563;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .nav__mobile .btn {
+        margin-top: 16px;
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* ========================================
+   HERO
+   ======================================== */
+      .hero {
+        padding: 80px 0 60px;
+        text-align: center;
+      }
+
+      .hero__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #f3e8ff;
+        color: #7a00df;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        padding: 6px 16px;
+        border-radius: 100px;
+        margin-bottom: 32px;
+        letter-spacing: -0.01em;
+      }
+
+      .hero__badge svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .hero h1 {
+        max-width: 780px;
+        margin: 0 auto 24px;
+        color: #111827;
+      }
+
+      .hero__sub {
+        max-width: 600px;
+        margin: 0 auto 40px;
+        font-size: 1.1875rem;
+        color: #4b5563;
+        line-height: 1.65;
+        font-weight: 300;
+      }
+
+      .hero__ctas {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 72px;
+      }
+
+      /* Product Mockup */
+      .hero__mockup {
+        max-width: 1060px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 20px 50px -12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+
+      .mockup__toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .mockup__dots {
+        display: flex;
+        gap: 7px;
+      }
+
+      .mockup__dots span {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #e5e7eb;
+      }
+
+      .mockup__dots span:first-child {
+        background: #fca5a5;
+      }
+      .mockup__dots span:nth-child(2) {
+        background: #fcd34d;
+      }
+      .mockup__dots span:last-child {
+        background: #86efac;
+      }
+
+      .mockup__tabs {
+        display: flex;
+        gap: 2px;
+        margin-left: 16px;
+      }
+
+      .mockup__tab {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #9ca3af;
+        padding: 5px 14px;
+        border-radius: 6px;
+        letter-spacing: -0.01em;
+      }
+
+      .mockup__tab--active {
+        color: #111827;
+        background: #ffffff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+
+      .mockup__body {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        min-height: 420px;
+      }
+
+      .mockup__sidebar {
+        background: #f9fafb;
+        border-right: 1px solid #e5e7eb;
+        padding: 20px 0;
+      }
+
+      .mockup__nav-section {
+        padding: 0 16px;
+        margin-bottom: 24px;
+      }
+
+      .mockup__nav-label {
+        font-size: 0.625rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #9ca3af;
+        margin-bottom: 10px;
+        padding: 0 8px;
+      }
+
+      .mockup__nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 0.8125rem;
+        font-weight: 400;
+        color: #6b7280;
+        cursor: default;
+      }
+
+      .mockup__nav-item--active {
+        background: #f3e8ff;
+        color: #7a00df;
+        font-weight: 500;
+      }
+
+      .mockup__nav-icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        background: #e5e7eb;
+        flex-shrink: 0;
+      }
+
+      .mockup__nav-item--active .mockup__nav-icon {
+        background: #d8b4fe;
+      }
+
+      .mockup__content {
+        padding: 24px 28px;
+      }
+
+      .mockup__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+
+      .mockup__title {
+        font-size: 1.0625rem;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.02em;
+      }
+
+      .mockup__actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .mockup__action-btn {
+        font-size: 0.6875rem;
+        font-weight: 500;
+        padding: 5px 12px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        color: #4b5563;
+      }
+
+      .mockup__action-btn--primary {
+        background: #7a00df;
+        color: #fff;
+        border-color: #7a00df;
+      }
+
+      /* BOM Table */
+      .mockup__table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.75rem;
+      }
+
+      .mockup__table th {
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #9ca3af;
+        padding: 8px 12px;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+      }
+
+      .mockup__table td {
+        padding: 11px 12px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #374151;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+
+      .mockup__table tr:hover td {
+        background: #f9fafb;
+      }
+
+      .mockup__status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        padding: 3px 9px;
+        border-radius: 100px;
+      }
+
+      .mockup__status--approved {
+        background: #ecfdf5;
+        color: #059669;
+      }
+
+      .mockup__status--review {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      .mockup__status--draft {
+        background: #f3f4f6;
+        color: #6b7280;
+      }
+
+      .mockup__status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .mockup__status--approved .mockup__status-dot {
+        background: #059669;
+      }
+      .mockup__status--review .mockup__status-dot {
+        background: #d97706;
+      }
+      .mockup__status--draft .mockup__status-dot {
+        background: #9ca3af;
+      }
+
+      .mockup__part-id {
+        color: #7a00df;
+        font-weight: 500;
+        font-family: "SF Mono", "Fira Code", "Fira Mono", monospace;
+        font-size: 0.6875rem;
+      }
+
+      .mockup__rev {
+        font-family: "SF Mono", "Fira Code", "Fira Mono", monospace;
+        font-size: 0.6875rem;
+        color: #6b7280;
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 3px;
+      }
+
+      /* ========================================
+   PRODUCT SCREENSHOTS
+   ======================================== */
+      .hero__product-screenshot {
+        max-width: 1060px;
+        margin: 40px auto 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 20px 50px -12px rgba(0, 0, 0, 0.08);
+      }
+
+      .hero__product-screenshot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .workflow__product-image {
+        max-width: 680px;
+        margin: 56px auto 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 16px 40px -8px rgba(0, 0, 0, 0.1);
+      }
+
+      .workflow__product-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .origin__photo {
+        max-width: 680px;
+        margin: 40px auto 0;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .origin__photo img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
+
+      /* ========================================
+   LOGO BAR
+   ======================================== */
+      .logos {
+        padding: 60px 0;
+        border-top: 1px solid #f3f4f6;
+      }
+
+      .logos__label {
+        text-align: center;
+        font-size: 0.8125rem;
+        font-weight: 400;
+        color: #9ca3af;
+        margin-bottom: 28px;
+        letter-spacing: 0.01em;
+      }
+
+      .logos__grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px 56px;
+      }
+
+      .logos__item {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+        transition: filter 0.4s ease;
+      }
+
+      .logos__item img {
+        max-height: 30px;
+        width: auto;
+        filter: grayscale(1) opacity(0.5);
+        transition: filter 0.4s ease;
+      }
+
+      .logos__item:hover img {
+        filter: grayscale(0) opacity(1);
+      }
+
+      .logos__backer {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 0.75rem;
+        color: #c0c5ce;
+        font-weight: 400;
+      }
+
+      /* ========================================
+   PROBLEM STATEMENT
+   ======================================== */
+      .problem__heading {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto 56px;
+      }
+
+      .problem__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .problem__card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 32px 28px;
+        transition: all 0.2s ease;
+      }
+
+      .problem__card:hover {
+        border-color: #d8b4fe;
+        box-shadow: 0 4px 12px rgba(122, 0, 223, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .problem__icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: #f3f4f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        transition: background 0.2s ease;
+      }
+
+      .problem__card:hover .problem__icon {
+        background: #f3e8ff;
+      }
+
+      .problem__icon svg {
+        width: 22px;
+        height: 22px;
+        color: #6b7280;
+        transition: color 0.2s ease;
+      }
+
+      .problem__card:hover .problem__icon svg {
+        color: #7a00df;
+      }
+
+      .problem__card h3 {
+        margin-bottom: 10px;
+        color: #111827;
+      }
+
+      .problem__card p {
+        font-size: 0.9375rem;
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      /* ========================================
+   WORKFLOW / STEPPER
+   ======================================== */
+      .workflow {
+        text-align: center;
+      }
+
+      .workflow h2 {
+        margin-bottom: 16px;
+      }
+
+      .workflow__sub {
+        max-width: 480px;
+        margin: 0 auto 64px;
+      }
+
+      .workflow__stepper {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0;
+        position: relative;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      .workflow__step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+
+      .workflow__step-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: #ffffff;
+        border: 2px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+        transition: all 0.2s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      .workflow__step:hover .workflow__step-icon {
+        border-color: #7a00df;
+        background: #f3e8ff;
+      }
+
+      .workflow__step-icon svg {
+        width: 26px;
+        height: 26px;
+        color: #9ca3af;
+        transition: color 0.2s ease;
+      }
+
+      .workflow__step:hover .workflow__step-icon svg {
+        color: #7a00df;
+      }
+
+      .workflow__step-name {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 6px;
+        letter-spacing: -0.01em;
+      }
+
+      .workflow__step-desc {
+        font-size: 0.8125rem;
+        color: #9ca3af;
+        max-width: 140px;
+        line-height: 1.5;
+      }
+
+      .workflow__connector {
+        position: absolute;
+        top: 30px;
+        left: calc(10% + 30px);
+        right: calc(10% + 30px);
+        height: 2px;
+        background: #e5e7eb;
+        z-index: 0;
+      }
+
+      .workflow__connector::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(90deg, #7a00df, #d8b4fe);
+        border-radius: 1px;
+      }
+
+      /* ========================================
+   USE CASES
+   ======================================== */
+      .usecases h2 {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .usecases__sub {
+        text-align: center;
+        max-width: 480px;
+        margin: 0 auto 56px;
+      }
+
+      .usecases__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .usecase__card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 28px 24px;
+        transition: all 0.2s ease;
+      }
+
+      .usecase__card:hover {
+        border-color: #d8b4fe;
+        box-shadow: 0 4px 12px rgba(122, 0, 223, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .usecase__icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #f3e8ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+      }
+
+      .usecase__icon svg {
+        width: 20px;
+        height: 20px;
+        color: #7a00df;
+      }
+
+      .usecase__card h3 {
+        margin-bottom: 8px;
+        font-size: 1.0625rem;
+        color: #111827;
+      }
+
+      .usecase__card p {
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      /* ========================================
+   SOCIAL PROOF
+   ======================================== */
+      .proof {
+        text-align: center;
+        padding: 80px 0;
+      }
+
+      .proof__quote {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .proof__mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: #f3e8ff;
+        margin-bottom: 28px;
+      }
+
+      .proof__mark svg {
+        width: 24px;
+        height: 24px;
+        color: #7a00df;
+      }
+
+      .proof__text {
+        font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+        font-weight: 500;
+        color: #111827;
+        line-height: 1.5;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+      }
+
+      .proof__source {
+        font-size: 0.875rem;
+        color: #9ca3af;
+        margin-bottom: 28px;
+      }
+
+      .proof__link {
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: #7a00df;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: gap 0.2s ease;
+      }
+
+      .proof__link:hover {
+        gap: 10px;
+      }
+
+      /* ========================================
+   ORIGIN STORY
+   ======================================== */
+      .origin {
+        padding: 100px 0;
+      }
+
+      .origin__inner {
+        max-width: 680px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .origin__label {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: #7a00df;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 20px;
+      }
+
+      .origin h2 {
+        margin-bottom: 32px;
+      }
+
+      .origin p {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #4b5563;
+      }
+
+      .origin p + p {
+        margin-top: 20px;
+      }
+
+      /* ========================================
+   STATS
+   ======================================== */
+      .stats {
+        padding: 80px 0;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .stats__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        text-align: center;
+      }
+
+      .stats__item {
+        padding: 12px;
+      }
+
+      .stats__number {
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        font-weight: 800;
+        color: #111827;
+        letter-spacing: -0.03em;
+        margin-bottom: 6px;
+        line-height: 1.1;
+      }
+
+      .stats__label {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: #9ca3af;
+      }
+
+      /* ========================================
+   CTA SECTION
+   ======================================== */
+      .cta-section {
+        padding: 100px 0;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        margin-bottom: 16px;
+      }
+
+      .cta-section p {
+        max-width: 480px;
+        margin: 0 auto 40px;
+        font-size: 1.0625rem;
+      }
+
+      .cta-section__actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      /* ========================================
+   FOOTER
+   ======================================== */
+      .footer {
+        background: #111827;
+        color: #9ca3af;
+        padding: 64px 0 40px;
+      }
+
+      .footer__grid {
+        display: grid;
+        grid-template-columns: 1.5fr repeat(3, 1fr);
+        gap: 48px;
+        margin-bottom: 56px;
+      }
+
+      .footer__brand {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .footer__logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: -0.03em;
+      }
+
+      .footer__logo svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .footer__tagline {
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.6;
+        max-width: 260px;
+      }
+
+      .footer__socials {
+        display: flex;
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .footer__social {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #1f2937;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+      }
+
+      .footer__social:hover {
+        background: #374151;
+      }
+
+      .footer__social svg {
+        width: 16px;
+        height: 16px;
+        color: #9ca3af;
+      }
+
+      .footer__col h4 {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+
+      .footer__col a {
+        display: block;
+        font-size: 0.875rem;
+        color: #6b7280;
+        padding: 5px 0;
+        transition: color 0.15s ease;
+      }
+
+      .footer__col a:hover {
+        color: #d1d5db;
+      }
+
+      .footer__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 32px;
+        border-top: 1px solid #1f2937;
+        font-size: 0.8125rem;
+        color: #4b5563;
+      }
+
+      .footer__motto {
+        font-style: italic;
+      }
+
+      /* ========================================
+   RESPONSIVE
+   ======================================== */
+      @media (max-width: 1024px) {
+        .mockup__body {
+          grid-template-columns: 180px 1fr;
+        }
+
+        .workflow__stepper {
+          flex-wrap: wrap;
+          gap: 32px;
+        }
+
+        .workflow__connector {
+          display: none;
+        }
+
+        .usecases__grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 72px 0;
+        }
+
+        .nav__links,
+        .nav__actions {
+          display: none;
+        }
+
+        .nav__hamburger {
+          display: flex;
+        }
+
+        .hero {
+          padding: 56px 0 40px;
+        }
+
+        .hero__ctas {
+          flex-direction: column;
+          gap: 16px;
+          margin-bottom: 48px;
+        }
+
+        .mockup__body {
+          grid-template-columns: 1fr;
+        }
+
+        .mockup__sidebar {
+          display: none;
+        }
+
+        .problem__grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .workflow__stepper {
+          flex-direction: column;
+          gap: 24px;
+          align-items: center;
+        }
+
+        .workflow__step {
+          flex-direction: row;
+          gap: 16px;
+          text-align: left;
+          width: 100%;
+          max-width: 340px;
+        }
+
+        .workflow__step-icon {
+          flex-shrink: 0;
+          width: 52px;
+          height: 52px;
+          margin-bottom: 0;
+        }
+
+        .workflow__step-desc {
+          max-width: none;
+        }
+
+        .usecases__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stats__grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 32px;
+        }
+
+        .footer__grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        .footer__bottom {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+
+        .logos__grid {
+          gap: 24px 32px;
+        }
+
+        .cta-section__actions {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 20px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .hero__sub {
+          font-size: 1rem;
+        }
+
+        .mockup__table th:nth-child(n + 5),
+        .mockup__table td:nth-child(n + 5) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================================
+     NAVIGATION
+     ============================================ -->
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="#" class="nav__logo">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#7a00df"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+          Boltline
+        </a>
+
+        <ul class="nav__links">
+          <li><a href="#why">Why Boltline</a></li>
+          <li><a href="#product">Product</a></li>
+          <li><a href="#usecases">Use Cases</a></li>
+          <li><a href="#integrations">Integrations</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ul>
+
+        <div class="nav__actions">
+          <a href="#" class="btn btn--primary">Book a Demo</a>
+        </div>
+
+        <button
+          class="nav__hamburger"
+          onclick="toggleMenu()"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="nav__mobile" id="mobileMenu">
+        <a href="#why" onclick="toggleMenu()">Why Boltline</a>
+        <a href="#product" onclick="toggleMenu()">Product</a>
+        <a href="#usecases" onclick="toggleMenu()">Use Cases</a>
+        <a href="#integrations" onclick="toggleMenu()">Integrations</a>
+        <a href="#resources" onclick="toggleMenu()">Resources</a>
+        <a href="#" class="btn btn--primary" onclick="toggleMenu()"
+          >Book a Demo</a
+        >
+      </div>
+    </nav>
+
+    <!-- ============================================
+     HERO
+     ============================================ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__badge">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"
+            />
+            <path d="M12 8v4l3 3" />
+          </svg>
+          Born at Stoke Space. Proven on rocket hardware.
+        </div>
+
+        <h1>The engineering platform for teams that build hardware.</h1>
+
+        <p class="hero__sub">
+          Boltline replaces spreadsheets, legacy PLM, and stitched-together
+          tools with one system&nbsp;&mdash; from design through deployment.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="#" class="btn btn--primary">Book a Demo</a>
+          <a href="#product" class="btn btn--text">
+            See How It Works
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Product UI Mockup -->
+        <div class="hero__mockup" id="product">
+          <div class="mockup__toolbar">
+            <div class="mockup__dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mockup__tabs">
+              <span class="mockup__tab mockup__tab--active">BOM Manager</span>
+              <span class="mockup__tab">Work Instructions</span>
+              <span class="mockup__tab">Traceability</span>
+              <span class="mockup__tab">Supply Chain</span>
+            </div>
+          </div>
+          <div class="mockup__body">
+            <div class="mockup__sidebar">
+              <div class="mockup__nav-section">
+                <div class="mockup__nav-label">Workspace</div>
+                <div class="mockup__nav-item mockup__nav-item--active">
+                  <span class="mockup__nav-icon"></span> BOM Manager
+                </div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Work Instructions
+                </div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Part Traceability
+                </div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Config Mgmt
+                </div>
+              </div>
+              <div class="mockup__nav-section">
+                <div class="mockup__nav-label">Supply Chain</div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Purchase Orders
+                </div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Vendor Registry
+                </div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Receiving
+                </div>
+              </div>
+              <div class="mockup__nav-section">
+                <div class="mockup__nav-label">Reports</div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Audit Trail
+                </div>
+                <div class="mockup__nav-item">
+                  <span class="mockup__nav-icon"></span> Analytics
+                </div>
+              </div>
+            </div>
+            <div class="mockup__content">
+              <div class="mockup__header">
+                <div class="mockup__title">Nova-1 Upper Stage Assembly</div>
+                <div class="mockup__actions">
+                  <span class="mockup__action-btn">Export</span>
+                  <span class="mockup__action-btn">History</span>
+                  <span class="mockup__action-btn mockup__action-btn--primary"
+                    >+ Add Part</span
+                  >
+                </div>
+              </div>
+              <table class="mockup__table">
+                <thead>
+                  <tr>
+                    <th>Part Number</th>
+                    <th>Description</th>
+                    <th>Rev</th>
+                    <th>Status</th>
+                    <th>Qty</th>
+                    <th>Supplier</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-2847-A</span></td>
+                    <td>Turbopump Inlet Manifold</td>
+                    <td><span class="mockup__rev">C</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--approved"
+                        ><span class="mockup__status-dot"></span>Approved</span
+                      >
+                    </td>
+                    <td>2</td>
+                    <td>Precision Castparts</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-2848-B</span></td>
+                    <td>Oxidizer Valve Assembly</td>
+                    <td><span class="mockup__rev">D</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--approved"
+                        ><span class="mockup__status-dot"></span>Approved</span
+                      >
+                    </td>
+                    <td>4</td>
+                    <td>Parker Hannifin</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-3011-A</span></td>
+                    <td>Thrust Chamber Liner (Regen)</td>
+                    <td><span class="mockup__rev">B</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--review"
+                        ><span class="mockup__status-dot"></span>In Review</span
+                      >
+                    </td>
+                    <td>1</td>
+                    <td>Additive Rocket Corp</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-3012-C</span></td>
+                    <td>Injector Plate (Pintle Type)</td>
+                    <td><span class="mockup__rev">E</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--approved"
+                        ><span class="mockup__status-dot"></span>Approved</span
+                      >
+                    </td>
+                    <td>1</td>
+                    <td>Stoke Space (Internal)</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-3290-A</span></td>
+                    <td>Nozzle Extension (Niobium)</td>
+                    <td><span class="mockup__rev">A</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--draft"
+                        ><span class="mockup__status-dot"></span>Draft</span
+                      >
+                    </td>
+                    <td>1</td>
+                    <td>C&amp;A Tool Engineering</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-4001-B</span></td>
+                    <td>Avionics Harness (Flight Qual)</td>
+                    <td><span class="mockup__rev">B</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--approved"
+                        ><span class="mockup__status-dot"></span>Approved</span
+                      >
+                    </td>
+                    <td>1</td>
+                    <td>TE Connectivity</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mockup__part-id">BLT-4102-A</span></td>
+                    <td>Propellant Feed Line (316L SS)</td>
+                    <td><span class="mockup__rev">C</span></td>
+                    <td>
+                      <span class="mockup__status mockup__status--review"
+                        ><span class="mockup__status-dot"></span>In Review</span
+                      >
+                    </td>
+                    <td>6</td>
+                    <td>Swagelok</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Product Screenshot -->
+        <div class="hero__product-screenshot">
+          <img
+            src="https://boltline.com/wp-content/uploads/2025/05/Section-Container-Final-1.png"
+            alt="Boltline product interface showing hardware engineering platform"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     LOGO BAR
+     ============================================ -->
+    <section class="logos">
+      <div class="container">
+        <p class="logos__label">Trusted by hardware teams at</p>
+        <div class="logos__grid">
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/05/True-Anomaly.png"
+              alt="True Anomaly"
+          /></span>
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/05/ispace-US-300x40.png"
+              alt="iSpace US"
+          /></span>
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/05/Intuitive-Machines.png"
+              alt="Intuitive Machines"
+          /></span>
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/05/XCIMER.png"
+              alt="XCIMER"
+          /></span>
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/05/The-Lumber-Manufactory.png"
+              alt="The Lumber Manufactory"
+          /></span>
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/05/Seabound-300x33.png"
+              alt="Seabound"
+          /></span>
+          <span class="logos__item"
+            ><img
+              src="https://boltline.com/wp-content/uploads/2025/06/stoke-300x63.png"
+              alt="Stoke Space"
+          /></span>
+        </div>
+        <p class="logos__backer">
+          Backed by Woven Capital, Toyota's growth fund
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================
+     PROBLEM STATEMENT
+     ============================================ -->
+    <section class="section--alt" id="why">
+      <div class="container">
+        <div class="problem__heading">
+          <h2>Hardware teams shouldn't need 6 tools to build one product.</h2>
+        </div>
+        <div class="problem__grid">
+          <div class="problem__card">
+            <div class="problem__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+                <path d="M10 6h4M6 10v4M17 10v4M10 17h4" opacity="0.4" />
+              </svg>
+            </div>
+            <h3>Spreadsheets break at scale</h3>
+            <p>
+              Lost traceability, version chaos, and zero accountability. One
+              wrong cell and your entire BOM is suspect.
+            </p>
+          </div>
+          <div class="problem__card">
+            <div class="problem__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+            </div>
+            <h3>Legacy PLM takes months</h3>
+            <p>
+              Six-figure costs, dedicated admins required, and a deployment
+              timeline measured in quarters, not days.
+            </p>
+          </div>
+          <div class="problem__card">
+            <div class="problem__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M8 3v3a2 2 0 01-2 2H3" />
+                <path d="M21 8h-3a2 2 0 01-2-2V3" />
+                <path d="M3 16h3a2 2 0 012 2v3" />
+                <path d="M16 21v-3a2 2 0 012-2h3" />
+              </svg>
+            </div>
+            <h3>Stitched tools create gaps</h3>
+            <p>
+              Data silos, manual handoffs, and audit nightmares. When tools
+              don't talk, engineers play telephone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     5-STEP WORKFLOW
+     ============================================ -->
+    <section class="workflow">
+      <div class="container">
+        <h2>One platform, full lifecycle.</h2>
+        <p class="workflow__sub">
+          From first sketch to field deployment, Boltline keeps your entire
+          hardware lifecycle in one connected system.
+        </p>
+
+        <div style="position: relative">
+          <div class="workflow__connector"></div>
+          <div class="workflow__stepper">
+            <div class="workflow__step">
+              <div class="workflow__step-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 20h9" />
+                  <path
+                    d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="workflow__step-name">Design</div>
+                <div class="workflow__step-desc">
+                  Define BOMs, specs, and requirements
+                </div>
+              </div>
+            </div>
+            <div class="workflow__step">
+              <div class="workflow__step-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="workflow__step-name">Build</div>
+                <div class="workflow__step-desc">
+                  Execute work instructions on the floor
+                </div>
+              </div>
+            </div>
+            <div class="workflow__step">
+              <div class="workflow__step-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M9 11l3 3L22 4" />
+                  <path
+                    d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="workflow__step-name">Test</div>
+                <div class="workflow__step-desc">
+                  Validate quality at every stage
+                </div>
+              </div>
+            </div>
+            <div class="workflow__step">
+              <div class="workflow__step-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="M21 21l-4.35-4.35" />
+                </svg>
+              </div>
+              <div>
+                <div class="workflow__step-name">Trace</div>
+                <div class="workflow__step-desc">
+                  Full history for every part, every time
+                </div>
+              </div>
+            </div>
+            <div class="workflow__step">
+              <div class="workflow__step-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                  <polyline points="17 6 23 6 23 12" />
+                </svg>
+              </div>
+              <div>
+                <div class="workflow__step-name">Improve</div>
+                <div class="workflow__step-desc">
+                  Learn from data, iterate faster
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tablet Product View -->
+        <div class="workflow__product-image">
+          <img
+            src="https://boltline.com/wp-content/uploads/2025/05/tablet-example.png"
+            alt="Boltline on tablet - work instructions view"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     USE CASES
+     ============================================ -->
+    <section class="section--alt usecases" id="usecases">
+      <div class="container">
+        <h2>Built for how hardware teams actually work.</h2>
+        <p class="usecases__sub">
+          Not another generic project tool. Every feature was designed around
+          the real workflows of engineers building physical products.
+        </p>
+
+        <div class="usecases__grid">
+          <div class="usecase__card">
+            <div class="usecase__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+            </div>
+            <h3>BOM Management</h3>
+            <p>
+              Single source of truth. No more "which spreadsheet is current?"
+              Full revision history, multi-level rollups, and instant exports.
+            </p>
+          </div>
+
+          <div class="usecase__card">
+            <div class="usecase__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+            </div>
+            <h3>Digital Work Instructions</h3>
+            <p>
+              Replace paper travelers with smart, versioned workflows. Visual
+              steps, photo capture, and real-time completion tracking.
+            </p>
+          </div>
+
+          <div class="usecase__card">
+            <div class="usecase__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M7 7h3v3H7zM14 7h3v3h-3zM7 14h3v3H7zM14 14h3v3h-3z" />
+              </svg>
+            </div>
+            <h3>Part Traceability</h3>
+            <p>
+              Scan a QR code, know everything about any part instantly. Full
+              genealogy from raw material to installed location.
+            </p>
+          </div>
+
+          <div class="usecase__card">
+            <div class="usecase__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                />
+              </svg>
+            </div>
+            <h3>Configuration Management</h3>
+            <p>
+              Track every change from prototype to production to field. Know
+              exactly what config is on every unit, every time.
+            </p>
+          </div>
+
+          <div class="usecase__card">
+            <div class="usecase__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="1" y="3" width="15" height="13" rx="2" />
+                <path
+                  d="M16 8h4a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2v-4"
+                />
+              </svg>
+            </div>
+            <h3>Supply Chain</h3>
+            <p>
+              One view of every purchase order, integrated with your ERP. Track
+              suppliers, lead times, and receiving in real time.
+            </p>
+          </div>
+
+          <div class="usecase__card">
+            <div class="usecase__icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3>Compliance &amp; Audit</h3>
+            <p>
+              ITAR-compliant from day one. Automated audit trails, electronic
+              signatures, and export-controlled access management.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     SOCIAL PROOF
+     ============================================ -->
+    <section class="proof">
+      <div class="container">
+        <div class="proof__quote">
+          <div class="proof__mark">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"
+              />
+            </svg>
+          </div>
+          <p class="proof__text">
+            Intuitive Machines uses Boltline to manage hardware for NASA's lunar
+            missions. From BOM to launch pad, every part is tracked.
+          </p>
+          <p class="proof__source">
+            Hardware Engineering Team, Intuitive Machines
+          </p>
+          <a href="#" class="proof__link">
+            Read the case study
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     ORIGIN STORY
+     ============================================ -->
+    <section class="origin section--alt">
+      <div class="container">
+        <div class="origin__inner">
+          <div class="origin__label">Our Story</div>
+          <h2>We built this because we needed it.</h2>
+          <p>
+            Boltline started inside Stoke Space, where engineers were building
+            reusable rockets and couldn't find software that kept up. Every
+            existing tool was either a spreadsheet held together with hope, a
+            legacy PLM system that cost more than the hardware, or a patchwork
+            of disconnected apps that nobody trusted.
+          </p>
+          <p>
+            So they built their own. After proving it on actual rocket hardware
+            &mdash; managing thousands of parts across prototyping,
+            qualification, and production &mdash; they made it available to
+            every hardware team that refuses to accept "that's just how it is."
+          </p>
+
+          <!-- Factory Photo -->
+          <div class="origin__photo">
+            <img
+              src="https://boltline.com/wp-content/uploads/2025/05/20250519-_M0A0766_web_web.jpg"
+              alt="Boltline team at work - hardware engineering facility"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     STATS
+     ============================================ -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats__grid">
+          <div class="stats__item">
+            <div class="stats__number">5 to 500K</div>
+            <div class="stats__label">parts managed</div>
+          </div>
+          <div class="stats__item">
+            <div class="stats__number">Days</div>
+            <div class="stats__label">to deploy, not months</div>
+          </div>
+          <div class="stats__item">
+            <div class="stats__number">ITAR</div>
+            <div class="stats__label">compliant from day one</div>
+          </div>
+          <div class="stats__item">
+            <div class="stats__number">2x</div>
+            <div class="stats__label">revenue growth</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     CTA SECTION
+     ============================================ -->
+    <section class="cta-section section--purple" id="integrations">
+      <div class="container">
+        <h2>Start building better hardware today.</h2>
+        <p>
+          See how Boltline replaces your spreadsheets, legacy PLM, and
+          stitched-together toolchain with one connected platform.
+        </p>
+        <div class="cta-section__actions">
+          <a href="#" class="btn btn--primary">Book a Demo</a>
+          <a href="#" class="btn btn--outline"
+            >Download the Traceability Checklist</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+     FOOTER
+     ============================================ -->
+    <footer class="footer" id="resources">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <div class="footer__logo">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#7a00df"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              Boltline
+            </div>
+            <p class="footer__tagline">
+              Hardware, handled &mdash; from design to deployment. Built by
+              engineers, for engineers.
+            </p>
+            <div class="footer__socials">
+              <a href="#" class="footer__social" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
+                </svg>
+              </a>
+              <a href="#" class="footer__social" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  />
+                </svg>
+              </a>
+              <a href="#" class="footer__social" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer__col">
+            <h4>Product</h4>
+            <a href="#">BOM Management</a>
+            <a href="#">Work Instructions</a>
+            <a href="#">Part Traceability</a>
+            <a href="#">Configuration Mgmt</a>
+            <a href="#">Supply Chain</a>
+            <a href="#">Integrations</a>
+          </div>
+
+          <div class="footer__col">
+            <h4>Company</h4>
+            <a href="#">About</a>
+            <a href="#">Careers</a>
+            <a href="#">Blog</a>
+            <a href="#">Press</a>
+            <a href="#">Contact</a>
+          </div>
+
+          <div class="footer__col">
+            <h4>Resources</h4>
+            <a href="#">Documentation</a>
+            <a href="#">Traceability Checklist</a>
+            <a href="#">Case Studies</a>
+            <a href="#">Security &amp; Compliance</a>
+            <a href="#">Status</a>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <span>&copy; 2026 Boltline. All rights reserved.</span>
+          <span class="footer__motto">Built by engineers, for engineers.</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================
+     MINIMAL JS (Hamburger menu only)
+     ============================================ -->
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const hamburger = document.querySelector(".nav__hamburger");
+        const isActive = menu.classList.toggle("active");
+
+        // Animate hamburger to X
+        const spans = hamburger.querySelectorAll("span");
+        if (isActive) {
+          spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+          spans[1].style.opacity = "0";
+          spans[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
+          document.body.style.overflow = "hidden";
+        } else {
+          spans[0].style.transform = "none";
+          spans[1].style.opacity = "1";
+          spans[2].style.transform = "none";
+          document.body.style.overflow = "";
+        }
+      }
+
+      // Close mobile menu on resize to desktop
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+          const menu = document.getElementById("mobileMenu");
+          const hamburger = document.querySelector(".nav__hamburger");
+          const spans = hamburger.querySelectorAll("span");
+          menu.classList.remove("active");
+          spans[0].style.transform = "none";
+          spans[1].style.opacity = "1";
+          spans[2].style.transform = "none";
+          document.body.style.overflow = "";
+        }
+      });
+    </script>
+
+    <!-- Cross-Iteration Navigation -->
+    <div
+      id="iter-nav"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        font-family:
+          Inter,
+          -apple-system,
+          sans-serif;
+      "
+    >
+      <div style="max-width: 900px; margin: 0 auto; padding: 8px 16px">
+        <div
+          style="
+            background: rgba(10, 10, 15, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
+          "
+        >
+          <a
+            href="index.html"
+            style="
+              color: #888;
+              text-decoration: none;
+              font-size: 12px;
+              font-weight: 600;
+              padding: 6px 10px;
+              border-radius: 8px;
+              transition: all 0.2s;
+              white-space: nowrap;
+            "
+            onmouseover="
+              this.style.color = '#fff';
+              this.style.background = 'rgba(255,255,255,0.08)';
+            "
+            onmouseout="
+              this.style.color = '#888';
+              this.style.background = 'transparent';
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="vertical-align: -2px; margin-right: 4px"
+            >
+              <path d="M6 12L2 8l4-4" /></svg
+            >Hub
+          </a>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              overflow-x: auto;
+              flex: 1;
+              justify-content: center;
+            "
+            id="iter-nav-links"
+          >
+            <a
+              href="01-mission-control.html"
+              data-iter="01"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >01 Mission Control</a
+            >
+            <a
+              href="02-clean-engineering.html"
+              data-iter="02"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >02 Clean Engineering</a
+            >
+            <a
+              href="03-origin-story.html"
+              data-iter="03"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >03 Origin Story</a
+            >
+            <a
+              href="04-product-led.html"
+              data-iter="04"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >04 Product-Led</a
+            >
+            <a
+              href="05-category-creator.html"
+              data-iter="05"
+              style="
+                color: #999;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 6px 12px;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+              "
+              onmouseover="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'rgba(255,255,255,0.06)';
+              "
+              onmouseout="
+                if (!this.classList.contains('active'))
+                  this.style.background = 'transparent';
+              "
+              >05 Category Creator</a
+            >
+          </div>
+          <button
+            onclick="document.getElementById('iter-nav').style.display = 'none'"
+            style="
+              background: none;
+              border: none;
+              color: #555;
+              cursor: pointer;
+              padding: 4px 8px;
+              font-size: 16px;
+              line-height: 1;
+            "
+            title="Hide navigation"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var file = location.pathname.split("/").pop();
+        var num = file.substring(0, 2);
+        var links = document.querySelectorAll("#iter-nav-links a");
+        links.forEach(function (a) {
+          if (a.getAttribute("data-iter") === num) {
+            a.style.background = "rgba(122,0,223,0.25)";
+            a.style.color = "#c084fc";
+            a.style.fontWeight = "700";
+            a.classList.add("active");
+          }
+        });
+        // Add keyboard navigation
+        document.addEventListener("keydown", function (e) {
+          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+            return;
+          var nums = ["01", "02", "03", "04", "05"];
+          var idx = nums.indexOf(num);
+          if (e.key === "ArrowLeft" && idx > 0) {
+            location.href = links[idx - 1].href;
+          } else if (e.key === "ArrowRight" && idx < 4) {
+            location.href = links[idx + 1].href;
+          } else if (e.key === "Escape") {
+            location.href = "index.html";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
