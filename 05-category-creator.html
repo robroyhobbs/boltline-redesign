@@ -1412,9 +1412,114 @@
           letter-spacing: -2px;
         }
       }
+
+      /* ─── UNIFIED NAV ─── */
+      .unified-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        background: rgba(10, 10, 15, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
+        height: 48px;
+        gap: 0;
+      }
+
+      .unified-nav__brand {
+        font-family: "Sora", sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #c084fc;
+        text-decoration: none;
+        white-space: nowrap;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .unified-nav__links {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .unified-nav__links::-webkit-scrollbar { display: none; }
+
+      .unified-nav__links a {
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #555566;
+        text-decoration: none;
+        padding: 0.85rem 0.9rem;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+        transition: all 0.2s;
+        letter-spacing: 0.02em;
+      }
+
+      .unified-nav__links a:hover {
+        color: #8888aa;
+      }
+
+      .unified-nav__links a.active {
+        color: #c084fc;
+        border-bottom-color: #7a00df;
+      }
+
+      .unified-nav__deck {
+        font-family: "Sora", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: #c084fc;
+        text-decoration: none;
+        padding: 0.35rem 0.75rem;
+        border-radius: 9999px;
+        background: rgba(122, 0, 223, 0.1);
+        border: 1px solid rgba(122, 0, 223, 0.2);
+        white-space: nowrap;
+        margin-left: 1rem;
+        flex-shrink: 0;
+        transition: all 0.2s;
+        letter-spacing: 0.03em;
+      }
+
+      .unified-nav__deck:hover {
+        background: rgba(122, 0, 223, 0.2);
+        border-color: rgba(122, 0, 223, 0.35);
+      }
+
+      @media (max-width: 700px) {
+        .unified-nav__brand { font-size: 0.75rem; margin-right: 0.75rem; }
+        .unified-nav__links a { font-size: 0.65rem; padding: 0.85rem 0.6rem; }
+        .unified-nav__deck { font-size: 0.6rem; padding: 0.3rem 0.6rem; }
+      }
     </style>
   </head>
   <body>
+    <nav class="unified-nav">
+      <a href="index.html" class="unified-nav__brand">Boltline Exploration</a>
+      <div class="unified-nav__links">
+        <a href="index.html">Story</a>
+        <a href="01-mission-control.html">01</a>
+        <a href="02-clean-engineering.html">02</a>
+        <a href="03-origin-story.html">03</a>
+        <a href="04-product-led.html">04</a>
+        <a href="05-category-creator.html" class="active">05</a>
+        <a href="competitive-exploration.html">Competitive</a>
+      </div>
+      <a href="https://robroyhobbs.github.io/boltline-90day-deck/" target="_blank" class="unified-nav__deck">90-Day Deck &rarr;</a>
+    </nav>
     <!-- ============================================
      NAVIGATION
      ============================================ -->
@@ -2006,411 +2111,6 @@
     <!-- ============================================
      JAVASCRIPT
      ============================================ -->
-    <script>
-      (function () {
-        "use strict";
-
-        // ========================================
-        // Scroll reveal via Intersection Observer
-        // ========================================
-        const revealElements = document.querySelectorAll(".reveal");
-
-        if ("IntersectionObserver" in window) {
-          const revealObserver = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("visible");
-                  revealObserver.unobserve(entry.target);
-                }
-              });
-            },
-            {
-              threshold: 0.15,
-              rootMargin: "0px 0px -40px 0px",
-            },
-          );
-
-          revealElements.forEach(function (el) {
-            revealObserver.observe(el);
-          });
-        } else {
-          // Fallback: show everything
-          revealElements.forEach(function (el) {
-            el.classList.add("visible");
-          });
-        }
-
-        // ========================================
-        // Animated underlines via Intersection Observer
-        // ========================================
-        const underlineElements = document.querySelectorAll(
-          ".animated-underline",
-        );
-
-        if ("IntersectionObserver" in window) {
-          const underlineObserver = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                  // Small delay so the text reveals first
-                  setTimeout(function () {
-                    entry.target.classList.add("visible");
-                  }, 600);
-                  underlineObserver.unobserve(entry.target);
-                }
-              });
-            },
-            {
-              threshold: 0.5,
-            },
-          );
-
-          underlineElements.forEach(function (el) {
-            underlineObserver.observe(el);
-          });
-        } else {
-          underlineElements.forEach(function (el) {
-            el.classList.add("visible");
-          });
-        }
-
-        // ========================================
-        // Nav scroll behavior
-        // ========================================
-        var nav = document.getElementById("nav");
-        var lastScroll = 0;
-
-        window.addEventListener(
-          "scroll",
-          function () {
-            var currentScroll = window.pageYOffset;
-
-            if (currentScroll > 20) {
-              nav.classList.add("scrolled");
-            } else {
-              nav.classList.remove("scrolled");
-            }
-
-            lastScroll = currentScroll;
-          },
-          { passive: true },
-        );
-
-        // ========================================
-        // Mobile menu toggle
-        // ========================================
-        var mobileToggle = document.getElementById("mobileToggle");
-        var mobileMenu = document.getElementById("mobileMenu");
-        var menuOpen = false;
-
-        mobileToggle.addEventListener("click", function () {
-          menuOpen = !menuOpen;
-          mobileMenu.classList.toggle("active", menuOpen);
-
-          // Animate hamburger to X
-          var spans = mobileToggle.querySelectorAll("span");
-          if (menuOpen) {
-            spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-            spans[1].style.opacity = "0";
-            spans[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
-            document.body.style.overflow = "hidden";
-          } else {
-            spans[0].style.transform = "";
-            spans[1].style.opacity = "";
-            spans[2].style.transform = "";
-            document.body.style.overflow = "";
-          }
-        });
-
-        // Close mobile menu (called by menu links)
-        window.closeMobile = function () {
-          menuOpen = false;
-          mobileMenu.classList.remove("active");
-          var spans = mobileToggle.querySelectorAll("span");
-          spans[0].style.transform = "";
-          spans[1].style.opacity = "";
-          spans[2].style.transform = "";
-          document.body.style.overflow = "";
-        };
-
-        // ========================================
-        // Smooth scroll for anchor links
-        // ========================================
-        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-          anchor.addEventListener("click", function (e) {
-            var targetId = this.getAttribute("href");
-            if (targetId === "#") return;
-
-            var target = document.querySelector(targetId);
-            if (target) {
-              e.preventDefault();
-              var offset = 80; // nav height
-              var top =
-                target.getBoundingClientRect().top +
-                window.pageYOffset -
-                offset;
-              window.scrollTo({ top: top, behavior: "smooth" });
-            }
-          });
-        });
-      })();
-    </script>
-
-    <!-- Cross-Iteration Navigation -->
-    <div
-      id="iter-nav"
-      style="
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 99999;
-        font-family:
-          Inter,
-          -apple-system,
-          sans-serif;
-      "
-    >
-      <div style="max-width: 900px; margin: 0 auto; padding: 8px 16px">
-        <div
-          style="
-            background: rgba(10, 10, 15, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
-          "
-        >
-          <a
-            href="index.html"
-            style="
-              color: #888;
-              text-decoration: none;
-              font-size: 12px;
-              font-weight: 600;
-              padding: 6px 10px;
-              border-radius: 8px;
-              transition: all 0.2s;
-              white-space: nowrap;
-            "
-            onmouseover="
-              this.style.color = '#fff';
-              this.style.background = 'rgba(255,255,255,0.08)';
-            "
-            onmouseout="
-              this.style.color = '#888';
-              this.style.background = 'transparent';
-            "
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              style="vertical-align: -2px; margin-right: 4px"
-            >
-              <path d="M6 12L2 8l4-4" /></svg
-            >Hub
-          </a>
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: 4px;
-              overflow-x: auto;
-              flex: 1;
-              justify-content: center;
-            "
-            id="iter-nav-links"
-          >
-            <a
-              href="01-mission-control.html"
-              data-iter="01"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >01 Mission Control</a
-            >
-            <a
-              href="02-clean-engineering.html"
-              data-iter="02"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >02 Clean Engineering</a
-            >
-            <a
-              href="03-origin-story.html"
-              data-iter="03"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >03 Origin Story</a
-            >
-            <a
-              href="04-product-led.html"
-              data-iter="04"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >04 Product-Led</a
-            >
-            <a
-              href="05-category-creator.html"
-              data-iter="05"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >05 Category Creator</a
-            >
-            <a
-              href="competitive-exploration.html"
-              style="
-                color: #c084fc;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 600;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-                border: 1px solid rgba(122, 0, 223, 0.3);
-              "
-              onmouseover="this.style.background = 'rgba(122,0,223,0.15)';"
-              onmouseout="this.style.background = 'transparent';"
-              >Competitive</a
-            >
-          </div>
-          <button
-            onclick="document.getElementById('iter-nav').style.display = 'none'"
-            style="
-              background: none;
-              border: none;
-              color: #555;
-              cursor: pointer;
-              padding: 4px 8px;
-              font-size: 16px;
-              line-height: 1;
-            "
-            title="Hide navigation"
-          >
-            &times;
-          </button>
-        </div>
-      </div>
-    </div>
-    <script>
-      (function () {
-        var file = location.pathname.split("/").pop();
-        var num = file.substring(0, 2);
-        var links = document.querySelectorAll("#iter-nav-links a");
-        links.forEach(function (a) {
-          if (a.getAttribute("data-iter") === num) {
-            a.style.background = "rgba(122,0,223,0.25)";
-            a.style.color = "#c084fc";
-            a.style.fontWeight = "700";
-            a.classList.add("active");
-          }
-        });
-        // Add keyboard navigation
-        document.addEventListener("keydown", function (e) {
-          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
-            return;
-          var nums = ["01", "02", "03", "04", "05"];
-          var idx = nums.indexOf(num);
-          if (e.key === "ArrowLeft" && idx > 0) {
-            location.href = links[idx - 1].href;
-          } else if (e.key === "ArrowRight" && idx < 4) {
-            location.href = links[idx + 1].href;
-          } else if (e.key === "Escape") {
-            location.href = "index.html";
-          }
-        });
-      })();
-    </script>
+    
   </body>
 </html>

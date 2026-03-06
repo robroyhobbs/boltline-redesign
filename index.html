@@ -736,33 +736,114 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* ─── UNIFIED NAV ─── */
+      .unified-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        background: rgba(10, 10, 15, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
+        height: 48px;
+        gap: 0;
+      }
+
+      .unified-nav__brand {
+        font-family: "Sora", sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #c084fc;
+        text-decoration: none;
+        white-space: nowrap;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .unified-nav__links {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .unified-nav__links::-webkit-scrollbar { display: none; }
+
+      .unified-nav__links a {
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #555566;
+        text-decoration: none;
+        padding: 0.85rem 0.9rem;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+        transition: all 0.2s;
+        letter-spacing: 0.02em;
+      }
+
+      .unified-nav__links a:hover {
+        color: #8888aa;
+      }
+
+      .unified-nav__links a.active {
+        color: #c084fc;
+        border-bottom-color: #7a00df;
+      }
+
+      .unified-nav__deck {
+        font-family: "Sora", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: #c084fc;
+        text-decoration: none;
+        padding: 0.35rem 0.75rem;
+        border-radius: 9999px;
+        background: rgba(122, 0, 223, 0.1);
+        border: 1px solid rgba(122, 0, 223, 0.2);
+        white-space: nowrap;
+        margin-left: 1rem;
+        flex-shrink: 0;
+        transition: all 0.2s;
+        letter-spacing: 0.03em;
+      }
+
+      .unified-nav__deck:hover {
+        background: rgba(122, 0, 223, 0.2);
+        border-color: rgba(122, 0, 223, 0.35);
+      }
+
+      @media (max-width: 700px) {
+        .unified-nav__brand { font-size: 0.75rem; margin-right: 0.75rem; }
+        .unified-nav__links a { font-size: 0.65rem; padding: 0.85rem 0.6rem; }
+        .unified-nav__deck { font-size: 0.6rem; padding: 0.3rem 0.6rem; }
+      }
     </style>
   </head>
   <body>
     <!-- Navigation -->
-    <nav class="story-nav" id="nav">
-      <div class="story-nav__inner">
-        <a href="#" class="story-nav__logo">
-          <svg viewBox="0 0 36 36" fill="none">
-            <path
-              d="M20 2L8 20h8l-4 14L28 16h-8l4-14z"
-              fill="#7a00df"
-              stroke="#9333ea"
-              stroke-width="1"
-            />
-          </svg>
-          <span>Boltline Exploration</span>
-        </a>
-        <ul class="story-nav__links">
-          <li><a href="#audit">The Audit</a></li>
-          <li><a href="#findings">Findings</a></li>
-          <li><a href="#approach">Approach</a></li>
-          <li><a href="#iterations">Iterations</a></li>
-          <li><a href="competitive-exploration.html">Competitive</a></li>
-          <li><a href="#next">Next Steps</a></li>
-        </ul>
-        <a href="#iterations" class="story-nav__cta">View Iterations</a>
+        <nav class="unified-nav">
+      <a href="index.html" class="unified-nav__brand">Boltline Exploration</a>
+      <div class="unified-nav__links">
+        <a href="index.html" class="active">Story</a>
+        <a href="01-mission-control.html">01</a>
+        <a href="02-clean-engineering.html">02</a>
+        <a href="03-origin-story.html">03</a>
+        <a href="04-product-led.html">04</a>
+        <a href="05-category-creator.html">05</a>
+        <a href="competitive-exploration.html">Competitive</a>
       </div>
+      <a href="https://robroyhobbs.github.io/boltline-90day-deck/" target="_blank" class="unified-nav__deck">90-Day Deck &rarr;</a>
     </nav>
 
     <!-- Hero -->

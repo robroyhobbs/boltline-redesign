@@ -1681,9 +1681,114 @@
         border-radius: 12px;
         overflow: hidden;
       }
+
+      /* ─── UNIFIED NAV ─── */
+      .unified-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        background: rgba(10, 10, 15, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
+        height: 48px;
+        gap: 0;
+      }
+
+      .unified-nav__brand {
+        font-family: "Sora", sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #c084fc;
+        text-decoration: none;
+        white-space: nowrap;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .unified-nav__links {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .unified-nav__links::-webkit-scrollbar { display: none; }
+
+      .unified-nav__links a {
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #555566;
+        text-decoration: none;
+        padding: 0.85rem 0.9rem;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+        transition: all 0.2s;
+        letter-spacing: 0.02em;
+      }
+
+      .unified-nav__links a:hover {
+        color: #8888aa;
+      }
+
+      .unified-nav__links a.active {
+        color: #c084fc;
+        border-bottom-color: #7a00df;
+      }
+
+      .unified-nav__deck {
+        font-family: "Sora", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: #c084fc;
+        text-decoration: none;
+        padding: 0.35rem 0.75rem;
+        border-radius: 9999px;
+        background: rgba(122, 0, 223, 0.1);
+        border: 1px solid rgba(122, 0, 223, 0.2);
+        white-space: nowrap;
+        margin-left: 1rem;
+        flex-shrink: 0;
+        transition: all 0.2s;
+        letter-spacing: 0.03em;
+      }
+
+      .unified-nav__deck:hover {
+        background: rgba(122, 0, 223, 0.2);
+        border-color: rgba(122, 0, 223, 0.35);
+      }
+
+      @media (max-width: 700px) {
+        .unified-nav__brand { font-size: 0.75rem; margin-right: 0.75rem; }
+        .unified-nav__links a { font-size: 0.65rem; padding: 0.85rem 0.6rem; }
+        .unified-nav__deck { font-size: 0.6rem; padding: 0.3rem 0.6rem; }
+      }
     </style>
   </head>
   <body>
+    <nav class="unified-nav">
+      <a href="index.html" class="unified-nav__brand">Boltline Exploration</a>
+      <div class="unified-nav__links">
+        <a href="index.html">Story</a>
+        <a href="01-mission-control.html">01</a>
+        <a href="02-clean-engineering.html">02</a>
+        <a href="03-origin-story.html" class="active">03</a>
+        <a href="04-product-led.html">04</a>
+        <a href="05-category-creator.html">05</a>
+        <a href="competitive-exploration.html">Competitive</a>
+      </div>
+      <a href="https://robroyhobbs.github.io/boltline-90day-deck/" target="_blank" class="unified-nav__deck">90-Day Deck &rarr;</a>
+    </nav>
     <!-- ============================================================
      NAVIGATION
      ============================================================ -->
@@ -2628,437 +2733,6 @@
     <!-- ============================================================
      JAVASCRIPT
      ============================================================ -->
-    <script>
-      (function () {
-        "use strict";
-
-        // ----------------------------------------------------------
-        // 1. INTERSECTION OBSERVER — Scroll Reveal
-        // ----------------------------------------------------------
-        const revealElements = document.querySelectorAll(
-          ".reveal, .reveal-left, .reveal-scale",
-        );
-
-        const revealObserver = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-              }
-            });
-          },
-          {
-            threshold: 0.12,
-            rootMargin: "0px 0px -40px 0px",
-          },
-        );
-
-        revealElements.forEach(function (el) {
-          revealObserver.observe(el);
-        });
-
-        // ----------------------------------------------------------
-        // 2. NAVIGATION — Dark/Light transition + scrolled state
-        // ----------------------------------------------------------
-        var nav = document.getElementById("mainNav");
-        var lightSections = document.querySelectorAll(
-          ".chapter-reveal, .chapter-usecases, .chapter-customers, .chapter-cta",
-        );
-
-        function updateNav() {
-          var scrollY = window.scrollY || window.pageYOffset;
-          var navBottom = nav.offsetHeight + 20;
-
-          // Scrolled state (compact padding)
-          if (scrollY > 60) {
-            nav.classList.add("scrolled");
-          } else {
-            nav.classList.remove("scrolled");
-          }
-
-          // Determine if nav overlaps a light section
-          var isOverLight = false;
-          lightSections.forEach(function (section) {
-            var rect = section.getBoundingClientRect();
-            if (rect.top < navBottom && rect.bottom > 0) {
-              isOverLight = true;
-            }
-          });
-
-          if (isOverLight) {
-            nav.classList.remove("nav-dark");
-            nav.classList.add("nav-light");
-          } else {
-            nav.classList.remove("nav-light");
-            nav.classList.add("nav-dark");
-          }
-        }
-
-        // Throttled scroll handler
-        var ticking = false;
-        window.addEventListener("scroll", function () {
-          if (!ticking) {
-            window.requestAnimationFrame(function () {
-              updateNav();
-              ticking = false;
-            });
-            ticking = true;
-          }
-        });
-
-        updateNav();
-
-        // ----------------------------------------------------------
-        // 3. MOBILE NAV TOGGLE
-        // ----------------------------------------------------------
-        var mobileToggle = document.getElementById("mobileToggle");
-        var navLinks = document.getElementById("navLinks");
-
-        mobileToggle.addEventListener("click", function () {
-          mobileToggle.classList.toggle("active");
-          navLinks.classList.toggle("open");
-        });
-
-        // Close mobile nav on link click
-        navLinks.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", function () {
-            mobileToggle.classList.remove("active");
-            navLinks.classList.remove("open");
-          });
-        });
-
-        // ----------------------------------------------------------
-        // 4. HERO PARTICLES — CSS-animated sparks
-        // ----------------------------------------------------------
-        var particleContainer = document.getElementById("heroParticles");
-        var particleCount = 40;
-
-        for (var i = 0; i < particleCount; i++) {
-          var p = document.createElement("div");
-          p.className = "particle";
-          var size = Math.random() * 3 + 1;
-          p.style.width = size + "px";
-          p.style.height = size + "px";
-          p.style.left = Math.random() * 100 + "%";
-          p.style.bottom = -20 + "px";
-          p.style.animationDuration = Math.random() * 8 + 6 + "s";
-          p.style.animationDelay = Math.random() * 10 + "s";
-          // Some particles are brighter amber, others dimmer
-          var opacity = (Math.random() * 0.5 + 0.3).toFixed(2);
-          p.style.background = "rgba(245, 158, 11, " + opacity + ")";
-          // A few particles glow
-          if (Math.random() > 0.7) {
-            p.style.boxShadow =
-              "0 0 " + size * 3 + "px rgba(245, 158, 11, 0.4)";
-          }
-          particleContainer.appendChild(p);
-        }
-
-        // ----------------------------------------------------------
-        // 5. SMOOTH SCROLL for anchor links
-        // ----------------------------------------------------------
-        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-          anchor.addEventListener("click", function (e) {
-            var target = document.querySelector(this.getAttribute("href"));
-            if (target) {
-              e.preventDefault();
-              var offset = nav.offsetHeight + 10;
-              var targetPosition =
-                target.getBoundingClientRect().top +
-                window.pageYOffset -
-                offset;
-              window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth",
-              });
-            }
-          });
-        });
-
-        // ----------------------------------------------------------
-        // 6. PARALLAX-LITE — subtle vertical shift on scroll
-        // ----------------------------------------------------------
-        var heroContent = document.querySelector(".hero-content");
-
-        function parallaxUpdate() {
-          var scrollY = window.scrollY || window.pageYOffset;
-          if (scrollY < window.innerHeight) {
-            var factor = scrollY * 0.3;
-            heroContent.style.transform = "translateY(" + factor + "px)";
-            heroContent.style.opacity = Math.max(
-              0,
-              1 - scrollY / (window.innerHeight * 0.7),
-            );
-          }
-        }
-
-        var parallaxTicking = false;
-        window.addEventListener("scroll", function () {
-          if (!parallaxTicking) {
-            window.requestAnimationFrame(function () {
-              parallaxUpdate();
-              parallaxTicking = false;
-            });
-            parallaxTicking = true;
-          }
-        });
-      })();
-    </script>
-
-    <!-- Cross-Iteration Navigation -->
-    <div
-      id="iter-nav"
-      style="
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 99999;
-        font-family:
-          Inter,
-          -apple-system,
-          sans-serif;
-      "
-    >
-      <div style="max-width: 900px; margin: 0 auto; padding: 8px 16px">
-        <div
-          style="
-            background: rgba(10, 10, 15, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
-          "
-        >
-          <a
-            href="index.html"
-            style="
-              color: #888;
-              text-decoration: none;
-              font-size: 12px;
-              font-weight: 600;
-              padding: 6px 10px;
-              border-radius: 8px;
-              transition: all 0.2s;
-              white-space: nowrap;
-            "
-            onmouseover="
-              this.style.color = '#fff';
-              this.style.background = 'rgba(255,255,255,0.08)';
-            "
-            onmouseout="
-              this.style.color = '#888';
-              this.style.background = 'transparent';
-            "
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              style="vertical-align: -2px; margin-right: 4px"
-            >
-              <path d="M6 12L2 8l4-4" /></svg
-            >Hub
-          </a>
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: 4px;
-              overflow-x: auto;
-              flex: 1;
-              justify-content: center;
-            "
-            id="iter-nav-links"
-          >
-            <a
-              href="01-mission-control.html"
-              data-iter="01"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >01 Mission Control</a
-            >
-            <a
-              href="02-clean-engineering.html"
-              data-iter="02"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >02 Clean Engineering</a
-            >
-            <a
-              href="03-origin-story.html"
-              data-iter="03"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >03 Origin Story</a
-            >
-            <a
-              href="04-product-led.html"
-              data-iter="04"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >04 Product-Led</a
-            >
-            <a
-              href="05-category-creator.html"
-              data-iter="05"
-              style="
-                color: #999;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-              "
-              onmouseover="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'rgba(255,255,255,0.06)';
-              "
-              onmouseout="
-                if (!this.classList.contains('active'))
-                  this.style.background = 'transparent';
-              "
-              >05 Category Creator</a
-            >
-            <a
-              href="competitive-exploration.html"
-              style="
-                color: #c084fc;
-                text-decoration: none;
-                font-size: 11px;
-                font-weight: 600;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s;
-                white-space: nowrap;
-                border: 1px solid rgba(122, 0, 223, 0.3);
-              "
-              onmouseover="this.style.background = 'rgba(122,0,223,0.15)';"
-              onmouseout="this.style.background = 'transparent';"
-              >Competitive</a
-            >
-          </div>
-          <button
-            onclick="document.getElementById('iter-nav').style.display = 'none'"
-            style="
-              background: none;
-              border: none;
-              color: #555;
-              cursor: pointer;
-              padding: 4px 8px;
-              font-size: 16px;
-              line-height: 1;
-            "
-            title="Hide navigation"
-          >
-            &times;
-          </button>
-        </div>
-      </div>
-    </div>
-    <script>
-      (function () {
-        var file = location.pathname.split("/").pop();
-        var num = file.substring(0, 2);
-        var links = document.querySelectorAll("#iter-nav-links a");
-        links.forEach(function (a) {
-          if (a.getAttribute("data-iter") === num) {
-            a.style.background = "rgba(122,0,223,0.25)";
-            a.style.color = "#c084fc";
-            a.style.fontWeight = "700";
-            a.classList.add("active");
-          }
-        });
-        // Add keyboard navigation
-        document.addEventListener("keydown", function (e) {
-          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
-            return;
-          var nums = ["01", "02", "03", "04", "05"];
-          var idx = nums.indexOf(num);
-          if (e.key === "ArrowLeft" && idx > 0) {
-            location.href = links[idx - 1].href;
-          } else if (e.key === "ArrowRight" && idx < 4) {
-            location.href = links[idx + 1].href;
-          } else if (e.key === "Escape") {
-            location.href = "index.html";
-          }
-        });
-      })();
-    </script>
+    
   </body>
 </html>
