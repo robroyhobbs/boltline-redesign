@@ -1162,6 +1162,47 @@
         line-height: 1.6;
         color: var(--text);
       }
+
+      /* My Take callouts */
+      .my-take {
+        background: rgba(0, 208, 132, 0.06);
+        border: 1px solid rgba(0, 208, 132, 0.25);
+        border-left: 3px solid var(--green);
+        border-radius: 0 12px 12px 0;
+        padding: 1.5rem 1.75rem;
+        margin: 1.5rem 0;
+      }
+
+      .my-take-label {
+        font-family: "Sora", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 0.5rem;
+      }
+
+      .my-take p {
+        font-size: 0.92rem;
+        line-height: 1.65;
+        color: var(--text);
+      }
+
+      /* Responsive grid fix for 4-col */
+      @media (max-width: 700px) {
+        .four-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .three-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+      @media (min-width: 701px) and (max-width: 900px) {
+        .four-grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1184,25 +1225,28 @@
       <div class="container">
         <div class="hero-badge">Competitive Intelligence</div>
         <h1>Boltline vs. The Landscape</h1>
-        <p>
-          A strategic analysis of how Boltline positions against Tulip, First
-          Resonance, enterprise incumbents, and the status quo — with revised
-          messaging recommendations.
-        </p>
+        <p>Where Boltline stands against Tulip, First Resonance, and the status quo — and what to do about it.</p>
       </div>
     </section>
 
-    <!-- Section 1: The Landscape -->
+    <!-- Executive POV -->
+    <section style="padding-top: 0;">
+      <div class="container">
+        <div class="my-take reveal">
+          <div class="my-take-label">My Take</div>
+          <p>
+            Boltline has a stronger story than its website tells. The product is real, the origin is credible, and the competitive gap is clear. The company owns a space neither Tulip nor First Resonance fully occupies: <strong>the bridge between engineering and build execution</strong>. The problem isn't the product — it's that the positioning doesn't yet claim that territory loudly enough. Here's the analysis and what I'd change.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Three Companies -->
     <section id="landscape">
       <div class="container">
         <div class="reveal">
           <div class="section-label">The Landscape</div>
           <h2 class="section-title">Three Companies, Three Territories</h2>
-          <p class="section-desc">
-            Boltline, Tulip, and First Resonance each approach manufacturing
-            software from a different angle. Understanding these territories is
-            key to positioning.
-          </p>
         </div>
 
         <div class="landscape-grid reveal">
@@ -1215,24 +1259,11 @@
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Origin</div>
-              <div class="company-detail-value">
-                Spun out of Stoke Space Technologies — built to solve their own
-                engineering-to-build coordination problem
-              </div>
+              <div class="company-detail-value">Spun out of Stoke Space — built to solve their own engineering-to-build coordination problem</div>
             </div>
             <div class="company-detail">
-              <div class="company-detail-label">Core Focus</div>
-              <div class="company-detail-value">
-                Engineering changes, build workflows, as-built traceability,
-                configuration management
-              </div>
-            </div>
-            <div class="company-detail">
-              <div class="company-detail-label">Key Differentiator</div>
-              <div class="company-detail-value">
-                The bridge between engineering systems and factory execution —
-                where design changes become real
-              </div>
+              <div class="company-detail-label">Differentiator</div>
+              <div class="company-detail-value">The bridge between engineering systems and factory execution — where design changes become real</div>
             </div>
           </div>
 
@@ -1241,30 +1272,15 @@
             <div class="company-tagline">"Frontline operations platform"</div>
             <div class="company-detail">
               <div class="company-detail-label">Territory</div>
-              <div class="company-detail-value">
-                Composable Operations Platform
-              </div>
+              <div class="company-detail-value">Composable Operations Platform</div>
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Origin</div>
-              <div class="company-detail-value">
-                MIT-born, well-funded ($200M+), Gartner-recognized broad
-                manufacturing platform
-              </div>
+              <div class="company-detail-value">MIT-born, $200M+ funded, Gartner-recognized broad manufacturing platform</div>
             </div>
             <div class="company-detail">
-              <div class="company-detail-label">Core Focus</div>
-              <div class="company-detail-value">
-                No-code app builder for factory workflows, quality, training,
-                digital SOPs across industries
-              </div>
-            </div>
-            <div class="company-detail">
-              <div class="company-detail-label">Key Differentiator</div>
-              <div class="company-detail-value">
-                Breadth — can digitize almost any frontline operation, not
-                specific to hardware engineering
-              </div>
+              <div class="company-detail-label">Differentiator</div>
+              <div class="company-detail-value">Breadth — digitizes almost any frontline operation, not specific to hardware engineering</div>
             </div>
           </div>
 
@@ -1277,93 +1293,39 @@
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Origin</div>
-              <div class="company-detail-value">
-                SpaceX/Tesla alumni — modern MES replacement with aerospace DNA
-              </div>
+              <div class="company-detail-value">SpaceX/Tesla alumni — modern MES replacement with aerospace DNA</div>
             </div>
             <div class="company-detail">
-              <div class="company-detail-label">Core Focus</div>
-              <div class="company-detail-value">
-                Factory execution, BOM management, work orders, quality control,
-                inventory — modern MES
-              </div>
-            </div>
-            <div class="company-detail">
-              <div class="company-detail-label">Key Differentiator</div>
-              <div class="company-detail-value">
-                "Factory OS" category claim — comprehensive factory-floor
-                control with AI features
-              </div>
+              <div class="company-detail-label">Differentiator</div>
+              <div class="company-detail-value">"Factory OS" category claim — comprehensive factory-floor control with AI features</div>
             </div>
           </div>
         </div>
 
-        <!-- Positioning Map -->
-        <div class="positioning-map reveal">
-          <div class="section-label" style="text-align: center">
-            Where They Play
-          </div>
-          <h3
-            class="section-title"
-            style="text-align: center; font-size: 1.3rem"
-          >
-            The Competitive Spectrum
-          </h3>
-          <div class="map-visual">
-            <div class="map-zone engineering">
-              <div class="map-zone-label">Engineering-to-Build</div>
-              <div class="map-zone-title" style="color: var(--purple-light)">
-                Boltline
-              </div>
-              <div class="map-zone-desc">
-                Where design changes become executable. Configuration control,
-                traceability, and iterative hardware coordination.
-              </div>
-            </div>
-            <div class="map-zone platform">
-              <div class="map-zone-label">Broad Platform</div>
-              <div class="map-zone-title" style="color: var(--tulip-color)">
-                Tulip
-              </div>
-              <div class="map-zone-desc">
-                Digitize any frontline operation. Composable apps, broad
-                industry coverage, platform flexibility.
-              </div>
-            </div>
-            <div class="map-zone factory">
-              <div class="map-zone-label">Factory Execution</div>
-              <div class="map-zone-title" style="color: var(--fr-color)">
-                First Resonance
-              </div>
-              <div class="map-zone-desc">
-                Factory OS — comprehensive floor control. Modern MES with AI,
-                covering the full production lifecycle.
-              </div>
-            </div>
-          </div>
+        <div class="my-take reveal">
+          <div class="my-take-label">My Take</div>
+          <p>
+            Tulip wins on breadth. First Resonance wins on category naming. Boltline wins on <strong>authenticity and specificity</strong> — it sounds like software built by people who actually build hardware. That's an unfair advantage. The gap is that Boltline hasn't named its category clearly enough. "Iterative hardware engineering" isn't a search term. <strong>"Hardware execution system" is the claim.</strong>
+          </p>
         </div>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
-    <!-- Section 2: Messaging Comparison Table -->
-    <section id="messaging">
+    <!-- Section 2: Side-by-Side -->
+    <section id="comparison">
       <div class="container">
         <div class="reveal">
           <div class="section-label">Messaging Comparison</div>
           <h2 class="section-title">How Each Company Speaks</h2>
-          <p class="section-desc">
-            Side-by-side comparison of positioning, language, and approach
-            across all three companies.
-          </p>
         </div>
 
         <div class="card reveal" style="overflow-x: auto">
           <table class="comparison-table">
             <thead>
               <tr>
-                <th>Dimension</th>
+                <th></th>
                 <th class="boltline-col">Boltline</th>
                 <th class="tulip-col">Tulip</th>
                 <th class="fr-col">First Resonance</th>
@@ -1371,87 +1333,34 @@
             </thead>
             <tbody>
               <tr>
-                <td>Category Claim</td>
-                <td>
-                  "Iterative hardware engineering" (emerging — not yet a
-                  standard category term)
-                </td>
-                <td>
-                  "Frontline operations platform" (broad, well-marketed,
-                  Gartner-validated)
-                </td>
-                <td>
-                  "Factory OS" (strong, distinctive — though potentially
-                  limiting)
-                </td>
+                <td>Category</td>
+                <td>"Iterative hardware engineering" — emerging, not yet a standard term</td>
+                <td>"Frontline operations platform" — broad, Gartner-validated</td>
+                <td>"Factory OS" — strong, distinctive, potentially limiting</td>
               </tr>
               <tr>
-                <td>Primary Buyer</td>
-                <td>
-                  Hardware engineering leads, manufacturing ops at advanced
-                  hardware companies
-                </td>
-                <td>VP Manufacturing, process engineers across any industry</td>
-                <td>
-                  Manufacturing engineering leaders at hardware/aerospace
-                  companies
-                </td>
+                <td>Voice</td>
+                <td>Builder-first, practitioner-credible, low-fluff</td>
+                <td>Enterprise-polished, platform-centric, AI-forward</td>
+                <td>Technical-modern, factory-focused, AI-forward</td>
               </tr>
               <tr>
-                <td>Voice & Tone</td>
-                <td>
-                  Builder-first, authentic, practitioner-credible, low-fluff
-                </td>
-                <td>
-                  Enterprise-polished, platform-centric, AI-forward, broad
-                </td>
-                <td>
-                  Technical-modern, factory-focused, increasingly AI-forward
-                </td>
+                <td>Proof</td>
+                <td>Stoke origin + space/defense logos, concrete outcomes</td>
+                <td>Enterprise logos (Henkel, Hershey's), Gartner, scale</td>
+                <td>Aerospace customers (Relativity Space), Factory OS narrative</td>
               </tr>
               <tr>
-                <td>Proof Model</td>
-                <td>
-                  Named customers (Stoke origin + space/defense logos), concrete
-                  JTBD outcomes
-                </td>
-                <td>
-                  Enterprise logos (Henkel, Hershey's), Gartner recognition,
-                  scale social proof
-                </td>
-                <td>
-                  Aerospace customers (Relativity Space), technical case
-                  studies, Factory OS narrative
-                </td>
+                <td>Strength</td>
+                <td>Authenticity — sounds like people who understand real hardware ops</td>
+                <td>Scale and breadth across many manufacturing use cases</td>
+                <td>"Factory OS" is memorable and defensible</td>
               </tr>
               <tr>
-                <td>Key Strength</td>
-                <td>
-                  Authenticity — sounds like software built by people who
-                  understand real hardware ops
-                </td>
-                <td>
-                  Scale and breadth — can address many manufacturing use cases
-                  at enterprise level
-                </td>
-                <td>
-                  Category ownership — "Factory OS" is memorable and defensible
-                </td>
-              </tr>
-              <tr>
-                <td>Key Gap</td>
-                <td>
-                  Category definition clarity — "iterative hardware engineering"
-                  isn't yet a search term
-                </td>
-                <td>
-                  Hardware specificity — breadth means less depth for advanced
-                  hardware teams
-                </td>
-                <td>
-                  Engineering emphasis — factory-centric, less about the
-                  eng-to-build handoff
-                </td>
+                <td>Gap</td>
+                <td>Category clarity — "iterative hardware engineering" isn't a search term</td>
+                <td>Hardware specificity — breadth means less depth for advanced teams</td>
+                <td>Engineering emphasis — factory-centric, less eng-to-build handoff</td>
               </tr>
             </tbody>
           </table>
@@ -1461,91 +1370,52 @@
 
     <div class="section-divider"></div>
 
-    <!-- Section 3: Boltline Brand Assessment -->
+    <!-- Section 3: Strengths and Gaps -->
     <section id="assessment">
       <div class="container">
         <div class="reveal">
           <div class="section-label">Brand Assessment</div>
-          <h2 class="section-title">
-            Where Boltline Wins — and Where to Build
-          </h2>
-          <p class="section-desc">
-            Boltline's strongest competitive advantage is authenticity. The
-            challenge is converting that into clear category ownership.
-          </p>
+          <h2 class="section-title">Boltline's Position Today</h2>
         </div>
 
         <div class="sg-grid reveal">
           <div class="sg-card strengths">
             <h3>Strengths</h3>
             <div class="sg-item">
-              <div class="sg-item-title">Origin Story Credibility</div>
-              <div class="sg-item-desc">
-                Built inside Stoke Space to solve their own problem. Competitors
-                can't copy this — it's an unfair advantage.
-              </div>
+              <div class="sg-item-title">Origin Story</div>
+              <div class="sg-item-desc">Built inside Stoke Space to solve their own problem. Competitors can't copy this.</div>
             </div>
             <div class="sg-item">
-              <div class="sg-item-title">Concrete JTBD Language</div>
-              <div class="sg-item-desc">
-                Speaks in parts, assemblies, configuration management, work
-                instructions — real practitioner terms, not abstract
-                transformation talk.
-              </div>
-            </div>
-            <div class="sg-item">
-              <div class="sg-item-title">Builder-First Persona</div>
-              <div class="sg-item-desc">
-                Reads like a tool built by engineers for engineers. More human
-                and engineering-linked than competitors.
-              </div>
+              <div class="sg-item-title">Practitioner Language</div>
+              <div class="sg-item-desc">Parts, assemblies, configuration management, work instructions — real terms, not consulting-speak.</div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Engineering-to-Build Focus</div>
-              <div class="sg-item-desc">
-                Owns a specific gap neither Tulip nor First Resonance fully
-                addresses — the handoff from design to production.
-              </div>
+              <div class="sg-item-desc">Owns the gap between design and production that neither Tulip nor First Resonance fully addresses.</div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Mission-Critical Proof</div>
-              <div class="sg-item-desc">
-                Customers in space, defense, and advanced manufacturing. Real
-                operational proof from high-stakes environments.
-              </div>
+              <div class="sg-item-desc">Customers in space, defense, and advanced manufacturing. High-stakes environments.</div>
             </div>
           </div>
 
           <div class="sg-card gaps">
             <h3>Gaps to Close</h3>
             <div class="sg-item">
-              <div class="sg-item-title">Category Definition Clarity</div>
-              <div class="sg-item-desc">
-                "Iterative hardware engineering" isn't a search term yet. Need
-                to standardize "hardware execution system" across all materials.
-              </div>
+              <div class="sg-item-title">Category Naming</div>
+              <div class="sg-item-desc">"Iterative hardware engineering" needs to become "hardware execution system" — repeatable, searchable, ownable.</div>
             </div>
             <div class="sg-item">
-              <div class="sg-item-title">Executive Outcomes Layer</div>
-              <div class="sg-item-desc">
-                Strong practitioner messaging but missing the business-outcome
-                language (ROI, ramp time, audit readiness) that executive buyers
-                need.
-              </div>
+              <div class="sg-item-title">Executive Layer</div>
+              <div class="sg-item-desc">Strong practitioner messaging but missing business-outcome language for VPs and C-suite.</div>
             </div>
             <div class="sg-item">
-              <div class="sg-item-title">Comparative Proof Packaging</div>
-              <div class="sg-item-desc">
-                No "Boltline vs." one-pagers, objection handling guides, or
-                competitive comparison assets for sales cycles.
-              </div>
+              <div class="sg-item-title">Competitive Proof</div>
+              <div class="sg-item-desc">No "Boltline vs." one-pagers, no objection-handling guides, no packaged comparison assets.</div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Public Proof at Scale</div>
-              <div class="sg-item-desc">
-                Strong named customers, but limited public case studies with
-                quantified outcomes. Need 3-5 with measurable results.
-              </div>
+              <div class="sg-item-desc">Strong named customers, but limited public case studies with quantified results.</div>
             </div>
           </div>
         </div>
@@ -1554,333 +1424,33 @@
 
     <div class="section-divider"></div>
 
-    <!-- Section 4: Hero Messaging Showdown -->
-    <section id="heroes">
-      <div class="container">
-        <div class="reveal">
-          <div class="section-label">Hero Messaging</div>
-          <h2 class="section-title">Current vs. Proposed Headlines</h2>
-          <p class="section-desc">
-            Six hero directions — from category-defining to emotionally resonant
-            — compared against the current homepage messaging.
-          </p>
-        </div>
-
-        <!-- Current -->
-        <div class="hero-option current reveal">
-          <div class="hero-option-number">Current Homepage</div>
-          <h3>Iterative Hardware Engineering</h3>
-          <div class="subheadline">
-            Boltline is a platform for iterative hardware teams to move faster.
-          </div>
-          <div class="rationale">
-            <strong>Assessment:</strong> Authentic but under-leveraged.
-            "Iterative hardware engineering" isn't a recognized category term.
-            Doesn't clearly state what Boltline replaces or why a buyer should
-            care. Missing the engineering-to-build bridge that is Boltline's
-            core value.
-          </div>
-        </div>
-
-        <!-- Recommended -->
-        <div class="hero-option recommended reveal">
-          <div class="hero-option-number">Option 1 — Category-Led</div>
-          <h3>The hardware execution system for complex builds.</h3>
-          <div class="subheadline">
-            Boltline connects engineering changes, build workflows, and as-built
-            traceability in one cloud platform, helping advanced hardware teams
-            move faster with less rework and more control.
-          </div>
-          <div class="rationale">
-            <strong>Why it's strongest:</strong> Gives Boltline a clear category
-            ("hardware execution system"). Sounds credible and practical. Works
-            for both engineers and executive buyers. Differentiates from Tulip's
-            platform story and First Resonance's Factory OS. Connects directly
-            to current product language (parts, workflows, traceability).
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option 2 — Practical Operator</div>
-          <h3>From engineering change to as-built reality.</h3>
-          <div class="subheadline">
-            Coordinate parts, people, and processes across design, build, test,
-            and deployment in one system built for fast-moving hardware teams.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> More tactile and concrete. Maps
-            directly to Boltline's design > build > test > trace > improve
-            structure. Less category-defining but more product-true.
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option 3 — Pain-Led Challenger</div>
-          <h3>Build complex hardware without disconnected systems.</h3>
-          <div class="subheadline">
-            Replace spreadsheets, point tools, and manual handoffs with a
-            platform built for traceable execution, configuration control, and
-            fast-moving hardware programs.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Sharper against status quo
-            competition. Explicitly positions against fragmented tools. Strong
-            when hidden competitor (spreadsheets) is the main barrier.
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option 4 — Emotional Promise</div>
-          <h3>Move fast without losing control.</h3>
-          <div class="subheadline">
-            Boltline helps advanced hardware teams turn engineering changes into
-            controlled execution with connected workflows, full traceability,
-            and a clear as-built record.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Strong emotional promise. Reinforces
-            builder-first identity. Less category-explicit but memorable.
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option 5 — Digital Thread</div>
-          <h3>The digital thread for modern hardware execution.</h3>
-          <div class="subheadline">
-            Boltline links design, build, and operational history in one system,
-            helping teams scale complexity with speed, rigor, and less rework.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Strong for buyers who already
-            understand digital-thread language. Slightly more jargon-heavy but
-            technically credible.
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option 6 — Builder Identity</div>
-          <h3>Built for hardware teams that iterate in the real world.</h3>
-          <div class="subheadline">
-            From BOM changes to work instructions to deployment history,
-            Boltline keeps every part, assembly, and decision connected.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Very brand-right and authentic.
-            Preserves builder-first persona. Less category-defining but highly
-            differentiated in tone.
-          </div>
-        </div>
-
-        <div class="callout reveal">
-          <h4>Recommended Approach</h4>
-          <p>
-            Use Option 1 (category-led) on the homepage hero, then borrow the
-            more concrete, hands-on tone from Option 2 in lower-page product
-            storytelling. This gives Boltline a stronger category claim at the
-            top while preserving the builder-first voice that makes the brand
-            distinctive.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- Section 5: Messaging Architecture -->
-    <section id="architecture">
-      <div class="container">
-        <div class="reveal">
-          <div class="section-label">Messaging Architecture</div>
-          <h2 class="section-title">
-            How Boltline Should Speak at Every Layer
-          </h2>
-          <p class="section-desc">
-            A complete messaging framework showing how each narrative layer
-            differentiates Boltline from the competition.
-          </p>
-        </div>
-
-        <div class="card reveal" style="overflow: hidden">
-          <div class="msg-layer msg-layer-header">
-            <div>Layer</div>
-            <div>Boltline Message</div>
-            <div>Why It Differentiates</div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Category</div>
-            <div class="msg-layer-message">Hardware Execution System</div>
-            <div class="msg-layer-why">
-              More specific than Tulip's platform story; less factory-generic
-              than First Resonance's Factory OS framing
-            </div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Value Promise</div>
-            <div class="msg-layer-message">
-              Connect engineering changes, build workflows, and as-built
-              traceability
-            </div>
-            <div class="msg-layer-why">
-              Centers the exact handoff gap advanced hardware teams struggle
-              with
-            </div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Emotional Promise</div>
-            <div class="msg-layer-message">
-              Move fast without losing control
-            </div>
-            <div class="msg-layer-why">
-              Reinforces builder-first identity; avoids generic transformation
-              language
-            </div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Proof Theme</div>
-            <div class="msg-layer-message">
-              Built in mission-critical hardware operations; designed for teams
-              scaling complexity
-            </div>
-            <div class="msg-layer-why">
-              Preserves authenticity competitors cannot easily copy (Stoke
-              origin story)
-            </div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Buyer Language</div>
-            <div class="msg-layer-message">
-              For hardware engineers, manufacturing engineers, operations teams,
-              and builders working on complex products
-            </div>
-            <div class="msg-layer-why">
-              Stays grounded in practitioner reality rather than abstract
-              executive transformation
-            </div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Problem Framing</div>
-            <div class="msg-layer-message">
-              Disconnected systems, spreadsheet chaos, manual handoffs,
-              configuration drift, lost traceability
-            </div>
-            <div class="msg-layer-why">
-              Specific pain points that resonate with target buyers
-            </div>
-          </div>
-          <div class="msg-layer">
-            <div class="msg-layer-name">Solution Framing</div>
-            <div class="msg-layer-message">
-              One system for parts, workflows, traceability, and coordination
-              from design through deployment
-            </div>
-            <div class="msg-layer-why">
-              Practical, concrete, operationally specific
-            </div>
-          </div>
-        </div>
-
-        <div class="callout reveal" style="margin-top: 2rem">
-          <h4>What to Avoid</h4>
-          <ul class="avoid-list">
-            <li>
-              <div>
-                <strong>Generic AI-platform language</strong> —
-                <span
-                  >Plays into Tulip's strengths and weakens Boltline's
-                  specificity</span
-                >
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>Full rip-and-replace MES messaging</strong> —
-                <span
-                  >First Resonance leans harder here; Boltline's advantage is
-                  the engineering-to-execution bridge</span
-                >
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>"We do everything" claims</strong> —
-                <span
-                  >Dilutes the core strength and makes the brand less
-                  memorable</span
-                >
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>Category jargon with low practitioner resonance</strong>
-                —
-                <span
-                  >Weakens the builder-first authenticity that makes Boltline
-                  distinctive</span
-                >
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>Overly abstract transformation talk</strong> —
-                <span
-                  >Reduces credibility with engineering and operations users who
-                  want practical solutions</span
-                >
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- Section 6: Head-to-Head Positioning -->
+    <!-- Section 4: Head-to-Head -->
     <section id="head-to-head">
       <div class="container">
         <div class="reveal">
           <div class="section-label">Head-to-Head</div>
-          <h2 class="section-title">How to Position Against Each Competitor</h2>
-          <p class="section-desc">
-            Specific winning messages, objection counters, and positioning
-            strategies for each competitive scenario.
-          </p>
+          <h2 class="section-title">How to Win Against Each Competitor</h2>
         </div>
 
         <!-- vs Tulip -->
         <div class="versus-section reveal">
           <div class="versus-header">
             <span class="versus-badge vs-tulip">VS TULIP</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem"
-              >Win on hard-tech depth, not breadth</span
-            >
+            <span style="color: var(--text-muted); font-size: 0.85rem">Win on hard-tech depth, not breadth</span>
           </div>
           <div class="versus-grid">
             <div class="versus-card">
               <h4>Their Advantage</h4>
-              <p>
-                Broader platform, more use cases, enterprise scale, Gartner
-                recognition
-              </p>
+              <p>Broader platform, more use cases, enterprise scale, Gartner recognition</p>
             </div>
             <div class="versus-card">
               <h4>Our Advantage</h4>
-              <p>
-                Hardware-specific depth, faster path to traceable execution,
-                engineering-to-build focus
-              </p>
+              <p>Hardware-specific depth, faster path to traceable execution, engineering-to-build focus</p>
             </div>
           </div>
           <div class="winning-message">
             <h4>Winning Message</h4>
-            <p>
-              "Tulip is a great platform if you need to digitize many different
-              workflows across your operation. Boltline is purpose-built for the
-              specific problem of connecting engineering changes to build
-              execution with full as-built traceability. We go deeper on
-              hardware-program coordination so teams can move faster with less
-              rework."
-            </p>
+            <p>"Tulip is a great platform if you need to digitize many different workflows. Boltline is purpose-built for connecting engineering changes to build execution with full as-built traceability. We go deeper on hardware-program coordination so teams move faster with less rework."</p>
           </div>
         </div>
 
@@ -1888,76 +1458,21 @@
         <div class="versus-section reveal">
           <div class="versus-header">
             <span class="versus-badge vs-fr">VS FIRST RESONANCE</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem"
-              >Win on engineering-to-build emphasis, not comprehensive factory
-              control</span
-            >
+            <span style="color: var(--text-muted); font-size: 0.85rem">Win on engineering-to-build, not factory control</span>
           </div>
           <div class="versus-grid">
             <div class="versus-card">
               <h4>Their Advantage</h4>
-              <p>
-                Strong Factory OS category claim, modern MES positioning, recent
-                AI features
-              </p>
+              <p>Strong "Factory OS" category claim, modern MES positioning, AI features</p>
             </div>
             <div class="versus-card">
               <h4>Our Advantage</h4>
-              <p>
-                Engineering-to-build coordination emphasis, Stoke origin
-                credibility, less factory-centric framing
-              </p>
+              <p>Engineering-to-build coordination, Stoke origin credibility, less factory-centric framing</p>
             </div>
           </div>
           <div class="winning-message">
             <h4>Winning Message</h4>
-            <p>
-              "First Resonance is a strong modern MES focused on factory
-              execution. Boltline is built for the layer between engineering and
-              factory — where design changes need to become executable with
-              configuration control and full traceability. We're tighter on the
-              engineering handoff and easier to operationalize for
-              hardware-program coordination."
-            </p>
-          </div>
-        </div>
-
-        <!-- vs Incumbents -->
-        <div class="versus-section reveal">
-          <div class="versus-header">
-            <span class="versus-badge vs-incumbent"
-              >VS ENTERPRISE INCUMBENTS</span
-            >
-            <span style="color: var(--text-muted); font-size: 0.85rem"
-              >Win on speed, usability, and coexistence</span
-            >
-          </div>
-          <div class="versus-grid">
-            <div class="versus-card">
-              <h4>Their Advantage</h4>
-              <p>
-                Procurement confidence, compliance depth, integration maturity,
-                long-term viability perception
-              </p>
-            </div>
-            <div class="versus-card">
-              <h4>Our Advantage</h4>
-              <p>
-                Speed to value, usability, modern architecture,
-                coexistence-friendly
-              </p>
-            </div>
-          </div>
-          <div class="winning-message">
-            <h4>Winning Message</h4>
-            <p>
-              "We're not trying to replace your entire enterprise stack
-              overnight. Boltline is a modern execution layer that works
-              alongside existing PLM, ERP, or MES systems. We give you fast
-              time-to-value with workflow usability and measurable reduction in
-              coordination overhead, without requiring a massive rip-and-replace
-              project."
-            </p>
+            <p>"First Resonance is a strong modern MES for factory execution. Boltline is built for the layer between engineering and factory — where design changes become executable with configuration control and full traceability. We're tighter on the engineering handoff."</p>
           </div>
         </div>
 
@@ -1965,993 +1480,206 @@
         <div class="versus-section reveal">
           <div class="versus-header">
             <span class="versus-badge vs-status-quo">VS STATUS QUO</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem"
-              >Win by making hidden costs visible</span
-            >
+            <span style="color: var(--text-muted); font-size: 0.85rem">Win by making hidden costs visible</span>
           </div>
           <div class="versus-grid">
             <div class="versus-card">
               <h4>Their Advantage</h4>
-              <p>
-                Low perceived risk, no procurement process, familiar workflows
-              </p>
+              <p>Low perceived risk, no procurement process, familiar workflows</p>
             </div>
             <div class="versus-card">
               <h4>Our Advantage</h4>
-              <p>
-                Hidden costs of status quo, quality/traceability risk,
-                coordination overhead
-              </p>
+              <p>Hidden costs of status quo: rework, quality escapes, coordination overhead, audit pain</p>
             </div>
           </div>
           <div class="winning-message">
             <h4>Winning Message</h4>
-            <p>
-              "Spreadsheets and disconnected tools feel low-risk because they're
-              familiar, but they create hidden costs: rework from configuration
-              drift, quality escapes from lost traceability, slow ramps from
-              manual coordination, and audit struggles from incomplete records.
-              Boltline makes those costs visible and gives you a better path
-              forward."
-            </p>
+            <p>"Spreadsheets and disconnected tools feel low-risk because they're familiar. But they create hidden costs: rework from configuration drift, quality escapes from lost traceability, slow ramps from manual coordination. Boltline makes those costs visible and gives you a better path."</p>
           </div>
         </div>
 
-        <!-- One-Sentence Positioning -->
-        <div class="reveal" style="margin-top: 3rem">
-          <div class="section-label">In One Sentence</div>
-          <h3
-            class="section-title"
-            style="font-size: 1.3rem; margin-bottom: 1.5rem"
-          >
-            Competitive Positioning Summary
-          </h3>
-          <div class="positioning-grid">
-            <div class="positioning-card">
-              <h4 style="color: var(--tulip-color)">Against Tulip</h4>
-              <p>Win on hard-tech depth, not breadth.</p>
-            </div>
-            <div class="positioning-card">
-              <h4 style="color: var(--fr-color)">Against First Resonance</h4>
-              <p>
-                Win on engineering-to-build emphasis, not comprehensive factory
-                control.
-              </p>
-            </div>
-            <div class="positioning-card">
-              <h4 style="color: var(--text-muted)">Against Incumbents</h4>
-              <p>
-                Win on speed, usability, and coexistence, not rip-and-replace.
-              </p>
-            </div>
-            <div class="positioning-card">
-              <h4 style="color: var(--red)">Against Status Quo</h4>
-              <p>
-                Win by making hidden costs visible and offering a better path.
-              </p>
-            </div>
-          </div>
+        <div class="my-take reveal">
+          <div class="my-take-label">My Take</div>
+          <p>
+            The biggest competitor isn't Tulip or First Resonance — it's <strong>spreadsheets and "good enough" tools</strong>. Most deals will be won or lost against the status quo. The messaging needs to surface hidden costs and make staying put feel riskier than switching. Against direct competitors, Boltline wins by being more specific, not more broad.
+          </p>
         </div>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
-    <!-- Big Strategic Quote -->
-    <section class="big-quote reveal">
-      <div class="container">
-        <blockquote>
-          "Boltline is the hardware execution system for complex builds —
-          connecting engineering changes, build workflows, and as-built
-          traceability in one cloud platform."
-        </blockquote>
-        <div class="attribution">
-          Recommended strategic positioning territory
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- Section 7: 12-Month Roadmap -->
-    <section id="roadmap">
+    <!-- Section 5: Hero Messaging -->
+    <section id="heroes">
       <div class="container">
         <div class="reveal">
-          <div class="section-label">Marketing Roadmap</div>
-          <h2 class="section-title">12-Month Positioning Plan</h2>
-          <p class="section-desc">
-            A phased approach to operationalize category ownership, build
-            executive messaging, and package competitive proof.
-          </p>
+          <div class="section-label">Hero Messaging</div>
+          <h2 class="section-title">Current vs. What It Should Be</h2>
         </div>
 
-        <div class="roadmap-phases reveal">
-          <div class="roadmap-phase">
-            <div class="phase-label">Phase 1 — Foundation (Months 1-3)</div>
-            <div class="phase-title">Claim the Category</div>
-            <ul class="phase-items">
-              <li>
-                Standardize "hardware execution system" across all materials
-              </li>
-              <li>
-                Create repeatable category explanation for sales, website,
-                collateral
-              </li>
-              <li>
-                Build executive messaging layer (ROI, ramp time, audit
-                readiness)
-              </li>
-              <li>Create "Boltline vs" one-pagers for key competitor types</li>
-              <li>Build objection handling playbook</li>
-              <li>Implement hero messaging recommendations on homepage</li>
-            </ul>
-          </div>
-
-          <div class="roadmap-phase">
-            <div class="phase-label">Phase 2 — Scale (Months 4-6)</div>
-            <div class="phase-title">Expand the Proof</div>
-            <ul class="phase-items">
-              <li>Develop 3-5 case studies with quantified outcomes</li>
-              <li>
-                Create modular proof assets (quotes, metrics, video
-                testimonials)
-              </li>
-              <li>Build industry-specific proof for key verticals</li>
-              <li>Create intent-tiered CTAs (demo, assessment, resources)</li>
-              <li>Build use-case landing pages for organic search</li>
-              <li>Develop thought leadership content strategy</li>
-            </ul>
-          </div>
-
-          <div class="roadmap-phase">
-            <div class="phase-label">Phase 3 — Momentum (Months 7-12)</div>
-            <div class="phase-title">Own the Space</div>
-            <ul class="phase-items">
-              <li>Partner/integration showcase and ecosystem signals</li>
-              <li>Industry recognition pursuit (awards, analyst relations)</li>
-              <li>Community building (user groups, events)</li>
-              <li>Testimonial library with 10+ customers</li>
-              <li>Analyst coverage initiation</li>
-              <li>Campaign-ready content modules at scale</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Success Metrics -->
-        <div class="card reveal" style="margin-top: 2rem">
-          <div class="section-label">Success Metrics</div>
-          <h3
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 1.1rem;
-              font-weight: 700;
-              margin-bottom: 1.5rem;
-            "
-          >
-            How to Measure Progress
-          </h3>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 1.5rem;
-            "
-          >
-            <div>
-              <div
-                style="
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--green);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Category Ownership
-              </div>
-              <ul
-                style="
-                  list-style: none;
-                  font-size: 0.85rem;
-                  color: var(--text-muted);
-                "
-              >
-                <li style="padding: 0.3rem 0">
-                  Consistent language adoption across sales team
-                </li>
-                <li style="padding: 0.3rem 0">
-                  "Hardware execution system" recognition in market
-                </li>
-                <li style="padding: 0.3rem 0">
-                  Media/analyst mentions using Boltline's framing
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div
-                style="
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--amber);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Pipeline Impact
-              </div>
-              <ul
-                style="
-                  list-style: none;
-                  font-size: 0.85rem;
-                  color: var(--text-muted);
-                "
-              >
-                <li style="padding: 0.3rem 0">
-                  Organic traffic from target keywords (+30-50% in 6mo)
-                </li>
-                <li style="padding: 0.3rem 0">
-                  Demo request conversion rate improvement
-                </li>
-                <li style="padding: 0.3rem 0">
-                  Sales cycle length reduction with marketing support
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div
-                style="
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--blue);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Proof & Credibility
-              </div>
-              <ul
-                style="
-                  list-style: none;
-                  font-size: 0.85rem;
-                  color: var(--text-muted);
-                "
-              >
-                <li style="padding: 0.3rem 0">
-                  Customer story publication rate (1/month target)
-                </li>
-                <li style="padding: 0.3rem 0">Sales asset utilization rate</li>
-                <li style="padding: 0.3rem 0">
-                  Competitive win rate improvement
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- Final Recommendation -->
-    <section id="conclusion">
-      <div class="container">
-        <div class="reveal">
-          <div class="section-label">Final Recommendation</div>
-          <h2 class="section-title">The Strategic Opportunity</h2>
-          <p class="section-desc" style="max-width: 800px">
-            Transform Boltline's existing authenticity advantage into explicit
-            category ownership.
-          </p>
-        </div>
-
-        <div class="callout reveal" style="max-width: 800px">
-          <p style="font-size: 1.05rem; line-height: 1.7">
-            Boltline should become known as the system that makes engineering
-            intent executable in the real world — connecting the gap between
-            what hardware teams design and what they actually build, with full
-            traceability and configuration control throughout.
-          </p>
-          <p
-            style="
-              font-size: 0.95rem;
-              line-height: 1.7;
-              margin-top: 1rem;
-              color: var(--text-muted);
-            "
-          >
-            This positioning is
-            <strong style="color: var(--text)"
-              >narrow enough to be memorable</strong
-            >,
-            <strong style="color: var(--text)">broad enough to scale</strong>,
-            and
-            <strong style="color: var(--text)"
-              >authentic enough to defend</strong
-            >.
-          </p>
-        </div>
-
-        <div
-          style="
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-          "
-          class="reveal"
-        >
-          <div
-            style="
-              background: var(--dark-card);
-              border: 1px solid var(--dark-border);
-              border-radius: 12px;
-              padding: 1.5rem;
-              text-align: center;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;Sora&quot;, sans-serif;
-                font-size: 0.65rem;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: var(--green);
-                margin-bottom: 0.5rem;
-              "
-            >
-              Protect
-            </div>
-            <div style="font-size: 0.88rem; line-height: 1.4">
-              The builder-first voice that makes Boltline distinctive
-            </div>
-          </div>
-          <div
-            style="
-              background: var(--dark-card);
-              border: 1px solid var(--dark-border);
-              border-radius: 12px;
-              padding: 1.5rem;
-              text-align: center;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;Sora&quot;, sans-serif;
-                font-size: 0.65rem;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: var(--purple-light);
-                margin-bottom: 0.5rem;
-              "
-            >
-              Sharpen
-            </div>
-            <div style="font-size: 0.88rem; line-height: 1.4">
-              The category — make "hardware execution system" repeatable
-            </div>
-          </div>
-          <div
-            style="
-              background: var(--dark-card);
-              border: 1px solid var(--dark-border);
-              border-radius: 12px;
-              padding: 1.5rem;
-              text-align: center;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;Sora&quot;, sans-serif;
-                font-size: 0.65rem;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: var(--amber);
-                margin-bottom: 0.5rem;
-              "
-            >
-              Add
-            </div>
-            <div style="font-size: 0.88rem; line-height: 1.4">
-              Executive messaging layer without weakening practitioner
-              credibility
-            </div>
-          </div>
-          <div
-            style="
-              background: var(--dark-card);
-              border: 1px solid var(--dark-border);
-              border-radius: 12px;
-              padding: 1.5rem;
-              text-align: center;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;Sora&quot;, sans-serif;
-                font-size: 0.65rem;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: var(--blue);
-                margin-bottom: 0.5rem;
-              "
-            >
-              Package
-            </div>
-            <div style="font-size: 0.88rem; line-height: 1.4">
-              Sales-ready proof assets for competitive evaluations
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- Section: Why They Come -->
-    <section id="why-they-come">
-      <div class="container">
-        <div class="reveal">
-          <div class="section-label">Core Motivation</div>
-          <h2 class="section-title">Why Prospects Come to Boltline</h2>
-          <p class="section-desc">
-            The deepest reason isn't "better manufacturing software." It's that
-            the cost of losing control is higher than the cost of adopting a
-            better system.
-          </p>
-        </div>
-
-        <div class="callout reveal">
-          <h4>The One-Line Answer</h4>
-          <p style="font-size: 1.1rem; font-weight: 600">
-            Prospects come to Boltline because they need one system that makes
-            complex hardware buildable, traceable, and manageable as it changes.
-          </p>
-        </div>
-
-        <div class="reveal" style="margin-top: 2rem">
-          <h3
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 1.1rem;
-              font-weight: 700;
-              margin-bottom: 1.5rem;
-            "
-          >
-            The Pain Underneath
-          </h3>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 1rem;
-            "
-          >
-            <div class="card">
-              <div
-                style="
-                  font-size: 0.85rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Engineering changes are hard to operationalize
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Changes happen constantly but getting them into production
-                accurately and quickly is a coordination nightmare.
-              </div>
-            </div>
-            <div class="card">
-              <div
-                style="
-                  font-size: 0.85rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                As-built configuration is hard to trust
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Teams can't confidently say what was actually built, tested, or
-                installed vs. what was designed.
-              </div>
-            </div>
-            <div class="card">
-              <div
-                style="
-                  font-size: 0.85rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Everything lives in disconnected tools
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Work instructions, inventory, supply chain, and execution are
-                spread across separate systems that don't talk to each other.
-              </div>
-            </div>
-            <div class="card">
-              <div
-                style="
-                  font-size: 0.85rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Complexity outpaces ad hoc systems
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                The team is scaling and can no longer manage it with
-                spreadsheets, emails, and tribal knowledge.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ROI Stack -->
-        <div class="reveal" style="margin-top: 3rem">
-          <h3
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 1.1rem;
-              font-weight: 700;
-              margin-bottom: 1.5rem;
-            "
-          >
-            The ROI Story
-          </h3>
-          <div class="card" style="overflow: hidden">
-            <div class="msg-layer msg-layer-header">
-              <div>Benefit Layer</div>
-              <div>What It Means</div>
-              <div>Product Marketer Framing</div>
-            </div>
-            <div class="msg-layer">
-              <div class="msg-layer-name" style="font-size: 0.75rem">
-                Functional
-              </div>
-              <div class="msg-layer-message">
-                Connect engineering, manufacturing, inventory, testing, and
-                quality in one system
-              </div>
-              <div class="msg-layer-why">Feature-level: "what it does"</div>
-            </div>
-            <div class="msg-layer">
-              <div class="msg-layer-name" style="font-size: 0.75rem">
-                Operational
-              </div>
-              <div class="msg-layer-message">
-                Reduce handoff friction, prevent misses, keep teams working from
-                the latest approved state
-              </div>
-              <div class="msg-layer-why">Day-to-day: "how it helps"</div>
-            </div>
-            <div class="msg-layer">
-              <div class="msg-layer-name" style="font-size: 0.75rem">
-                Economic
-              </div>
-              <div class="msg-layer-message">
-                Cut rework, speed throughput, shorten implementation time,
-                reduce cost of disconnected tools
-              </div>
-              <div class="msg-layer-why">Budget-level: "why it's worth it"</div>
-            </div>
-            <div class="msg-layer">
-              <div class="msg-layer-name" style="font-size: 0.75rem">
-                Strategic
-              </div>
-              <div class="msg-layer-message">
-                Scale complex hardware without losing traceability or execution
-                discipline
-              </div>
-              <div class="msg-layer-why">
-                Executive-level: "why it matters long-term"
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- Section: Plain-English Messaging -->
-    <section id="external-messaging">
-      <div class="container">
-        <div class="reveal">
-          <div class="section-label">External Messaging</div>
-          <h2 class="section-title">
-            Plain-English Messaging That Says "This Is For Me"
-          </h2>
-          <p class="section-desc">
-            No jargon, no category theory. Messaging that makes a hardware team
-            instantly recognize the problem and see that Boltline solves it.
-          </p>
-        </div>
-
-        <!-- Messaging Hierarchy -->
-        <div class="card reveal" style="overflow: hidden; margin-bottom: 2rem">
-          <div
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 0.95rem;
-              font-weight: 700;
-              margin-bottom: 1.5rem;
-            "
-          >
-            Recommended Messaging Hierarchy
-          </div>
-          <div class="msg-layer msg-layer-header">
-            <div>Layer</div>
-            <div style="grid-column: span 2">Message</div>
-          </div>
-          <div class="msg-layer" style="grid-template-columns: 140px 1fr">
-            <div class="msg-layer-name" style="font-size: 0.75rem">
-              Core Message
-            </div>
-            <div class="msg-layer-message" style="font-weight: 600">
-              Boltline helps hardware teams build faster without losing track of
-              parts, changes, or work in progress.
-            </div>
-          </div>
-          <div class="msg-layer" style="grid-template-columns: 140px 1fr">
-            <div class="msg-layer-name" style="font-size: 0.75rem">Problem</div>
-            <div class="msg-layer-message">
-              Too many teams still manage builds across spreadsheets,
-              disconnected tools, and manual handoffs, which creates delays,
-              errors, and confusion.
-            </div>
-          </div>
-          <div class="msg-layer" style="grid-template-columns: 140px 1fr">
-            <div class="msg-layer-name" style="font-size: 0.75rem">
-              Solution
-            </div>
-            <div class="msg-layer-message">
-              Boltline brings design, build, inventory, testing, and
-              traceability together in one system.
-            </div>
-          </div>
-          <div class="msg-layer" style="grid-template-columns: 140px 1fr">
-            <div class="msg-layer-name" style="font-size: 0.75rem">Outcome</div>
-            <div class="msg-layer-message">
-              Teams move faster, avoid more mistakes, and know exactly what was
-              built and where it is.
-            </div>
-          </div>
-          <div class="msg-layer" style="grid-template-columns: 140px 1fr">
-            <div class="msg-layer-name" style="font-size: 0.75rem">
-              Proof Theme
-            </div>
-            <div class="msg-layer-message">
-              Proven in fast-moving space hardware development and built for
-              teams handling real complexity.
-            </div>
-          </div>
-        </div>
-
-        <!-- External Hero Options -->
-        <div class="reveal">
-          <div
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 1.1rem;
-              font-weight: 700;
-              margin-bottom: 1.5rem;
-            "
-          >
-            Five External-Facing Options
+        <div class="hero-option current reveal">
+          <div class="hero-option-number">Current Homepage</div>
+          <h3>Iterative Hardware Engineering</h3>
+          <div class="subheadline">Boltline is a platform for iterative hardware teams to move faster.</div>
+          <div class="rationale">
+            <strong>Problem:</strong> "Iterative hardware engineering" isn't a recognized category. Doesn't state what Boltline replaces, what it connects, or why a buyer should care. The origin story is buried. The specificity that makes Boltline credible doesn't show up until deep in the site.
           </div>
         </div>
 
         <div class="hero-option recommended reveal">
-          <div class="hero-option-number">Option A — Problem-Led</div>
+          <div class="hero-option-number">Lead with this — Category-Led</div>
+          <h3>The hardware execution system for complex builds.</h3>
+          <div class="subheadline">Connect engineering changes, build workflows, and as-built traceability in one cloud platform. Move faster with less rework and more control.</div>
+          <div class="rationale">
+            <strong>Why:</strong> Claims a clear category. Sounds credible and practical. Works for engineers and executives. Differentiates from Tulip's platform story and First Resonance's Factory OS.
+          </div>
+        </div>
+
+        <div class="hero-option reveal">
+          <div class="hero-option-number">Alternative — Problem-Led (Plain English)</div>
           <h3>Build complex hardware without losing control.</h3>
-          <div class="subheadline">
-            Boltline keeps your parts, changes, workflows, and build records in
-            one place, so your team can move faster with fewer mistakes.
-          </div>
+          <div class="subheadline">Keep your parts, changes, workflows, and build records in one place, so your team moves faster with fewer mistakes.</div>
           <div class="rationale">
-            <strong>Why it's best:</strong> Simple, problem-led, and human.
-            Doesn't require the buyer to understand MES, PLM, or digital thread
-            categories. Instantly says "this is for me" to any hardware team
-            struggling with coordination.
+            <strong>Why:</strong> Zero jargon. Instantly recognizable to any hardware team. Best for buyers who don't yet know the category — they just know the pain.
           </div>
         </div>
 
         <div class="hero-option reveal">
-          <div class="hero-option-number">Option B — System-Led</div>
-          <h3>One place to manage how hardware gets built.</h3>
-          <div class="subheadline">
-            From design changes to assembly, testing, and traceability, Boltline
-            helps your team stay aligned and keep work moving.
-          </div>
+          <div class="hero-option-number">Alternative — Speed-Led (Emotional)</div>
+          <h3>Move fast without losing control.</h3>
+          <div class="subheadline">Turn engineering changes into controlled execution with connected workflows, full traceability, and a clear as-built record.</div>
           <div class="rationale">
-            <strong>Why it works:</strong> Clear "what is it" framing. Good for
-            buyers who know they need a system but aren't sure what category.
+            <strong>Why:</strong> Strong emotional promise. Reinforces builder-first identity. Less category-defining but highly memorable.
           </div>
         </div>
 
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option C — Anti-Status-Quo</div>
-          <h3>Keep every part, change, and build step connected.</h3>
-          <div class="subheadline">
-            Boltline helps hardware teams replace spreadsheet chaos and
-            disconnected tools with one system built for real-world execution.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Directly attacks the status quo
-            competitor (spreadsheets). Names the pain in a recognizable way.
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option D — Speed-Led</div>
-          <h3>When hardware changes fast, Boltline keeps up.</h3>
-          <div class="subheadline">
-            Track parts, coordinate work, and maintain traceability across
-            design, build, test, and service in one system.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Positions Boltline as the tool for
-            fast-moving teams. Resonates with companies in rapid iteration
-            cycles.
-          </div>
-        </div>
-
-        <div class="hero-option reveal">
-          <div class="hero-option-number">Option E — Visibility-Led</div>
-          <h3>Stop guessing what was built, changed, or installed.</h3>
-          <div class="subheadline">
-            Boltline gives hardware teams a clear record of parts, workflows,
-            and configurations as products evolve.
-          </div>
-          <div class="rationale">
-            <strong>Why it works:</strong> Hits the traceability pain point
-            hard. Strong for compliance-driven buyers in aerospace and defense.
-          </div>
-        </div>
-
-        <!-- Suggested Full Hierarchy -->
-        <div class="callout reveal" style="margin-top: 2rem">
-          <h4>Suggested Homepage Stack</h4>
-          <div style="margin-top: 1rem">
-            <div
-              style="
-                font-family: &quot;Sora&quot;, sans-serif;
-                font-size: 1.4rem;
-                font-weight: 800;
-                margin-bottom: 0.5rem;
-                background: linear-gradient(
-                  135deg,
-                  #fff 0%,
-                  var(--purple-light) 100%
-                );
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-              "
-            >
-              Build complex hardware without losing control.
-            </div>
-            <div
-              style="
-                font-size: 1rem;
-                color: var(--text-muted);
-                margin-bottom: 1.5rem;
-                max-width: 600px;
-              "
-            >
-              Boltline keeps your parts, changes, workflows, and build records
-              in one place, so your team can move faster with fewer mistakes.
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem">
-              <div
-                style="
-                  font-size: 0.88rem;
-                  color: var(--text);
-                  padding-left: 1rem;
-                  border-left: 2px solid var(--purple);
-                "
-              >
-                Stay on top of design changes, assembly, testing, and
-                traceability.
-              </div>
-              <div
-                style="
-                  font-size: 0.88rem;
-                  color: var(--text);
-                  padding-left: 1rem;
-                  border-left: 2px solid var(--purple);
-                "
-              >
-                Replace spreadsheets and disconnected tools with one system your
-                team can actually use.
-              </div>
-              <div
-                style="
-                  font-size: 0.88rem;
-                  color: var(--text);
-                  padding-left: 1rem;
-                  border-left: 2px solid var(--purple);
-                "
-              >
-                Proven in fast-moving hardware environments where precision
-                matters.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Persona Messaging -->
-        <div class="reveal" style="margin-top: 3rem">
-          <div class="section-label">By Audience</div>
-          <h3
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 1.1rem;
-              font-weight: 700;
-              margin-bottom: 1.5rem;
-            "
-          >
-            Persona-Specific Messaging
-          </h3>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 1rem;
-            "
-          >
-            <div class="card">
-              <div
-                style="
-                  font-family: &quot;Sora&quot;, sans-serif;
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--purple-light);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Engineers
-              </div>
-              <div
-                style="
-                  font-size: 0.95rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Keep design changes, part relationships, and build workflows
-                connected as products evolve.
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Turn design changes into build-ready execution without broken
-                handoffs.
-              </div>
-            </div>
-            <div class="card">
-              <div
-                style="
-                  font-family: &quot;Sora&quot;, sans-serif;
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--green);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Manufacturing & Ops
-              </div>
-              <div
-                style="
-                  font-size: 0.95rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Make sure the right parts get to the right process, with fewer
-                misses and less guesswork.
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Keep parts, workflows, and people synchronized so production
-                moves faster with fewer misses.
-              </div>
-            </div>
-            <div class="card">
-              <div
-                style="
-                  font-family: &quot;Sora&quot;, sans-serif;
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--amber);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Quality & Compliance
-              </div>
-              <div
-                style="
-                  font-size: 0.95rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Maintain revision history, as-built traceability, and
-                nonconformance records in one system.
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Stop guessing what was built, changed, or installed. Have the
-                record ready when you need it.
-              </div>
-            </div>
-            <div class="card">
-              <div
-                style="
-                  font-family: &quot;Sora&quot;, sans-serif;
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  color: var(--blue);
-                  margin-bottom: 0.75rem;
-                "
-              >
-                Leaders & Executives
-              </div>
-              <div
-                style="
-                  font-size: 0.95rem;
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Reduce rework, improve ramp confidence, and get faster value
-                than legacy MES or patchwork toolchains.
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted)">
-                Reduce coordination overhead, prevent rework, and gain
-                confidence in what was actually built.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- What to avoid externally -->
-        <div class="card reveal" style="margin-top: 2rem">
-          <div
-            style="
-              font-family: &quot;Sora&quot;, sans-serif;
-              font-size: 0.95rem;
-              font-weight: 700;
-              margin-bottom: 1rem;
-            "
-          >
-            Messaging Rule
-          </div>
-          <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text)">
-            <strong
-              >Say the problem the way the customer feels it, then explain the
-              system underneath.</strong
-            >
-            Don't lead with "composable operations," "Factory OS," "next-gen
-            MES," or "digital thread" on the homepage. Those can appear later
-            for educated buyers. The front door should be clear enough that a
-            hardware team instantly recognizes the problem and sees Boltline is
-            built for it.
+        <div class="my-take reveal">
+          <div class="my-take-label">My Take</div>
+          <p>
+            <strong>Lead with Option 1 on the homepage hero</strong> — it claims "hardware execution system" as Boltline's category. Use the plain-English version (Option 2) on landing pages and sales materials where buyers are earlier in their journey. The emotional version works well for social and ads. Don't try to be all three at once — each has a place.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 6: Persona Messaging -->
+    <section id="personas">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">By Audience</div>
+          <h2 class="section-title">Messaging That Says "This Is For Me"</h2>
+          <p class="section-desc">
+            No jargon. Say the problem the way the customer feels it, then explain the system underneath.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;" class="four-grid reveal">
+          <div class="card">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 0.75rem;">Engineers</div>
+            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Turn design changes into build-ready execution without broken handoffs.</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Keep design changes, part relationships, and build workflows connected as products evolve.</div>
+          </div>
+          <div class="card">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem;">Manufacturing & Ops</div>
+            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Right parts, right process, fewer misses, less guesswork.</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Keep parts, workflows, and people synchronized so production moves faster.</div>
+          </div>
+          <div class="card">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem;">Quality & Compliance</div>
+            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Stop guessing what was built, changed, or installed.</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Revision history, as-built traceability, and nonconformance records — in one place.</div>
+          </div>
+          <div class="card">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem;">Leaders & Executives</div>
+            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Reduce rework. Improve ramp confidence. Get value faster than legacy MES.</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Cut coordination overhead and gain confidence in what was actually built.</div>
+          </div>
+        </div>
+
+        <!-- Avoid list -->
+        <div class="card reveal" style="margin-top: 2rem;">
+          <div style="font-family: 'Sora', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem;">Don't Lead With</div>
+          <ul class="avoid-list">
+            <li><div><strong>Generic AI-platform language</strong> — <span>plays into Tulip's strengths</span></div></li>
+            <li><div><strong>"We do everything" claims</strong> — <span>dilutes what makes Boltline memorable</span></div></li>
+            <li><div><strong>Abstract transformation talk</strong> — <span>kills credibility with practitioners</span></div></li>
+            <li><div><strong>Full rip-and-replace MES messaging</strong> — <span>First Resonance owns that lane</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 7: What I'd Do First -->
+    <section id="action">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">What I'd Do First</div>
+          <h2 class="section-title">Three Moves in 90 Days</h2>
+        </div>
+
+        <div class="roadmap-phases reveal">
+          <div class="roadmap-phase">
+            <div class="phase-label">Move 1 — Claim the Category</div>
+            <div class="phase-title">Name It, Repeat It</div>
+            <ul class="phase-items">
+              <li>Standardize "hardware execution system" across website, sales, collateral</li>
+              <li>Rewrite homepage hero with category-led messaging</li>
+              <li>Build repeatable category explanation for every team member</li>
+              <li>Add executive-level messaging layer (ROI, ramp time, audit readiness)</li>
+            </ul>
+          </div>
+
+          <div class="roadmap-phase">
+            <div class="phase-label">Move 2 — Package the Proof</div>
+            <div class="phase-title">Make It Easy to Sell</div>
+            <ul class="phase-items">
+              <li>Create "Boltline vs." one-pagers for Tulip, First Resonance, and status quo</li>
+              <li>Build objection-handling playbook</li>
+              <li>Develop 2-3 case studies with quantified outcomes</li>
+              <li>Create intent-tiered CTAs (demo, assessment, resources)</li>
+            </ul>
+          </div>
+
+          <div class="roadmap-phase">
+            <div class="phase-label">Move 3 — Own the Gap</div>
+            <div class="phase-title">Position Between Engineering and Factory</div>
+            <ul class="phase-items">
+              <li>Build use-case landing pages for organic search</li>
+              <li>Develop thought leadership around the eng-to-build problem</li>
+              <li>Strengthen brand presence with content strategy</li>
+              <li>Begin analyst and industry recognition pursuit</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="my-take reveal">
+          <div class="my-take-label">My Take</div>
+          <p>
+            Boltline's strongest competitive advantage is <strong>authenticity</strong> — it sounds like software built by people who understand real hardware operations. That's a sharper voice than Tulip's broad platform story and a more human identity than First Resonance's modern MES positioning. The opportunity is to convert that authenticity into explicit category ownership. <strong>"Hardware execution system"</strong> — narrow enough to be memorable, broad enough to scale, authentic enough to defend.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem;" class="four-grid reveal">
+          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem;">Protect</div>
+            <div style="font-size: 0.88rem; line-height: 1.4;">The builder-first voice</div>
+          </div>
+          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 0.5rem;">Sharpen</div>
+            <div style="font-size: 0.88rem; line-height: 1.4;">The category name</div>
+          </div>
+          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem;">Add</div>
+            <div style="font-size: 0.88rem; line-height: 1.4;">The executive layer</div>
+          </div>
+          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem;">Package</div>
+            <div style="font-size: 0.88rem; line-height: 1.4;">The competitive proof</div>
+          </div>
         </div>
       </div>
     </section>
@@ -2959,7 +1687,7 @@
     <!-- Footer -->
     <footer class="footer">
       <p>
-        Boltline Competitive Exploration — Prepared as part of the
+        Boltline Competitive Exploration — Part of the
         <a href="index.html">Boltline Exploration</a> project
       </p>
     </footer>
@@ -2974,12 +1702,9 @@
             }
           });
         },
-        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
       );
-
-      document
-        .querySelectorAll(".reveal")
-        .forEach((el) => observer.observe(el));
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
       // Smooth scroll for nav
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
