@@ -982,6 +982,189 @@
         font-family: "DM Sans", sans-serif;
       }
 
+      /* AI Analysis */
+      .ai-company {
+        background: var(--dark-card);
+        border: 1px solid var(--dark-border);
+        border-radius: 14px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .ai-company-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .ai-company-badge {
+        font-family: "Sora", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.25rem 0.7rem;
+        border-radius: 9999px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .ai-company-badge.tulip {
+        background: rgba(255, 107, 53, 0.15);
+        color: var(--tulip-color);
+      }
+
+      .ai-company-badge.fr {
+        background: rgba(0, 180, 216, 0.15);
+        color: var(--fr-color);
+      }
+
+      .ai-company-badge.boltline {
+        background: var(--purple-bg);
+        color: var(--purple-light);
+      }
+
+      .ai-company-name {
+        font-family: "Sora", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .ai-company h4 {
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin: 1.25rem 0 0.5rem;
+      }
+
+      .ai-company h4:first-of-type {
+        margin-top: 0;
+      }
+
+      .ai-company p {
+        font-size: 0.88rem;
+        line-height: 1.65;
+        color: var(--text-muted);
+      }
+
+      .ai-company strong {
+        color: var(--text);
+      }
+
+      .ai-feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0;
+      }
+
+      .ai-feature-list li {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        padding: 0.35rem 0;
+        padding-left: 1.25rem;
+        position: relative;
+      }
+
+      .ai-feature-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.7rem;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-dim);
+      }
+
+      .ai-feature-list li strong {
+        color: var(--text);
+      }
+
+      .ai-verdict {
+        display: inline-block;
+        font-family: "Sora", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        margin-top: 0.75rem;
+      }
+
+      .ai-verdict.heavy {
+        background: rgba(255, 107, 53, 0.12);
+        color: var(--tulip-color);
+      }
+      .ai-verdict.moderate {
+        background: rgba(0, 180, 216, 0.12);
+        color: var(--fr-color);
+      }
+      .ai-verdict.none {
+        background: rgba(239, 68, 68, 0.12);
+        color: var(--red);
+      }
+
+      .ai-rec-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      @media (max-width: 700px) {
+        .ai-rec-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .ai-rec-card {
+        background: var(--dark-card);
+        border: 1px solid var(--dark-border);
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+
+      .ai-rec-card.do-card {
+        border-color: rgba(0, 208, 132, 0.2);
+      }
+
+      .ai-rec-card.dont-card {
+        border-color: rgba(239, 68, 68, 0.15);
+      }
+
+      .ai-rec-card h4 {
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      .ai-rec-card.do-card h4 {
+        color: var(--green);
+      }
+      .ai-rec-card.dont-card h4 {
+        color: var(--red);
+      }
+
+      .ai-rec-card ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .ai-rec-card ul li {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        padding: 0.4rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .ai-rec-card ul li:last-child {
+        border-bottom: none;
+      }
+
       /* Divider */
       .section-divider {
         height: 1px;
@@ -1244,7 +1427,9 @@
         min-width: 0;
       }
 
-      .unified-nav__links::-webkit-scrollbar { display: none; }
+      .unified-nav__links::-webkit-scrollbar {
+        display: none;
+      }
 
       .unified-nav__links a {
         font-family: "Sora", sans-serif;
@@ -1291,15 +1476,24 @@
       }
 
       @media (max-width: 700px) {
-        .unified-nav__brand { font-size: 0.75rem; margin-right: 0.75rem; }
-        .unified-nav__links a { font-size: 0.65rem; padding: 0.85rem 0.6rem; }
-        .unified-nav__deck { font-size: 0.6rem; padding: 0.3rem 0.6rem; }
+        .unified-nav__brand {
+          font-size: 0.75rem;
+          margin-right: 0.75rem;
+        }
+        .unified-nav__links a {
+          font-size: 0.65rem;
+          padding: 0.85rem 0.6rem;
+        }
+        .unified-nav__deck {
+          font-size: 0.6rem;
+          padding: 0.3rem 0.6rem;
+        }
       }
     </style>
   </head>
   <body>
     <!-- Navigation -->
-        <nav class="unified-nav">
+    <nav class="unified-nav">
       <a href="index.html" class="unified-nav__brand">Boltline Exploration</a>
       <div class="unified-nav__links">
         <a href="index.html">Story</a>
@@ -1311,7 +1505,12 @@
         <a href="competitive-exploration.html" class="active">Competitive</a>
         <a href="evolved-iterations.html">Evolved</a>
       </div>
-      <a href="https://robroyhobbs.github.io/boltline-90day-deck/" target="_blank" class="unified-nav__deck">90-Day Deck &rarr;</a>
+      <a
+        href="https://robroyhobbs.github.io/boltline-90day-deck/"
+        target="_blank"
+        class="unified-nav__deck"
+        >90-Day Deck &rarr;</a
+      >
     </nav>
 
     <!-- Hero -->
@@ -1319,17 +1518,27 @@
       <div class="container">
         <div class="hero-badge">Competitive Intelligence</div>
         <h1>Boltline vs. The Landscape</h1>
-        <p>Where Boltline stands against Tulip, First Resonance, and the status quo — and what to do about it.</p>
+        <p>
+          Where Boltline stands against Tulip, First Resonance, and the status
+          quo — and what to do about it.
+        </p>
       </div>
     </section>
 
     <!-- Executive POV -->
-    <section style="padding-top: 0;">
+    <section style="padding-top: 0">
       <div class="container">
         <div class="my-take reveal">
           <div class="my-take-label">My Take</div>
           <p>
-            Boltline has a stronger story than its website tells. The product is real, the origin is credible, and the competitive gap is clear. The company owns a space neither Tulip nor First Resonance fully occupies: <strong>the bridge between engineering and build execution</strong>. The problem isn't the product — it's that the positioning doesn't yet claim that territory loudly enough. Here's the analysis and what I'd change.
+            Boltline has a stronger story than its website tells. The product is
+            real, the origin is credible, and the competitive gap is clear. The
+            company owns a space neither Tulip nor First Resonance fully
+            occupies:
+            <strong>the bridge between engineering and build execution</strong>.
+            The problem isn't the product — it's that the positioning doesn't
+            yet claim that territory loudly enough. Here's the analysis and what
+            I'd change.
           </p>
         </div>
       </div>
@@ -1353,11 +1562,17 @@
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Origin</div>
-              <div class="company-detail-value">Spun out of Stoke Space — built to solve their own engineering-to-build coordination problem</div>
+              <div class="company-detail-value">
+                Spun out of Stoke Space — built to solve their own
+                engineering-to-build coordination problem
+              </div>
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Differentiator</div>
-              <div class="company-detail-value">The bridge between engineering systems and factory execution — where design changes become real</div>
+              <div class="company-detail-value">
+                The bridge between engineering systems and factory execution —
+                where design changes become real
+              </div>
             </div>
           </div>
 
@@ -1366,15 +1581,23 @@
             <div class="company-tagline">"Frontline operations platform"</div>
             <div class="company-detail">
               <div class="company-detail-label">Territory</div>
-              <div class="company-detail-value">Composable Operations Platform</div>
+              <div class="company-detail-value">
+                Composable Operations Platform
+              </div>
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Origin</div>
-              <div class="company-detail-value">MIT-born, $200M+ funded, Gartner-recognized broad manufacturing platform</div>
+              <div class="company-detail-value">
+                MIT-born, $200M+ funded, Gartner-recognized broad manufacturing
+                platform
+              </div>
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Differentiator</div>
-              <div class="company-detail-value">Breadth — digitizes almost any frontline operation, not specific to hardware engineering</div>
+              <div class="company-detail-value">
+                Breadth — digitizes almost any frontline operation, not specific
+                to hardware engineering
+              </div>
             </div>
           </div>
 
@@ -1387,11 +1610,16 @@
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Origin</div>
-              <div class="company-detail-value">SpaceX/Tesla alumni — modern MES replacement with aerospace DNA</div>
+              <div class="company-detail-value">
+                SpaceX/Tesla alumni — modern MES replacement with aerospace DNA
+              </div>
             </div>
             <div class="company-detail">
               <div class="company-detail-label">Differentiator</div>
-              <div class="company-detail-value">"Factory OS" category claim — comprehensive factory-floor control with AI features</div>
+              <div class="company-detail-value">
+                "Factory OS" category claim — comprehensive factory-floor
+                control with AI features
+              </div>
             </div>
           </div>
         </div>
@@ -1399,7 +1627,13 @@
         <div class="my-take reveal">
           <div class="my-take-label">My Take</div>
           <p>
-            Tulip wins on breadth. First Resonance wins on category naming. Boltline wins on <strong>authenticity and specificity</strong> — it sounds like software built by people who actually build hardware. That's an unfair advantage. The gap is that Boltline hasn't named its category clearly enough. "Iterative hardware engineering" isn't a search term. <strong>"Hardware execution system" is the claim.</strong>
+            Tulip wins on breadth. First Resonance wins on category naming.
+            Boltline wins on <strong>authenticity and specificity</strong> — it
+            sounds like software built by people who actually build hardware.
+            That's an unfair advantage. The gap is that Boltline hasn't named
+            its category clearly enough. "Iterative hardware engineering" isn't
+            a search term.
+            <strong>"Hardware execution system" is the claim.</strong>
           </p>
         </div>
       </div>
@@ -1428,9 +1662,16 @@
             <tbody>
               <tr>
                 <td>Category</td>
-                <td>"Iterative hardware engineering" — emerging, not yet a standard term</td>
-                <td>"Frontline operations platform" — broad, Gartner-validated</td>
-                <td>"Factory OS" — strong, distinctive, potentially limiting</td>
+                <td>
+                  "Iterative hardware engineering" — emerging, not yet a
+                  standard term
+                </td>
+                <td>
+                  "Frontline operations platform" — broad, Gartner-validated
+                </td>
+                <td>
+                  "Factory OS" — strong, distinctive, potentially limiting
+                </td>
               </tr>
               <tr>
                 <td>Voice</td>
@@ -1442,19 +1683,33 @@
                 <td>Proof</td>
                 <td>Stoke origin + space/defense logos, concrete outcomes</td>
                 <td>Enterprise logos (Henkel, Hershey's), Gartner, scale</td>
-                <td>Aerospace customers (Relativity Space), Factory OS narrative</td>
+                <td>
+                  Aerospace customers (Relativity Space), Factory OS narrative
+                </td>
               </tr>
               <tr>
                 <td>Strength</td>
-                <td>Authenticity — sounds like people who understand real hardware ops</td>
+                <td>
+                  Authenticity — sounds like people who understand real hardware
+                  ops
+                </td>
                 <td>Scale and breadth across many manufacturing use cases</td>
                 <td>"Factory OS" is memorable and defensible</td>
               </tr>
               <tr>
                 <td>Gap</td>
-                <td>Category clarity — "iterative hardware engineering" isn't a search term</td>
-                <td>Hardware specificity — breadth means less depth for advanced teams</td>
-                <td>Engineering emphasis — factory-centric, less eng-to-build handoff</td>
+                <td>
+                  Category clarity — "iterative hardware engineering" isn't a
+                  search term
+                </td>
+                <td>
+                  Hardware specificity — breadth means less depth for advanced
+                  teams
+                </td>
+                <td>
+                  Engineering emphasis — factory-centric, less eng-to-build
+                  handoff
+                </td>
               </tr>
             </tbody>
           </table>
@@ -1477,19 +1732,31 @@
             <h3>Strengths</h3>
             <div class="sg-item">
               <div class="sg-item-title">Origin Story</div>
-              <div class="sg-item-desc">Built inside Stoke Space to solve their own problem. Competitors can't copy this.</div>
+              <div class="sg-item-desc">
+                Built inside Stoke Space to solve their own problem. Competitors
+                can't copy this.
+              </div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Practitioner Language</div>
-              <div class="sg-item-desc">Parts, assemblies, configuration management, work instructions — real terms, not consulting-speak.</div>
+              <div class="sg-item-desc">
+                Parts, assemblies, configuration management, work instructions —
+                real terms, not consulting-speak.
+              </div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Engineering-to-Build Focus</div>
-              <div class="sg-item-desc">Owns the gap between design and production that neither Tulip nor First Resonance fully addresses.</div>
+              <div class="sg-item-desc">
+                Owns the gap between design and production that neither Tulip
+                nor First Resonance fully addresses.
+              </div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Mission-Critical Proof</div>
-              <div class="sg-item-desc">Customers in space, defense, and advanced manufacturing. High-stakes environments.</div>
+              <div class="sg-item-desc">
+                Customers in space, defense, and advanced manufacturing.
+                High-stakes environments.
+              </div>
             </div>
           </div>
 
@@ -1497,19 +1764,31 @@
             <h3>Gaps to Close</h3>
             <div class="sg-item">
               <div class="sg-item-title">Category Naming</div>
-              <div class="sg-item-desc">"Iterative hardware engineering" needs to become "hardware execution system" — repeatable, searchable, ownable.</div>
+              <div class="sg-item-desc">
+                "Iterative hardware engineering" needs to become "hardware
+                execution system" — repeatable, searchable, ownable.
+              </div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Executive Layer</div>
-              <div class="sg-item-desc">Strong practitioner messaging but missing business-outcome language for VPs and C-suite.</div>
+              <div class="sg-item-desc">
+                Strong practitioner messaging but missing business-outcome
+                language for VPs and C-suite.
+              </div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Competitive Proof</div>
-              <div class="sg-item-desc">No "Boltline vs." one-pagers, no objection-handling guides, no packaged comparison assets.</div>
+              <div class="sg-item-desc">
+                No "Boltline vs." one-pagers, no objection-handling guides, no
+                packaged comparison assets.
+              </div>
             </div>
             <div class="sg-item">
               <div class="sg-item-title">Public Proof at Scale</div>
-              <div class="sg-item-desc">Strong named customers, but limited public case studies with quantified results.</div>
+              <div class="sg-item-desc">
+                Strong named customers, but limited public case studies with
+                quantified results.
+              </div>
             </div>
           </div>
         </div>
@@ -1530,21 +1809,35 @@
         <div class="versus-section reveal">
           <div class="versus-header">
             <span class="versus-badge vs-tulip">VS TULIP</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem">Win on hard-tech depth, not breadth</span>
+            <span style="color: var(--text-muted); font-size: 0.85rem"
+              >Win on hard-tech depth, not breadth</span
+            >
           </div>
           <div class="versus-grid">
             <div class="versus-card">
               <h4>Their Advantage</h4>
-              <p>Broader platform, more use cases, enterprise scale, Gartner recognition</p>
+              <p>
+                Broader platform, more use cases, enterprise scale, Gartner
+                recognition
+              </p>
             </div>
             <div class="versus-card">
               <h4>Our Advantage</h4>
-              <p>Hardware-specific depth, faster path to traceable execution, engineering-to-build focus</p>
+              <p>
+                Hardware-specific depth, faster path to traceable execution,
+                engineering-to-build focus
+              </p>
             </div>
           </div>
           <div class="winning-message">
             <h4>Winning Message</h4>
-            <p>"Tulip is a great platform if you need to digitize many different workflows. Boltline is purpose-built for connecting engineering changes to build execution with full as-built traceability. We go deeper on hardware-program coordination so teams move faster with less rework."</p>
+            <p>
+              "Tulip is a great platform if you need to digitize many different
+              workflows. Boltline is purpose-built for connecting engineering
+              changes to build execution with full as-built traceability. We go
+              deeper on hardware-program coordination so teams move faster with
+              less rework."
+            </p>
           </div>
         </div>
 
@@ -1552,21 +1845,34 @@
         <div class="versus-section reveal">
           <div class="versus-header">
             <span class="versus-badge vs-fr">VS FIRST RESONANCE</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem">Win on engineering-to-build, not factory control</span>
+            <span style="color: var(--text-muted); font-size: 0.85rem"
+              >Win on engineering-to-build, not factory control</span
+            >
           </div>
           <div class="versus-grid">
             <div class="versus-card">
               <h4>Their Advantage</h4>
-              <p>Strong "Factory OS" category claim, modern MES positioning, AI features</p>
+              <p>
+                Strong "Factory OS" category claim, modern MES positioning, AI
+                features
+              </p>
             </div>
             <div class="versus-card">
               <h4>Our Advantage</h4>
-              <p>Engineering-to-build coordination, Stoke origin credibility, less factory-centric framing</p>
+              <p>
+                Engineering-to-build coordination, Stoke origin credibility,
+                less factory-centric framing
+              </p>
             </div>
           </div>
           <div class="winning-message">
             <h4>Winning Message</h4>
-            <p>"First Resonance is a strong modern MES for factory execution. Boltline is built for the layer between engineering and factory — where design changes become executable with configuration control and full traceability. We're tighter on the engineering handoff."</p>
+            <p>
+              "First Resonance is a strong modern MES for factory execution.
+              Boltline is built for the layer between engineering and factory —
+              where design changes become executable with configuration control
+              and full traceability. We're tighter on the engineering handoff."
+            </p>
           </div>
         </div>
 
@@ -1574,28 +1880,281 @@
         <div class="versus-section reveal">
           <div class="versus-header">
             <span class="versus-badge vs-status-quo">VS STATUS QUO</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem">Win by making hidden costs visible</span>
+            <span style="color: var(--text-muted); font-size: 0.85rem"
+              >Win by making hidden costs visible</span
+            >
           </div>
           <div class="versus-grid">
             <div class="versus-card">
               <h4>Their Advantage</h4>
-              <p>Low perceived risk, no procurement process, familiar workflows</p>
+              <p>
+                Low perceived risk, no procurement process, familiar workflows
+              </p>
             </div>
             <div class="versus-card">
               <h4>Our Advantage</h4>
-              <p>Hidden costs of status quo: rework, quality escapes, coordination overhead, audit pain</p>
+              <p>
+                Hidden costs of status quo: rework, quality escapes,
+                coordination overhead, audit pain
+              </p>
             </div>
           </div>
           <div class="winning-message">
             <h4>Winning Message</h4>
-            <p>"Spreadsheets and disconnected tools feel low-risk because they're familiar. But they create hidden costs: rework from configuration drift, quality escapes from lost traceability, slow ramps from manual coordination. Boltline makes those costs visible and gives you a better path."</p>
+            <p>
+              "Spreadsheets and disconnected tools feel low-risk because they're
+              familiar. But they create hidden costs: rework from configuration
+              drift, quality escapes from lost traceability, slow ramps from
+              manual coordination. Boltline makes those costs visible and gives
+              you a better path."
+            </p>
           </div>
         </div>
 
         <div class="my-take reveal">
           <div class="my-take-label">My Take</div>
           <p>
-            The biggest competitor isn't Tulip or First Resonance — it's <strong>spreadsheets and "good enough" tools</strong>. Most deals will be won or lost against the status quo. The messaging needs to surface hidden costs and make staying put feel riskier than switching. Against direct competitors, Boltline wins by being more specific, not more broad.
+            The biggest competitor isn't Tulip or First Resonance — it's
+            <strong>spreadsheets and "good enough" tools</strong>. Most deals
+            will be won or lost against the status quo. The messaging needs to
+            surface hidden costs and make staying put feel riskier than
+            switching. Against direct competitors, Boltline wins by being more
+            specific, not more broad.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section: AI Positioning -->
+    <section id="ai-positioning">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">AI Positioning</div>
+          <h2 class="section-title">
+            The AI Gap: Who's Saying What (and What's Real)
+          </h2>
+          <p class="section-desc">
+            Both competitors lead with AI. Boltline says nothing. Here's what's
+            actually behind the messaging.
+          </p>
+        </div>
+
+        <!-- Tulip -->
+        <div class="ai-company reveal">
+          <div class="ai-company-header">
+            <span class="ai-company-badge tulip">Tulip</span>
+            <span class="ai-company-name">"AI Built for Operations"</span>
+          </div>
+          <h4>What They Claim</h4>
+          <p>
+            Homepage hero is now
+            <strong>"Human-centric AI meets operational excellence."</strong> AI
+            is the headline, not a feature. Dedicated AI page lists 12+
+            capabilities. They claim 50% faster troubleshooting, 90% time
+            reduction in material receiving, 80% faster app building.
+          </p>
+          <h4>What's Actually There</h4>
+          <ul class="ai-feature-list">
+            <li>
+              <strong>Computer vision</strong> for quality inspection — real,
+              configurable, no-code. This is legitimate embedded capability.
+            </li>
+            <li>
+              <strong>OCR label reading</strong> for material receiving —
+              practical, narrow, genuinely useful.
+            </li>
+            <li>
+              <strong>LLM chat</strong> over SOPs and manuals — wraps Azure
+              OpenAI / AWS Bedrock. Useful but not differentiated.
+            </li>
+            <li>
+              <strong>Speech-to-text</strong> for defect reporting — voice
+              capture, 50% reduction claim. Incremental, not transformative.
+            </li>
+            <li>
+              <strong>"AI Agents"</strong> for predictive maintenance —
+              configurable rules with LLM enhancement. Not autonomous
+              manufacturing intelligence.
+            </li>
+            <li>
+              <strong>AI translation</strong> for global workforce — practical,
+              commodity LLM feature.
+            </li>
+          </ul>
+          <h4>The Reality</h4>
+          <p>
+            Runs on third-party LLMs (Azure OpenAI, AWS Bedrock) wrapped in
+            no-code interfaces. "AI credit allowance included in plans" —
+            usage-metered, not core intelligence. Computer vision and OCR are
+            real. Most other features are
+            <strong>chat wrappers over existing documents</strong> marketed to
+            sound 10x bigger than they are. Their AI Principles section says "I
+            don't know is better than hallucination" — honest, but tells you
+            they're still managing reliability.
+          </p>
+          <span class="ai-verdict heavy"
+            >Heavy AI Marketing, Moderate Substance</span
+          >
+        </div>
+
+        <!-- First Resonance -->
+        <div class="ai-company reveal">
+          <div class="ai-company-header">
+            <span class="ai-company-badge fr">First Resonance</span>
+            <span class="ai-company-name"
+              >"ION Intelligence" — Autonomous Optimization</span
+            >
+          </div>
+          <h4>What They Claim</h4>
+          <p>
+            Launched June 2025 as a separate module:
+            <strong
+              >"The agentic automation engine inside ION Factory OS."</strong
+            >
+            Semi-autonomous AI agents for workflow routing, issue escalation,
+            scheduling adjustments. Custom agents with low-code setup. Decision
+            logs for audit compliance.
+          </p>
+          <h4>What's Actually There</h4>
+          <ul class="ai-feature-list">
+            <li>
+              <strong>Agent-based workflow routing</strong> — dynamic task
+              reassignment based on real-time conditions. More specific than
+              Tulip's claims.
+            </li>
+            <li>
+              <strong>Smart issue escalation</strong> — catches quality risks,
+              proposes resolutions, notifies stakeholders.
+            </li>
+            <li>
+              <strong>Autonomous scheduling</strong> — reroutes plans when
+              materials, machines, or personnel face delays.
+            </li>
+            <li>
+              <strong>Inventory suggestions</strong> — location recommendations
+              based on historical placement data.
+            </li>
+            <li>
+              <strong>Decision traceability</strong> — every AI decision logged
+              for audit. This matters for regulated industries.
+            </li>
+            <li>
+              <strong>Confidence scoring</strong> — recommendations include
+              visible confidence levels. Honest design choice.
+            </li>
+          </ul>
+          <h4>The Reality</h4>
+          <p>
+            Uses LLMs with customer-specific context at runtime via MCP (Model
+            Context Protocol).
+            <strong>Currently in "exclusive preview"</strong> — not generally
+            available. More technically specific than Tulip. Better
+            substance-to-claim ratio. But still: it's an LLM assistant layer on
+            top of existing Factory OS data. The "agentic" language is trendy —
+            the actual capabilities are closer to
+            <strong>"smart suggestions with audit trails."</strong>
+          </p>
+          <span class="ai-verdict moderate">More Credible, Still Early</span>
+        </div>
+
+        <!-- Boltline -->
+        <div class="ai-company reveal">
+          <div class="ai-company-header">
+            <span class="ai-company-badge boltline">Boltline</span>
+            <span class="ai-company-name">Zero AI Mentions</span>
+          </div>
+          <h4>What's On the Site</h4>
+          <p>
+            Nothing. No AI, no ML, no intelligence features mentioned anywhere
+            on boltline.com. No roadmap hints, no "coming soon," no positioning
+            on the topic at all.
+          </p>
+          <h4>Why This Matters</h4>
+          <p>
+            In a 2025-2026 buying cycle, an enterprise evaluator with AI on
+            their checklist sees Tulip screaming "AI built for operations" and
+            First Resonance showing "ION Intelligence with agentic workflows."
+            Boltline's site says nothing.
+            <strong
+              >On a feature comparison slide, that's a gap a procurement team
+              will circle.</strong
+            >
+          </p>
+          <span class="ai-verdict none"
+            >Silent — Vulnerability and Opportunity</span
+          >
+        </div>
+
+        <!-- Recommendations -->
+        <div class="reveal" style="margin-top: 2rem">
+          <div class="ai-rec-grid">
+            <div class="ai-rec-card dont-card">
+              <h4>What Boltline Should Not Do</h4>
+              <ul>
+                <li>
+                  Slap "AI-powered" on the homepage to keep up — destroys the
+                  authenticity advantage
+                </li>
+                <li>
+                  Claim capabilities that don't exist — hardware buyers smell BS
+                  faster than software buyers
+                </li>
+                <li>
+                  Try to out-AI Tulip on breadth — losing game, their funding
+                  and surface area are bigger
+                </li>
+                <li>
+                  Use "agentic" or "autonomous" without shipped features behind
+                  the words
+                </li>
+              </ul>
+            </div>
+            <div class="ai-rec-card do-card">
+              <h4>What Boltline Should Do</h4>
+              <ul>
+                <li>
+                  <strong>Acknowledge it honestly:</strong> "When we ship AI,
+                  it'll solve real engineering problems, not generate marketing
+                  slides"
+                </li>
+                <li>
+                  <strong>BOM anomaly detection:</strong> Flag mismatches and
+                  inconsistencies before they hit the floor
+                </li>
+                <li>
+                  <strong>Predictive traceability gaps:</strong> Alert before an
+                  audit finds what's missing
+                </li>
+                <li>
+                  <strong>Change impact analysis:</strong> Show what a design
+                  change affects downstream — instantly
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-take reveal">
+          <div class="my-take-label">My Take</div>
+          <p>
+            Neither competitor has shipped AI that fundamentally changes
+            manufacturing execution. Tulip's is mostly LLM wrappers. First
+            Resonance's is in preview. Both are adding AI
+            <strong>on top</strong> of their platforms — it's a marketing layer,
+            not a rethinking of the product. Boltline has a window to be the
+            company that ships AI features that actually matter for hardware
+            teams. The move:
+            <strong
+              >identify 2-3 specific use cases Boltline's data already
+              supports</strong
+            >
+            (BOM anomaly detection, traceability gap prediction, change impact
+            analysis), build them, and message them in the builder-first voice.
+            "AI that helps an engineer catch a BOM error before it hits the
+            floor" is 100x more credible than "agentic autonomous optimization
+            for advanced manufacturing."
           </p>
         </div>
       </div>
@@ -1614,43 +2173,73 @@
         <div class="hero-option current reveal">
           <div class="hero-option-number">Current Homepage</div>
           <h3>Iterative Hardware Engineering</h3>
-          <div class="subheadline">Boltline is a platform for iterative hardware teams to move faster.</div>
+          <div class="subheadline">
+            Boltline is a platform for iterative hardware teams to move faster.
+          </div>
           <div class="rationale">
-            <strong>Problem:</strong> "Iterative hardware engineering" isn't a recognized category. Doesn't state what Boltline replaces, what it connects, or why a buyer should care. The origin story is buried. The specificity that makes Boltline credible doesn't show up until deep in the site.
+            <strong>Problem:</strong> "Iterative hardware engineering" isn't a
+            recognized category. Doesn't state what Boltline replaces, what it
+            connects, or why a buyer should care. The origin story is buried.
+            The specificity that makes Boltline credible doesn't show up until
+            deep in the site.
           </div>
         </div>
 
         <div class="hero-option recommended reveal">
           <div class="hero-option-number">Lead with this — Category-Led</div>
           <h3>The hardware execution system for complex builds.</h3>
-          <div class="subheadline">Connect engineering changes, build workflows, and as-built traceability in one cloud platform. Move faster with less rework and more control.</div>
+          <div class="subheadline">
+            Connect engineering changes, build workflows, and as-built
+            traceability in one cloud platform. Move faster with less rework and
+            more control.
+          </div>
           <div class="rationale">
-            <strong>Why:</strong> Claims a clear category. Sounds credible and practical. Works for engineers and executives. Differentiates from Tulip's platform story and First Resonance's Factory OS.
+            <strong>Why:</strong> Claims a clear category. Sounds credible and
+            practical. Works for engineers and executives. Differentiates from
+            Tulip's platform story and First Resonance's Factory OS.
           </div>
         </div>
 
         <div class="hero-option reveal">
-          <div class="hero-option-number">Alternative — Problem-Led (Plain English)</div>
+          <div class="hero-option-number">
+            Alternative — Problem-Led (Plain English)
+          </div>
           <h3>Build complex hardware without losing control.</h3>
-          <div class="subheadline">Keep your parts, changes, workflows, and build records in one place, so your team moves faster with fewer mistakes.</div>
+          <div class="subheadline">
+            Keep your parts, changes, workflows, and build records in one place,
+            so your team moves faster with fewer mistakes.
+          </div>
           <div class="rationale">
-            <strong>Why:</strong> Zero jargon. Instantly recognizable to any hardware team. Best for buyers who don't yet know the category — they just know the pain.
+            <strong>Why:</strong> Zero jargon. Instantly recognizable to any
+            hardware team. Best for buyers who don't yet know the category —
+            they just know the pain.
           </div>
         </div>
 
         <div class="hero-option reveal">
-          <div class="hero-option-number">Alternative — Speed-Led (Emotional)</div>
+          <div class="hero-option-number">
+            Alternative — Speed-Led (Emotional)
+          </div>
           <h3>Move fast without losing control.</h3>
-          <div class="subheadline">Turn engineering changes into controlled execution with connected workflows, full traceability, and a clear as-built record.</div>
+          <div class="subheadline">
+            Turn engineering changes into controlled execution with connected
+            workflows, full traceability, and a clear as-built record.
+          </div>
           <div class="rationale">
-            <strong>Why:</strong> Strong emotional promise. Reinforces builder-first identity. Less category-defining but highly memorable.
+            <strong>Why:</strong> Strong emotional promise. Reinforces
+            builder-first identity. Less category-defining but highly memorable.
           </div>
         </div>
 
         <div class="my-take reveal">
           <div class="my-take-label">My Take</div>
           <p>
-            <strong>Lead with Option 1 on the homepage hero</strong> — it claims "hardware execution system" as Boltline's category. Use the plain-English version (Option 2) on landing pages and sales materials where buyers are earlier in their journey. The emotional version works well for social and ads. Don't try to be all three at once — each has a place.
+            <strong>Lead with Option 1 on the homepage hero</strong> — it claims
+            "hardware execution system" as Boltline's category. Use the
+            plain-English version (Option 2) on landing pages and sales
+            materials where buyers are earlier in their journey. The emotional
+            version works well for social and ads. Don't try to be all three at
+            once — each has a place.
           </p>
         </div>
       </div>
@@ -1665,41 +2254,172 @@
           <div class="section-label">By Audience</div>
           <h2 class="section-title">Messaging That Says "This Is For Me"</h2>
           <p class="section-desc">
-            No jargon. Say the problem the way the customer feels it, then explain the system underneath.
+            No jargon. Say the problem the way the customer feels it, then
+            explain the system underneath.
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;" class="four-grid reveal">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+          "
+          class="four-grid reveal"
+        >
           <div class="card">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 0.75rem;">Engineers</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Turn design changes into build-ready execution without broken handoffs.</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted);">Keep design changes, part relationships, and build workflows connected as products evolve.</div>
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--purple-light);
+                margin-bottom: 0.75rem;
+              "
+            >
+              Engineers
+            </div>
+            <div
+              style="
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Turn design changes into build-ready execution without broken
+              handoffs.
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted)">
+              Keep design changes, part relationships, and build workflows
+              connected as products evolve.
+            </div>
           </div>
           <div class="card">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem;">Manufacturing & Ops</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Right parts, right process, fewer misses, less guesswork.</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted);">Keep parts, workflows, and people synchronized so production moves faster.</div>
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--green);
+                margin-bottom: 0.75rem;
+              "
+            >
+              Manufacturing & Ops
+            </div>
+            <div
+              style="
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Right parts, right process, fewer misses, less guesswork.
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted)">
+              Keep parts, workflows, and people synchronized so production moves
+              faster.
+            </div>
           </div>
           <div class="card">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem;">Quality & Compliance</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Stop guessing what was built, changed, or installed.</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted);">Revision history, as-built traceability, and nonconformance records — in one place.</div>
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--amber);
+                margin-bottom: 0.75rem;
+              "
+            >
+              Quality & Compliance
+            </div>
+            <div
+              style="
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Stop guessing what was built, changed, or installed.
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted)">
+              Revision history, as-built traceability, and nonconformance
+              records — in one place.
+            </div>
           </div>
           <div class="card">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem;">Leaders & Executives</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Reduce rework. Improve ramp confidence. Get value faster than legacy MES.</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted);">Cut coordination overhead and gain confidence in what was actually built.</div>
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--blue);
+                margin-bottom: 0.75rem;
+              "
+            >
+              Leaders & Executives
+            </div>
+            <div
+              style="
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Reduce rework. Improve ramp confidence. Get value faster than
+              legacy MES.
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted)">
+              Cut coordination overhead and gain confidence in what was actually
+              built.
+            </div>
           </div>
         </div>
 
         <!-- Avoid list -->
-        <div class="card reveal" style="margin-top: 2rem;">
-          <div style="font-family: 'Sora', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem;">Don't Lead With</div>
+        <div class="card reveal" style="margin-top: 2rem">
+          <div
+            style="
+              font-family: &quot;Sora&quot;, sans-serif;
+              font-size: 0.85rem;
+              font-weight: 700;
+              margin-bottom: 0.75rem;
+            "
+          >
+            Don't Lead With
+          </div>
           <ul class="avoid-list">
-            <li><div><strong>Generic AI-platform language</strong> — <span>plays into Tulip's strengths</span></div></li>
-            <li><div><strong>"We do everything" claims</strong> — <span>dilutes what makes Boltline memorable</span></div></li>
-            <li><div><strong>Abstract transformation talk</strong> — <span>kills credibility with practitioners</span></div></li>
-            <li><div><strong>Full rip-and-replace MES messaging</strong> — <span>First Resonance owns that lane</span></div></li>
+            <li>
+              <div>
+                <strong>Generic AI-platform language</strong> —
+                <span>plays into Tulip's strengths</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>"We do everything" claims</strong> —
+                <span>dilutes what makes Boltline memorable</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Abstract transformation talk</strong> —
+                <span>kills credibility with practitioners</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Full rip-and-replace MES messaging</strong> —
+                <span>First Resonance owns that lane</span>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -1720,10 +2440,18 @@
             <div class="phase-label">Move 1 — Claim the Category</div>
             <div class="phase-title">Name It, Repeat It</div>
             <ul class="phase-items">
-              <li>Standardize "hardware execution system" across website, sales, collateral</li>
+              <li>
+                Standardize "hardware execution system" across website, sales,
+                collateral
+              </li>
               <li>Rewrite homepage hero with category-led messaging</li>
-              <li>Build repeatable category explanation for every team member</li>
-              <li>Add executive-level messaging layer (ROI, ramp time, audit readiness)</li>
+              <li>
+                Build repeatable category explanation for every team member
+              </li>
+              <li>
+                Add executive-level messaging layer (ROI, ramp time, audit
+                readiness)
+              </li>
             </ul>
           </div>
 
@@ -1731,7 +2459,10 @@
             <div class="phase-label">Move 2 — Package the Proof</div>
             <div class="phase-title">Make It Easy to Sell</div>
             <ul class="phase-items">
-              <li>Create "Boltline vs." one-pagers for Tulip, First Resonance, and status quo</li>
+              <li>
+                Create "Boltline vs." one-pagers for Tulip, First Resonance, and
+                status quo
+              </li>
               <li>Build objection-handling playbook</li>
               <li>Develop 2-3 case studies with quantified outcomes</li>
               <li>Create intent-tiered CTAs (demo, assessment, resources)</li>
@@ -1740,10 +2471,14 @@
 
           <div class="roadmap-phase">
             <div class="phase-label">Move 3 — Own the Gap</div>
-            <div class="phase-title">Position Between Engineering and Factory</div>
+            <div class="phase-title">
+              Position Between Engineering and Factory
+            </div>
             <ul class="phase-items">
               <li>Build use-case landing pages for organic search</li>
-              <li>Develop thought leadership around the eng-to-build problem</li>
+              <li>
+                Develop thought leadership around the eng-to-build problem
+              </li>
               <li>Strengthen brand presence with content strategy</li>
               <li>Begin analyst and industry recognition pursuit</li>
             </ul>
@@ -1753,26 +2488,129 @@
         <div class="my-take reveal">
           <div class="my-take-label">My Take</div>
           <p>
-            Boltline's strongest competitive advantage is <strong>authenticity</strong> — it sounds like software built by people who understand real hardware operations. That's a sharper voice than Tulip's broad platform story and a more human identity than First Resonance's modern MES positioning. The opportunity is to convert that authenticity into explicit category ownership. <strong>"Hardware execution system"</strong> — narrow enough to be memorable, broad enough to scale, authentic enough to defend.
+            Boltline's strongest competitive advantage is
+            <strong>authenticity</strong> — it sounds like software built by
+            people who understand real hardware operations. That's a sharper
+            voice than Tulip's broad platform story and a more human identity
+            than First Resonance's modern MES positioning. The opportunity is to
+            convert that authenticity into explicit category ownership.
+            <strong>"Hardware execution system"</strong> — narrow enough to be
+            memorable, broad enough to scale, authentic enough to defend.
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem;" class="four-grid reveal">
-          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem;">Protect</div>
-            <div style="font-size: 0.88rem; line-height: 1.4;">The builder-first voice</div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+          "
+          class="four-grid reveal"
+        >
+          <div
+            style="
+              background: var(--dark-card);
+              border: 1px solid var(--dark-border);
+              border-radius: 12px;
+              padding: 1.5rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--green);
+                margin-bottom: 0.5rem;
+              "
+            >
+              Protect
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.4">
+              The builder-first voice
+            </div>
           </div>
-          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 0.5rem;">Sharpen</div>
-            <div style="font-size: 0.88rem; line-height: 1.4;">The category name</div>
+          <div
+            style="
+              background: var(--dark-card);
+              border: 1px solid var(--dark-border);
+              border-radius: 12px;
+              padding: 1.5rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--purple-light);
+                margin-bottom: 0.5rem;
+              "
+            >
+              Sharpen
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.4">
+              The category name
+            </div>
           </div>
-          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem;">Add</div>
-            <div style="font-size: 0.88rem; line-height: 1.4;">The executive layer</div>
+          <div
+            style="
+              background: var(--dark-card);
+              border: 1px solid var(--dark-border);
+              border-radius: 12px;
+              padding: 1.5rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--amber);
+                margin-bottom: 0.5rem;
+              "
+            >
+              Add
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.4">
+              The executive layer
+            </div>
           </div>
-          <div style="background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-            <div style="font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem;">Package</div>
-            <div style="font-size: 0.88rem; line-height: 1.4;">The competitive proof</div>
+          <div
+            style="
+              background: var(--dark-card);
+              border: 1px solid var(--dark-border);
+              border-radius: 12px;
+              padding: 1.5rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;Sora&quot;, sans-serif;
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--blue);
+                margin-bottom: 0.5rem;
+              "
+            >
+              Package
+            </div>
+            <div style="font-size: 0.88rem; line-height: 1.4">
+              The competitive proof
+            </div>
           </div>
         </div>
       </div>
@@ -1796,9 +2634,11 @@
             }
           });
         },
-        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
       );
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
 
       // Smooth scroll for nav
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
